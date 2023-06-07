@@ -8,8 +8,16 @@ const csurf = require('csurf');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 
+// backend/app.js
+// ...
+const { ValidationError } = require('sequelize');
+
+// ...
+
 const { environment } = require('./config');
 const isProduction = environment === 'production';
+// backend/app.js
+const routes = require('./routes');
 
 //Initialize the Express application:
 const app = express();
@@ -46,12 +54,61 @@ if (!isProduction) {
   );
 
 
-// backend/app.js
-const routes = require('./routes');
+
+
 
 // ...
 
 app.use(routes); // Connect all the routes
+
+
+// backend/app.js
+// ...
+// Catch unhandled requests and forward to error handler.
+app.use((_req, _res, next) => {
+  const err = new Error("The requested resource couldn't be found.");
+  err.title = "Resource Not Found";
+  err.errors = { message: "The requested resource couldn't be found." };
+  err.status = 404;
+  next(err);
+});
+
+
+/*
+The second error handler is for catching Sequelize errors and formatting them before sending the error response.
+*/
+// Process sequelize errors
+app.use((err, _req, _res, next) => {
+  // check if error is a Sequelize error:
+  if (err instanceof ValidationError) {
+    let errors = {};
+    for (let error of err.errors) {
+      errors[error.path] = error.message;
+    }
+    err.title = 'Validation error';
+    err.errors = errors;
+  }
+  next(err);
+});
+
+
+// backend/app.js
+/*
+The last error handler is for formatting all the errors before returning a JSON response. It will include the error message, the error messages as a JSON object with key-value pairs, and the error stack trace (if the environment is in development) with the status code of the error message.
+
+
+*/
+// Error formatter
+app.use((err, _req, res, _next) => {
+  res.status(err.status || 500);
+  console.error(err);
+  res.json({
+    title: err.title || 'Server Error',
+    message: err.message,
+    errors: err.errors,
+    stack: isProduction ? null : err.stack
+  });
+});
 
 
 // backend/app.js
