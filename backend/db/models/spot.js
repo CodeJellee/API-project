@@ -10,6 +10,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Spot.belongsToMany(models.User, { // M2M
+        through: models.Booking,
+        foreignKey: 'spotId',
+        otherKey: 'userId'
+      }),
+
+      Spot.hasMany(models.SpotImage, { //Spot -> one to many -> SpotImages
+        foreignKey: 'spotId'
+      })
     }
   }
   Spot.init({
