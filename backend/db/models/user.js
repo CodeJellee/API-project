@@ -14,16 +14,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'ownerId'
       }),
 
-      User.belongsToMany(models.Spot, { //M2M via Bookings join table
-        through: models.Booking,
-        foreignKey: 'userId',
-        otherKey: 'spotId'
+      User.hasMany(models.Booking, {
+        foreignKey: 'userId'
       }),
 
-      User.belongsToMany(models.Spot, { //M2M via Reviews join table
-        through: models.Review,
-        foreignKey: 'userId',
-        otherKey: 'spotId'
+      User.hasMany(models.Review, {
+        foreignKey: 'userId'
       })
     }
   }
