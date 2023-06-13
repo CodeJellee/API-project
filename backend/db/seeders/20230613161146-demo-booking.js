@@ -44,7 +44,7 @@ module.exports = {
     */
 
     try {
-      options.tableName = 'Bookings'
+      // options.tableName = 'Bookings'
       await Booking.bulkCreate(demoBookings, {
         validate: true,
       });
@@ -64,7 +64,7 @@ module.exports = {
      */
     for (let bookingsInfo of demoBookings) {
       try {
-        options.tableName = 'Bookings'
+        // options.tableName = 'Bookings'
         await Booking.destroy({
           where: bookingsInfo
         });
