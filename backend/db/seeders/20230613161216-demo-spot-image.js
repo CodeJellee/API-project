@@ -42,6 +42,7 @@ module.exports = {
     */
 
     try {
+      options.tableName = 'SpotImages'
       await SpotImage.bulkCreate(demoSpotImages, {
         validate: true,
       });
@@ -62,6 +63,7 @@ module.exports = {
 
     for (let spotImagesInfo of demoSpotImages) {
       try {
+        options.tableName = 'SpotImages'
         await SpotImage.destroy({
           where: spotImagesInfo
         });

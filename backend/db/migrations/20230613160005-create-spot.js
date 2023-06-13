@@ -22,7 +22,6 @@ module.exports = {
         references: {
           model: 'Users'
         }
-
       },
       address: {
         type: Sequelize.STRING(256),
@@ -68,9 +67,9 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("'CURRENT_TIMESTAMP'")
       }
-    });
+    }, options);
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Spots');
+    await queryInterface.dropTable(options, 'Spots');
   }
 };

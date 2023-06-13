@@ -37,6 +37,7 @@ module.exports = {
     */
 
     try {
+      options.tableName = 'ReviewImages'
       await ReviewImage.bulkCreate(demoReviewImages, {
         validate: true,
       });
@@ -56,6 +57,7 @@ module.exports = {
      */
     for (let reviewImagesInfo of demoReviewImages) {
       try {
+        options.tableName = 'ReviewImages'
         await ReviewImage.destroy({
           where: reviewImagesInfo
         });

@@ -61,6 +61,7 @@ module.exports = {
     */
 
     try {
+      options.tableName = 'Spots'
       await Spot.bulkCreate(demoSpots, {
         validate: true,
       });
@@ -80,6 +81,7 @@ module.exports = {
      */
     for (let spotInfo of demoSpots) {
       try {
+        options.tableName = 'Spots'
         await Spot.destroy({
           where: spotInfo
         });
