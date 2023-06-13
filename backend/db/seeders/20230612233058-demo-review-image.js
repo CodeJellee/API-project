@@ -1,5 +1,6 @@
 'use strict';
-const bcrypt = require("bcryptjs");
+
+const { ReviewImage } = require('../models')
 
 /** @type {import('sequelize-cli').Migration} */
 
@@ -8,6 +9,21 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
 
+const demoReviewImages = [
+  {
+    reviewId: 1,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/d/de/6T4A9446-HDR-3.jpg'
+  },
+  {
+    reviewId: 2,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/8/80/Flatirons_Winter_Sunrise_edit_2.jpg'
+  },
+  {
+    reviewId: 3,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Seattle_Center_as_night_falls.jpg'
+  }
+
+]
 module.exports = {
   async up (queryInterface, Sequelize) {
     /**
@@ -20,21 +36,15 @@ module.exports = {
      * }], {});
     */
 
-    options.tableName = 'ReviewImages';
-    return queryInterface.bulkInsert(options, [
-      {
-        reviewId: '1',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/d/de/6T4A9446-HDR-3.jpg'
-      },
-      {
-        reviewId: '2',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/8/80/Flatirons_Winter_Sunrise_edit_2.jpg'
-      },
-      {
-        reviewId: '3',
-        url: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Seattle_Center_as_night_falls.jpg'
-      }
-    ], {});
+    try {
+      await ReviewImage.bulkCreate(demoReviewImages, {
+        validate: true,
+      });
+    } catch (err) {
+      console.log(err);
+      throw err;
+    }
+
   },
 
   async down (queryInterface, Sequelize) {
@@ -44,10 +54,15 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'ReviewImages';
-    const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
-      reviewId: { [Op.in]: ['1', '2', '3'] }
-    }, {});
+    for (let reviewImagesInfo of demoReviewImages) {
+      try {
+        await ReviewImage.destroy({
+          where: reviewImagesInfo
+        });
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+    }
   }
 };
