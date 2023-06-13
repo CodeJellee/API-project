@@ -25,20 +25,20 @@ module.exports = {
       {
         spotId: '1',
         userId: '1',
-        startDate: '',
-        endDate: '',
+        startDate: '2011-01-01',
+        endDate: '2011-01-10',
       },
       {
         spotId: '2',
         userId: '2',
-        startDate: '',
-        endDate: '',
+        startDate: '2022-02-02',
+        endDate: '2022-02-20',
       },
       {
         spotId: '3',
         userId: '3',
-        startDate: '',
-        endDate: '',
+        startDate: '2003-03-03',
+        endDate: '2003-03-30',
       }
     ], {});
   },
@@ -50,5 +50,11 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+
+    options.tableName = 'Bookings';
+    const Op = Sequelize.Op;
+    return queryInterface.bulkDelete(options, {
+      spotId: { [Op.in]: ['1', '2', '3'] }
+    }, {});
   }
 };
