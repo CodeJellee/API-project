@@ -315,9 +315,10 @@ router.put('/:spotId', requireAuth, async(req, res, next) => {
 
 //DELETE A SPOT
 router.delete('/:spotId', requireAuth, async(req, res, next) => {
+    let userId = req.user.id
     const toDelete = await Spot.findByPk(req.params.spotId)
 
-    if(!toDelete) {
+    if(!toDelete || userId !== toDelete.ownerId) {
         res.status(404)
         return res.json({
             message: "Spot couldn't be found"
