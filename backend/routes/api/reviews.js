@@ -15,6 +15,7 @@ const router = express.Router();
 //GET ALL REVIEWS
 router.get('/current', requireAuth, async(req, res, next) => {
 
+
     const allReviews = await Review.findByPk(req.user.id, {
         include: [
             {
@@ -36,6 +37,14 @@ router.get('/current', requireAuth, async(req, res, next) => {
             }
         ],
     })
+
+    if(!allReviews) {
+        res.status(404)
+        return res.json({
+            message: "Review couldn't be found"
+        })
+    }
+
     return res.json({Reviews: allReviews})
 })
 
