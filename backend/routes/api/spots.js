@@ -139,6 +139,34 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
 //ADD AN IMAGE TO A SPOT BASED ON THE SPOTS ID
 
+router.post('/:spotId/images', requireAuth, async(req, res, next) => {
+
+    let userId = req.user.id
+    let addPhoto = await Spot.findByPk(req.params.spotId)
+    const { url, preview } = req.body
+
+    if(req.user.id !== addPhoto.ownerId || !addPhoto){
+        res.status(404)
+        return res.json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    const newPhoto = await SpotImage.create({
+        spotId: userId,
+        url,
+        preview
+    })
+
+    const newPhotoJSON = newPhoto.toJSON() //turning it into plain JSON obj to then directly delete attributes
+    delete newPhotoJSON.updatedAt
+    delete newPhotoJSON.createdAt
+
+
+    return res.json(newPhotoJSON) //need to return updated: newPhotoJSON
+
+});
+
 
 //GET SPOT FROM AN ID
 router.get('/:spotId', async(req, res, next) => {
