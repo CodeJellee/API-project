@@ -167,6 +167,35 @@ router.post('/:spotId/images', requireAuth, async(req, res, next) => {
 
 });
 
+//GET REVIEWS BY SPOT ID
+router.get('/:spotId/reviews', async(req, res, next) => {
+
+    const spotReviews = await Review.findByPk(req.params.spotId, {
+        include: [
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            },
+            {
+                model: ReviewImage,
+                attributes: {
+                    exclude: ['reviewId', 'createdAt', 'updatedAt'],
+                }
+            }
+        ],
+    })
+
+    if(!spotReviews){
+        res.status(404)
+        return res.json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    return res.json({Reviews: spotReviews})
+});
+
+
 
 //GET SPOT FROM AN ID
 router.get('/:spotId', async(req, res, next) => {
@@ -286,9 +315,10 @@ router.put('/:spotId', requireAuth, async(req, res, next) => {
 
 //DELETE A SPOT
 router.delete('/:spotId', requireAuth, async(req, res, next) => {
+    let userId = req.user.id
     const toDelete = await Spot.findByPk(req.params.spotId)
 
-    if(!toDelete) {
+    if(!toDelete || userId !== toDelete.ownerId) {
         res.status(404)
         return res.json({
             message: "Spot couldn't be found"
