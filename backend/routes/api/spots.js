@@ -18,8 +18,8 @@ router.get('/', async(req, res, next) => {
         attributes: {
             include: [
             [sequelize.fn('AVG', sequelize.col("Reviews.stars")), "avgRating"], //Sequelize function that generates a function call in SQL-AVG and generates a column reference, alias w/ second param
-            [sequelize.literal('(SELECT url FROM SpotImages WHERE SpotImages.spotId = Spot.id)'), 'previewImage'], //provide a raw SQL expression -> selecting url from SpotImages where they match, w/ alias to second param
-            ]
+            [sequelize.col('SpotImages.url'), 'previewImage']
+        ]
         },
 
         include:[
