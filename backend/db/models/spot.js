@@ -23,7 +23,8 @@ module.exports = (sequelize, DataTypes) => {
       }),
 
       Spot.belongsTo(models.User, { //Spot -> many to one -> User
-        foreignKey: 'ownerId'
+        foreignKey: 'ownerId',
+        as: 'Owner'
       })
     }
   }
