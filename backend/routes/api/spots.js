@@ -137,6 +137,8 @@ router.get('/current', requireAuth, async (req, res, next) => {
     return res.json(currentUserSpots);
 });
 
+//ADD AN IMAGE TO A SPOT BASED ON THE SPOTS ID
+
 
 //GET SPOT FROM AN ID
 router.get('/:spotId', async(req, res, next) => {
@@ -174,6 +176,85 @@ if (specificSpot.id === null) {
 return res.json(specificSpot)
 
 });
+
+//EDIT A SPOT
+router.put('/:spotId', requireAuth, async(req, res, next) => {
+    let errorsToPrint = {}
+    let userId = req.user.id
+    let toUpdate = await Spot.findByPk(req.params.spotId)
+    const { address, city, state, country, lat, lng, name, description, price } = req.body
+
+    if(req.user.id !== toUpdate.ownerId || !toUpdate){
+        res.status(400)
+        return res.json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    if(!address || address === null) {
+        errorsToPrint.address = "Street address is required"
+    }
+
+    if(!city || city === null) {
+        errorsToPrint.city = "City is required"
+    }
+
+    if(!state || state === null) {
+        errorsToPrint.state = "State is required"
+    }
+
+    if(!country || country === null) {
+        errorsToPrint.country = "Country is required"
+    }
+
+    if(!lat || lat === null) {
+        errorsToPrint.lat = "Latitude is not valid"
+    }
+
+    if(!lng || lng === null) {
+        errorsToPrint.lng = "Longitude is not valid"
+    }
+
+    if(!name || name === null) {
+        errorsToPrint.name = "Name must be less than 50 characters"
+    }
+
+    if(!description || description === null) {
+        errorsToPrint.description = "Description is required"
+    }
+
+    if(!price || price === null) {
+        errorsToPrint.price = "Price per day is required"
+    }
+
+    if (Object.keys(errorsToPrint).length > 0) {
+        res.status(400)
+        return res.json({
+            message: "Bad Request",
+            errors: errorsToPrint
+        })
+    }
+
+
+    toUpdate.set({
+        ownerId: userId,
+        address: address || toUpdate.address,
+        city: city || toUpdate.city,
+        state: state || toUpdate.state,
+        country: country || toUpdate.country,
+        lat: lat || toUpdate.lat,
+        lng: lng || toUpdate.lng,
+        name: name || toUpdate.name,
+        description: description || toUpdate.description,
+        price: price || toUpdate.price,
+    });
+
+
+    await toUpdate.save()
+    return res.json(toUpdate)
+
+
+})
 
 //DELETE A SPOT
 router.delete('/:spotId', requireAuth, async(req, res, next) => {
