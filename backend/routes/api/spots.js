@@ -33,7 +33,7 @@ router.get('/', async(req, res, next) => {
         }
         ],
 
-        group: ['Spot.id'] //group query result based on 'id' column of the 'Spot' model- needed this bc only 1 spot was printing
+        group: ['Spot.id', 'SpotImages.id'] //group query result based on 'id' column of the 'Spot' model- needed this bc only 1 spot was printing
     })
     return res.json({Spots: allSpots})
 })
