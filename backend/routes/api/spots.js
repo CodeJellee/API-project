@@ -38,6 +38,76 @@ router.get('/', async(req, res, next) => {
     return res.json({Spots: allSpots})
 })
 
+//CREATE A SPOT
+router.post('/', requireAuth, async(req, res, next) => {
+    let errorsToPrint = {}
+    const userId = req.user.id
+    // console.log(userId)
+    const { address, city, state, country, lat, lng, name, description, price } = req.body
+
+    if(!address || address === null) {
+        errorsToPrint.address = "Street address is required"
+    }
+
+    if(!city || city === null) {
+        errorsToPrint.city = "City is required"
+    }
+
+    if(!state || state === null) {
+        errorsToPrint.state = "State is required"
+    }
+
+    if(!country || country === null) {
+        errorsToPrint.country = "Country is required"
+    }
+
+    if(!lat || lat === null) {
+        errorsToPrint.lat = "Latitude is not valid"
+    }
+
+    if(!lng || lng === null) {
+        errorsToPrint.lng = "Longitude is not valid"
+    }
+
+    if(!name || name === null) {
+        errorsToPrint.name = "Name must be less than 50 characters"
+    }
+
+    if(!description || description === null) {
+        errorsToPrint.description = "Description is required"
+    }
+
+    if(!price || price === null) {
+        errorsToPrint.price = "Price per day is required"
+    }
+
+    if (Object.keys(errorsToPrint).length > 0) {
+        res.status(400)
+        return res.json({
+            message: "Bad Request",
+            errors: errorsToPrint
+        })
+    }
+
+
+    const newSpot = await Spot.create({
+        ownerId: userId,
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+
+    })
+    return res.json(newSpot)
+
+})
+
+
 //GET ALL SPOTS OWNED BY THE CURRENT USER
 router.get('/current', requireAuth, async (req, res, next) => {
     const currentUserSpots = await Spot.findAll({
@@ -68,8 +138,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
 });
 
 
-
-//GET SPOT FROM AN ID --ERROR MSG NOT THROWING
+//GET SPOT FROM AN ID
 router.get('/:spotId', async(req, res, next) => {
     let specificSpot = await Spot.findByPk(req.params.spotId, {
         attributes: {
@@ -104,6 +173,24 @@ if (specificSpot.id === null) {
 
 return res.json(specificSpot)
 
+});
+
+//DELETE A SPOT
+router.delete('/:spotId', requireAuth, async(req, res, next) => {
+    const toDelete = await Spot.findByPk(req.params.spotId)
+
+    if(!toDelete) {
+        res.status(404)
+        return res.json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    await toDelete.destroy()
+
+    return res.json({
+        message: "Successfully deleted"
+    })
 })
 
 
