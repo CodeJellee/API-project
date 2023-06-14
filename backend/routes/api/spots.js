@@ -33,7 +33,7 @@ router.get('/', async(req, res, next) => {
         }
         ],
 
-        group: ['Spot.id', 'SpotImages.id'] //group query result based on 'id' column of the 'Spot' model- needed this bc only 1 spot was printing
+        group: ['Spot.id'] //group query result based on 'id' column of the 'Spot' model- needed this bc only 1 spot was printing
     })
     return res.json({Spots: allSpots})
 })
@@ -168,32 +168,32 @@ router.post('/:spotId/images', requireAuth, async(req, res, next) => {
 });
 
 //GET REVIEWS BY SPOT ID
-router.get('/:spotId/reviews', async(req, res, next) => {
+// router.get('/:spotId/reviews', async(req, res, next) => {
 
-    const spotReviews = await Review.findByPk(req.params.spotId, {
-        include: [
-            {
-                model: User,
-                attributes: ['id', 'firstName', 'lastName']
-            },
-            {
-                model: ReviewImage,
-                attributes: {
-                    exclude: ['reviewId', 'createdAt', 'updatedAt'],
-                }
-            }
-        ],
-    })
+//     const spotReviews = await Review.findByPk(req.params.spotId, {
+//         include: [
+//             {
+//                 model: User,
+//                 attributes: ['id', 'firstName', 'lastName']
+//             },
+//             {
+//                 model: ReviewImage,
+//                 attributes: {
+//                     exclude: ['reviewId', 'createdAt', 'updatedAt'],
+//                 }
+//             }
+//         ],
+//     })
 
-    if(!spotReviews){
-        res.status(404)
-        return res.json({
-            message: "Spot couldn't be found"
-        })
-    }
+//     if(!spotReviews){
+//         res.status(404)
+//         return res.json({
+//             message: "Spot couldn't be found"
+//         })
+//     }
 
-    return res.json({Reviews: spotReviews})
-});
+//     return res.json({Reviews: spotReviews})
+// });
 
 
 
