@@ -15,24 +15,7 @@ const router = express.Router();
 
 //GET ALL OF THE CURRENT USERS BOOKINGS
 router.get('/current', requireAuth, async(req, res, next) => {
-    // const getBookings = await Booking.findAll({
-    //     where:
-    //     {
-    //         userId: req.user.id
-    //     },
-    //     include: [
-    //         {
-    //             model: Spot,
-    //             attributes: {
-    //                 exclude: ['description', 'createdAt', 'updatedAt']
-    //             }
-    //         }
-    //     ]
-    // })
-
-    // return res.json(getBookings)
-
-
+//lazy load in lieu of eager
     const allBookings = await Booking.findAll({
         attributes: [
             'id',
@@ -79,6 +62,131 @@ router.get('/current', requireAuth, async(req, res, next) => {
     res.json({Bookings: allBookingJSON})
 
 
+});
+
+
+//EDIT A BOOKING
+router.put('/:bookingId', requireAuth, async(req, res, next) => {
+    let userId = req.user.id
+    let bookingId = req.params.bookingId
+    const { startDate, endDate } = req.body
+
+    const toEdit = await Booking.findByPk(bookingId)
+
+    if(!toEdit || userId !== toEdit.userId) {
+        res.status(404)
+        return res.json({
+            message: "Booking couldn't be found"
+        })
+    }
+
+    let errorsToPrint = {}
+
+    // if(!startDate || startDate === null) {
+    //     errorsToPrint.startDate = "Start date is required"
+    // }
+
+    // if(!endDate || endDate === null) {
+    //     errorsToPrint.endDate = "End date is required"
+    // }
+
+    const startDateObj = new Date(startDate)
+    const startDateTime = startDateObj.getTime() //changing date into a time where we can check if new date change 'falls within the time range from start to end date of whats already in our booking database"
+    const endDateObj = new Date(endDate)
+    const endDateTime = endDateObj.getTime()
+    const currentDate = new Date()
+
+    if(startDateObj > endDateObj) {
+        errorsToPrint.endDate = "endDate cannot come before startDate"
+    }
+
+    if(endDateObj < currentDate) {
+        res.status(404)
+        res.json({
+            message: "Past bookings can't be modified"
+        })
+    }
+
+
+    let errorsBookingConflict = {}
+
+    const currentBookings = await Booking.findAll({
+        where: {
+            spotId: {
+                [Op.not]:toEdit.spotId //grabbing all the bookings besides the current users
+            }
+        },
+    })
+    // console.log(currentBookings)
+    let currentBookingJSON = []
+    currentBookings.forEach(eachBooking => {
+        currentBookingJSON.push(eachBooking.toJSON())
+    })
+
+    currentBookingJSON.forEach(individualBooking => {
+        // console.log(individualBooking.startDate)
+        // console.log(individualBooking.endDate)
+        const currentBookingStartDate = new Date(individualBooking.startDate)
+        const currentBookingStartDateTime = currentBookingStartDate.getTime()
+        const currentBookingEndDate = new Date(individualBooking.endDate)
+        const currentBookingEndDateTime = currentBookingEndDate.getTime()
+
+
+        if (startDateTime >= currentBookingStartDateTime || startDateTime <= currentBookingEndDateTime) {
+            errorsBookingConflict.startDate = "Start date conflicts with an existing booking"
+        }
+
+        if (endDateTime >= currentBookingStartDateTime || endDateTime <= currentBookingEndDateTime) {
+            errorsBookingConflict.endDate = "End date conflicts with an existing booking"
+        }
+    })
+
+
+    if (Object.keys(errorsToPrint).length > 0) {
+        res.status(400)
+        return res.json({
+            message: "Bad Request",
+            errors: errorsToPrint
+        })
+    }
+
+    if (Object.keys(errorsBookingConflict).length > 0) {
+        res.status(403)
+        return res.json({
+            message: "Sorry, this spot is already booked for the specified date",
+            errors: errorsBookingConflict
+        })
+    }
+
+    toEdit.set({
+        startDate: startDate || toEdit.startDate,
+        endDate: endDate || toEdit.endDate
+    })
+
+    await toEdit.save()
+    return res.json(toEdit)
+
+
+})
+
+
+//DELETE A BOOKING --still need to complete
+router.delete('/:bookingId', requireAuth, async(req, res, next) => {
+    let userId = req.user.id
+    const toDelete = await Booking.findByPk(req.params.bookingId)
+
+    if(!toDelete || userId !== toDelete.userId) {
+        res.status(404)
+        return res.json({
+            message: "Booking couldn't be found"
+        })
+    }
+
+    await toDelete.destroy()
+
+    return res.json({
+        message: "Successfully deleted"
+    })
 })
 
 
