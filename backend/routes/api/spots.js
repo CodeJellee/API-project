@@ -131,7 +131,8 @@ router.get('/current', requireAuth, async (req, res, next) => {
         model: SpotImage,
         attributes: []
         }
-    ]
+    ],
+    group: ['Spot.id']
 
     });
 
