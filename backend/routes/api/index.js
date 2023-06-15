@@ -5,7 +5,8 @@ const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
 const spotsRouter = require('./spots.js'); //ADD HERE ONCE YOU CREATE NEW ROUTER.USE
 const reviewsRouter = require('./reviews.js');
-const reviewImagesRouter = require('./review-images.js')
+const reviewImagesRouter = require('./review-images.js');
+const spotImagesRouter = require('./spot-images.js');
 const { restoreUser } = require("../../utils/auth.js");
 
 
@@ -24,6 +25,8 @@ const { restoreUser } = require("../../utils/auth.js");
   router.use('/reviews', reviewsRouter);
 
   router.use('/review-images', reviewImagesRouter);
+
+  router.use('/spot-images', spotImagesRouter);
 
   router.post('/test', (req, res) => {
     res.json({ requestBody: req.body });
