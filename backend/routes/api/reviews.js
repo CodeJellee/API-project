@@ -61,7 +61,7 @@ router.get('/current', requireAuth, async(req, res, next) => {
 
     })
 
-//from the video, review again --> maybe theres an easier way, ie use map
+//from the 5th video, review again --> maybe theres an easier way, ie use map
     let allReviewJSON = []
     allReviews.forEach(eachReview => {
         allReviewJSON.push(eachReview.toJSON())
