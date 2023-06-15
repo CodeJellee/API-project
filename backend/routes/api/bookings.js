@@ -170,7 +170,7 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
 })
 
 
-//DELETE A BOOKING 
+//DELETE A BOOKING
 router.delete('/:bookingId', requireAuth, async(req, res, next) => {
     let userId = req.user.id
     let bookingId = req.params.bookingId
@@ -191,7 +191,7 @@ router.delete('/:bookingId', requireAuth, async(req, res, next) => {
     const currentDate = new Date()
     const currentDateTime = currentDate.getTime()
 
-    if( currentDateTime >= toDeleteStartDateTime || currentDateTime <= toDeleteEndDateTime) {
+    if(currentDateTime <= toDeleteEndDateTime) {
         res.status(403)
         return res.json({
             message: "Bookings that have been started can't be deleted"
