@@ -224,7 +224,7 @@ router.get('/:spotId', async(req, res, next) => {
         }
         ],
 
-        group: ["Spot.id","SpotImages.id"]
+        group: ["Spot.id","SpotImages.id","Owner.id"]
     })
 
 if (specificSpot.id === null) {
