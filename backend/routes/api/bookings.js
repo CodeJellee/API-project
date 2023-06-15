@@ -170,15 +170,31 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
 })
 
 
-//DELETE A BOOKING --still need to complete
+//DELETE A BOOKING 
 router.delete('/:bookingId', requireAuth, async(req, res, next) => {
     let userId = req.user.id
+    let bookingId = req.params.bookingId
     const toDelete = await Booking.findByPk(req.params.bookingId)
 
     if(!toDelete || userId !== toDelete.userId) {
         res.status(404)
         return res.json({
             message: "Booking couldn't be found"
+        })
+    }
+
+    // return res.json(toDelete.startDate)
+    const toDeleteStartDate = new Date(toDelete.startDate)
+    const toDeleteStartDateTime = toDeleteStartDate.getTime()
+    const toDeleteEndDate = new Date(toDelete.endDate)
+    const toDeleteEndDateTime = toDeleteEndDate.getTime()
+    const currentDate = new Date()
+    const currentDateTime = currentDate.getTime()
+
+    if( currentDateTime >= toDeleteStartDateTime || currentDateTime <= toDeleteEndDateTime) {
+        res.status(403)
+        return res.json({
+            message: "Bookings that have been started can't be deleted"
         })
     }
 
