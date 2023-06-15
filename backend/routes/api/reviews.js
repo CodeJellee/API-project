@@ -86,6 +86,14 @@ let toUpdate = await Review.findByPk(req.params.reviewId)
 
 const { review, stars } = req.body
 
+//only user can edit
+if(userId !== toUpdate.userId){
+    res.status(400)
+    return res.json({
+        message: "Spot couldn't be found"
+    })
+}
+
 //checking if spotId was provided in req
 if(!toUpdate) {
     res.status(404)
@@ -123,7 +131,7 @@ toUpdate.set({
 await toUpdate.save()
 return res.json(toUpdate)
 
-})
+});
 
 //DELETE REVIEW
 router.delete('/:reviewId', requireAuth, async(req, res, next) => {
