@@ -222,7 +222,9 @@ router.get('/:spotId', async(req, res, next) => {
             as: 'Owner',
             attributes: ['id', 'firstName', 'lastName']
         }
-        ]
+        ],
+
+        group: ["Spot.id"]
     })
 
 if (specificSpot.id === null) {
