@@ -13,8 +13,8 @@ const demoBookings = [
   {
     spotId: 1,
     userId: 1,
-    startDate: '2024-01-01',
-    endDate: '2024-01-10',
+    startDate: '2023-05-01',
+    endDate: '2023-07-10',
   },
   {
     spotId: 2,
