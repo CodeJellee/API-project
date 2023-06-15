@@ -132,7 +132,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
         attributes: []
         }
     ],
-    group: ['Spot.id']
+    group: ['Spot.id', "SpotImages.url"]
 
     });
 
