@@ -24,7 +24,7 @@ router.get('/current', requireAuth, async(req, res, next) => {
             {
                 model: Spot,
                 attributes: {
-                    include: [[sequelize.literal('(SELECT url FROM SpotImages WHERE SpotImages.spotId = Spot.id)'), 'previewImage'],],
+                    include: [[sequelize.col('SpotImages.url'), 'previewImage'],],
                     exclude: ['createdAt', 'updatedAt'],
                 },
             },
@@ -36,8 +36,8 @@ router.get('/current', requireAuth, async(req, res, next) => {
             }
         ],
 
-        group: ['Spot.id']
-    }) 
+        group: ['Spot.id', 'SpotImages.url']
+    })
 
     return res.json({Reviews: allReviews})
 });
