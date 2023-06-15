@@ -213,7 +213,7 @@ router.post('/:spotId/reviews', requireAuth, async(req, res, next) => {
         });
 
         if (existingReview){
-            res.status(500)
+            res.status(500) //api doc states 500, kanban states 403
             return res.json({
                 message: "User already has a review from this spot"
             })
