@@ -12,13 +12,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
-/*
-{
-    "title": "Server Error",
-    "message": "column Spot.SpotImages.url does not exist",
-    "stack": null
-}
-*/
+
 
 //GET ALL REVIEWS
 router.get('/current', requireAuth, async(req, res, next) => {
@@ -78,6 +72,47 @@ router.get('/current', requireAuth, async(req, res, next) => {
     res.json(allReviewJSON)
 
 });
+
+//ADD AN IMAGE TO A REVIEW BASED ON THE REVIEWS ID
+router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
+    let userId = req.user.id
+    const imageAdd = await Review.findByPk(req.params.reviewId)
+    const reviewImages = await ReviewImage.findAll({
+        where: {reviewId: imageAdd.id}
+    })
+
+    if(userId !== imageAdd.userId) {
+        res.status(404)
+        return res.json({
+            message: "Review couldn't be found"
+        })
+    }
+
+    if (reviewImages.length >= 10) {
+        res.status(403)
+        return res.json({
+            message: "Maximum number of images for this resource was reached",
+        })
+    }
+
+    const { url } = req.body
+    const newImage = await ReviewImage.create({
+        reviewId: imageAdd.id,
+        url
+    })
+
+    //dont want the userId, createdAt, updatedAt
+    const finalNewImage= {
+        reviewId:imageAdd.id,
+        url: newImage.url
+    }
+
+
+    return res.json(finalNewImage)
+});
+
+
+
 
 //EDIT A REVIEW
 router.put('/:reviewId', requireAuth, async(req, res, next) => {
