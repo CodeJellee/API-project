@@ -198,6 +198,67 @@ router.get('/:spotId/reviews', async(req, res, next) => {
 });
 
 
+//CREATE A REVIEW FOR A SPOT BASED ON THE SPOTS ID
+router.post('/:spotId/reviews', requireAuth, async(req, res, next) => {
+
+        const specificSpot = req.params.spotId
+        const { review, stars } = req.body
+
+        //checking to see if exist
+        const existingReview = await Review.findOne({
+            where: {
+                userId: req.user.id,
+                spotId: specificSpot
+            }
+        });
+
+        if (existingReview){
+            res.status(500)
+            return res.json({
+                message: "User already has a review from this spot"
+            })
+        }
+
+        //checking if spotId was provided in req
+        const singleSpot = await Review.findByPk(specificSpot)
+
+        if(!singleSpot) {
+            res.status(404)
+            return res.json({
+                message: "Spot couldn't be found"
+            })
+        }
+
+        //checking if info is valid
+        let errorsToPrint = {}
+
+        if(!review || review === null) {
+            errorsToPrint.review = "Review text is required"
+        }
+
+        if(!stars || stars === null || !Number.isInteger(stars)|| stars === 0 || stars > 5) {
+            errorsToPrint.stars = "Stars must be an integer from 1 to 5"
+        }
+
+        if (Object.keys(errorsToPrint).length > 0) {
+            res.status(400)
+            return res.json({
+                message: "Bad Request",
+                errors: errorsToPrint
+            })
+        }
+
+
+        const addReview = await Review.create({
+            userId: req.user.id,
+            spotId: specificSpot,
+            review,
+            stars
+        })
+        return res.json(addReview)
+
+})
+
 
 //GET SPOT FROM AN ID
 router.get('/:spotId', async(req, res, next) => {
