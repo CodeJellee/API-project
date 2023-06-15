@@ -12,35 +12,74 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
+/*
+{
+    "title": "Server Error",
+    "message": "column Spot.SpotImages.url does not exist",
+    "stack": null
+}
+*/
+
 //GET ALL REVIEWS
 router.get('/current', requireAuth, async(req, res, next) => {
-
-    const allReviews = await Review.findByPk(req.user.id, {
+//couldn't figure out via eagerloading
+    const allReviews = await Review.findAll({
+        attributes: [
+            'id',
+            'userId',
+            'spotId',
+            'review',
+            'stars',
+            'createdAt',
+            'updatedAt'
+        ],
+        where: {
+            userId: req.user.id
+        },
         include: [
             {
                 model: User,
-                attributes: ['id', 'firstName', 'lastName']
+                attributes: [
+                    'id',
+                    'firstName',
+                    'lastName'
+                ]
             },
             {
                 model: Spot,
-                attributes: {
-                    include: [[sequelize.col('SpotImages.url'), 'previewImage'],],
-                    exclude: ['createdAt', 'updatedAt'],
-                },
+                exclude: ['createdAt', 'updatedAt'],
+                include: {
+                    model: SpotImage,
+                    attributes: [['url', "previewImage"]]
+                }
             },
             {
                 model: ReviewImage,
-                attributes: {
-                    exclude: ['reviewId', 'createdAt', 'updatedAt'],
-                }
+                attributes: ['id', 'url']
             }
-        ],
+        ]
 
-        group: ['Spot.id', 'SpotImages.url']
     })
 
-    return res.json({Reviews: allReviews})
+//from the video, review again --> maybe theres an easier way, ie use map
+    let allReviewJSON = []
+    allReviews.forEach(eachReview => {
+        allReviewJSON.push(eachReview.toJSON())
+    });
+
+    allReviewJSON.forEach(eachImage => {
+        // console.log(eachImage)
+        // console.log(eachImage.Spot.SpotImages[0].previewImage)
+        eachImage.Spot.previewImage = eachImage.Spot.SpotImages[0].previewImage
+        delete eachImage.Spot["SpotImages"]
+    })
+
+
+    res.json(allReviewJSON)
+
 });
+
+
 
 //DELETE REVIEW
 router.delete('/:reviewId', requireAuth, async(req, res, next) => {
