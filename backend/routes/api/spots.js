@@ -316,7 +316,7 @@ router.post('/:spotId/images', requireAuth, async(req, res, next) => {
     let addPhoto = await Spot.findByPk(req.params.spotId)
     const { url, preview } = req.body
 
-    if(userId !== addPhoto.ownerId || !addPhoto || addPhoto === null){ //changed req.user.id to userId
+    if(!addPhoto || userId !== addPhoto.ownerId || addPhoto === null){ //changed req.user.id to userId
         res.status(404)
         return res.json({
             message: "Spot couldn't be found"
@@ -534,11 +534,12 @@ return res.json(specificSpot)
 router.put('/:spotId', requireAuth, async(req, res, next) => {
     let errorsToPrint = {}
     let userId = req.user.id
-    let toUpdate = await Spot.findByPk(req.params.spotId)
+    let spotId = req.params.spotId
+    let toUpdate = await Spot.findByPk(spotId)
     const { address, city, state, country, lat, lng, name, description, price } = req.body
 
-    if(req.user.id !== toUpdate.ownerId || !toUpdate){
-        res.status(400)
+    if(!toUpdate || userId !== toUpdate.ownerId || toUpdate === null || !spotId){
+        res.status(404)
         return res.json({
             message: "Spot couldn't be found"
         })
