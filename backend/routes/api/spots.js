@@ -348,18 +348,20 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
     let addBooking = await Spot.findByPk(bookingId)
     const { startDate, endDate } = req.body
 
+
+    if(!addBooking) {
+        res.status(404)
+        return res.json({
+            message: "Spot couldn't be found"
+        })
+    }
+
     if(userId === addBooking.ownerId){
         return res.json({
             message: "Spot belongs to the current user"
         })
     }
 
-    if(!bookingId) {
-        res.status(404)
-        return res.json({
-            message: "Spot couldn't be found"
-        })
-    }
 
     let errorsToPrint = {}
 
@@ -486,7 +488,7 @@ router.post('/:spotId/reviews', requireAuth, async(req, res, next) => {
             review,
             stars
         })
-        
+
         res.status(201)
         return res.json(addReview)
 
