@@ -17,6 +17,18 @@ const demoBookings = [
     endDate: '2023-07-10',
   },
   {
+    spotId: 1,
+    userId: 1,
+    startDate: '1999-05-01',
+    endDate: '1999-07-10',
+  },
+  {
+    spotId: 1,
+    userId: 1,
+    startDate: '2026-05-01',
+    endDate: '2026-07-10',
+  },
+  {
     spotId: 2,
     userId: 2,
     startDate: '2023-07-02',
@@ -25,8 +37,8 @@ const demoBookings = [
   {
     spotId: 3,
     userId: 3,
-    startDate: '2003-03-03',
-    endDate: '2003-03-30',
+    startDate: '2000-03-03',
+    endDate: '2000-03-30',
   }
 
 ]
