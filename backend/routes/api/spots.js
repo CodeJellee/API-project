@@ -139,36 +139,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
     return res.json(currentUserSpots);
 });
 
-//ADD AN IMAGE TO A SPOT BASED ON THE SPOTS ID
-
-router.post('/:spotId/images', requireAuth, async(req, res, next) => {
-
-    let userId = req.user.id
-    let addPhoto = await Spot.findByPk(req.params.spotId)
-    const { url, preview } = req.body
-
-    if(req.user.id !== addPhoto.ownerId || !addPhoto){
-        res.status(404)
-        return res.json({
-            message: "Spot couldn't be found"
-        })
-    }
-
-    const newPhoto = await SpotImage.create({
-        spotId: userId,
-        url,
-        preview
-    })
-
-    const newPhotoJSON = newPhoto.toJSON() //turning it into plain JSON obj to then directly delete attributes
-    delete newPhotoJSON.updatedAt
-    delete newPhotoJSON.createdAt
-
-
-    return res.json(newPhotoJSON) //need to return updated: newPhotoJSON
-
-});
-
 //GET REVIEWS BY SPOT ID
 router.get('/:spotId/reviews', async(req, res, next) => {
 
@@ -196,6 +166,127 @@ router.get('/:spotId/reviews', async(req, res, next) => {
 
     return res.json({Reviews: spotReviews})
 });
+
+//ADD AN IMAGE TO A SPOT BASED ON THE SPOTS ID
+router.post('/:spotId/images', requireAuth, async(req, res, next) => {
+
+    let userId = req.user.id
+    let addPhoto = await Spot.findByPk(req.params.spotId)
+    const { url, preview } = req.body
+
+    if(userId !== addPhoto.ownerId || !addPhoto){ //changed req.user.id to userId
+        res.status(404)
+        return res.json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    const newPhoto = await SpotImage.create({
+        spotId: userId,
+        url,
+        preview
+    })
+
+    const newPhotoJSON = newPhoto.toJSON() //turning it into plain JSON obj to then directly delete attributes
+    delete newPhotoJSON.updatedAt
+    delete newPhotoJSON.createdAt
+
+
+    return res.json(newPhotoJSON) //need to return updated: newPhotoJSON
+
+});
+
+
+
+//CREATE A BOOKING FROM A SPOT BASED ON THE SPOTS ID
+router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
+
+    let userId = req.user.id
+    let bookingId = req.params.spotId
+    let addBooking = await Spot.findByPk(bookingId)
+    const { startDate, endDate } = req.body
+
+    if(userId === addBooking.ownerId){
+        return res.json({
+            message: "Spot belongs to the current user"
+        })
+    }
+
+    if(!bookingId) {
+        res.status(404)
+        return res.json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    let errorsToPrint = {}
+
+    const startDateObj = new Date(startDate)
+    const startDateTime = startDateObj.getTime() //changing date into a time where we can check if new date change 'falls within the time range from start to end date of whats already in our booking database"
+    const endDateObj = new Date(endDate)
+    const endDateTime = endDateObj.getTime()
+    const currentDate = new Date()
+
+    if(startDateObj > endDateObj) {
+        errorsToPrint.endDate = "endDate cannot come before startDate"
+    }
+
+    let errorsBookingConflict = {}
+
+    const currentBookings = await Booking.findAll()
+
+    let currentBookingJSON = []
+    currentBookings.forEach(eachBooking => {
+        currentBookingJSON.push(eachBooking.toJSON())
+    })
+
+    // console.log(currentBookings)
+    // console.log('FIND MEEEEEEEEEEEEEEEEEEEEEEEEEEE')
+    currentBookingJSON.forEach(individualBooking => {
+        // console.log(individualBooking)
+        // console.log(individualBooking.endDate)
+        const currentBookingStartDate = new Date(individualBooking.startDate)
+        const currentBookingStartDateTime = currentBookingStartDate.getTime()
+        const currentBookingEndDate = new Date(individualBooking.endDate)
+        const currentBookingEndDateTime = currentBookingEndDate.getTime()
+
+
+        if (startDateTime >= currentBookingStartDateTime && startDateTime <= currentBookingEndDateTime) {
+            errorsBookingConflict.startDate = "Start date conflicts with an existing booking"
+        }
+
+        if (endDateTime >= currentBookingStartDateTime && endDateTime <= currentBookingEndDateTime) {
+            errorsBookingConflict.endDate = "End date conflicts with an existing booking"
+        }
+    })
+    // console.log(currentBookingJSON)
+
+    if (Object.keys(errorsToPrint).length > 0) {
+        res.status(400)
+        return res.json({
+            message: "Bad Request",
+            errors: errorsToPrint
+        })
+    }
+
+    if (Object.keys(errorsBookingConflict).length > 0) {
+        res.status(403)
+        return res.json({
+            message: "Sorry, this spot is already booked for the specified date",
+            errors: errorsBookingConflict
+        })
+    }
+
+    const newBooking = await Booking.create({
+        spotId: Number(req.params.spotId),
+        userId: userId,
+        startDate,
+        endDate
+    })
+
+    return res.json(newBooking)
+
+})
 
 
 //CREATE A REVIEW FOR A SPOT BASED ON THE SPOTS ID
