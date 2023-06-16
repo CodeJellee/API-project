@@ -66,10 +66,15 @@ router.get('/current', requireAuth, async(req, res, next) => {
         // console.log(eachImage.Spot.SpotImages[0].previewImage)
         eachImage.Spot.previewImage = eachImage.Spot.SpotImages[0].previewImage
         delete eachImage.Spot["SpotImages"]
+        delete eachImage.Spot["description"]
+        delete eachImage.Spot["createdAt"]
+        delete eachImage.Spot["updatedAt"]
     })
 
 
-    res.json(allReviewJSON)
+    res.json({
+        Reviews: allReviewJSON
+    })
 
 });
 
@@ -77,16 +82,19 @@ router.get('/current', requireAuth, async(req, res, next) => {
 router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
     let userId = req.user.id
     const imageAdd = await Review.findByPk(req.params.reviewId)
-    const reviewImages = await ReviewImage.findAll({
-        where: {reviewId: imageAdd.id}
-    })
 
-    if(userId !== imageAdd.userId) {
+    if(!imageAdd || userId !== imageAdd.userId) {
         res.status(404)
         return res.json({
             message: "Review couldn't be found"
         })
     }
+
+    const reviewImages = await ReviewImage.findAll({
+        where: {reviewId: imageAdd.id}
+    })
+
+
 
     if (reviewImages.length >= 10) {
         res.status(403)
@@ -103,7 +111,7 @@ router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
 
     //dont want the userId, createdAt, updatedAt
     const finalNewImage= {
-        reviewId:imageAdd.id,
+        id:imageAdd.id,
         url: newImage.url
     }
 
@@ -121,6 +129,14 @@ let toUpdate = await Review.findByPk(req.params.reviewId)
 
 const { review, stars } = req.body
 
+//checking if spotId was provided in req
+if(!toUpdate) {
+    res.status(404)
+    return res.json({
+        message: "Spot couldn't be found"
+    })
+}
+
 //only user can edit
 if(userId !== toUpdate.userId){
     res.status(400)
@@ -129,13 +145,6 @@ if(userId !== toUpdate.userId){
     })
 }
 
-//checking if spotId was provided in req
-if(!toUpdate) {
-    res.status(404)
-    return res.json({
-        message: "Spot couldn't be found"
-    })
-}
 
 //checking if info is valid
 let errorsToPrint = {}
