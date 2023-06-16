@@ -138,15 +138,15 @@ router.post('/', requireAuth, async(req, res, next) => {
         errorsToPrint.country = "Country is required"
     }
 
-    if(!lat || lat === null) {
+    if(!lat || lat === null || isNaN(lat)) {
         errorsToPrint.lat = "Latitude is not valid"
     }
 
-    if(!lng || lng === null) {
+    if(!lng || lng === null || isNaN(lng)) {
         errorsToPrint.lng = "Longitude is not valid"
     }
 
-    if(!name || name === null) {
+    if(!name || name === null|| name.length >50) {
         errorsToPrint.name = "Name must be less than 50 characters"
     }
 
@@ -516,7 +516,7 @@ router.get('/:spotId', async(req, res, next) => {
         group: ["Spot.id","SpotImages.id","Owner.id"]
     })
 
-if (specificSpot.id === null) {
+if (specificSpot === null || !specificSpot) {
     res.status(404)
     return res.json({
         message: "Spot couldn't be found"
