@@ -63,14 +63,14 @@ router.get('/', async(req, res, next) => {
     pagination.limit = size
     pagination.offset = size * (page - 1)
 
+    // const test = await Spot.findAll()
+    // return res.json(test)
+
     const allSpots = await Spot.findAll({
         include: [
             {
                 model: SpotImage,
-                attributes: ['url'],
-                where: {
-                    preview: true
-                }
+                attributes: ['url']
             },
             {
                 model: Review,
@@ -84,6 +84,7 @@ router.get('/', async(req, res, next) => {
     let allSpotsJSON = []
 
     allSpots.forEach(eachSpot => {
+
         allSpotsJSON.push(eachSpot.toJSON())
     })
 
@@ -106,6 +107,7 @@ router.get('/', async(req, res, next) => {
         spotPOJO.avgRating = avgRatingValue
         delete spotPOJO.Reviews
     })
+
 
 
     return res.json({
@@ -180,6 +182,7 @@ router.post('/', requireAuth, async(req, res, next) => {
         price
 
     })
+    res.status(201)
     return res.json(newSpot)
 
 })
@@ -313,7 +316,7 @@ router.post('/:spotId/images', requireAuth, async(req, res, next) => {
     let addPhoto = await Spot.findByPk(req.params.spotId)
     const { url, preview } = req.body
 
-    if(userId !== addPhoto.ownerId || !addPhoto){ //changed req.user.id to userId
+    if(userId !== addPhoto.ownerId || !addPhoto || addPhoto === null){ //changed req.user.id to userId
         res.status(404)
         return res.json({
             message: "Spot couldn't be found"
@@ -557,15 +560,15 @@ router.put('/:spotId', requireAuth, async(req, res, next) => {
         errorsToPrint.country = "Country is required"
     }
 
-    if(!lat || lat === null) {
+    if(!lat || lat === null || isNaN(lat)) {
         errorsToPrint.lat = "Latitude is not valid"
     }
 
-    if(!lng || lng === null) {
+    if(!lng || lng === null || isNaN(lng)) {
         errorsToPrint.lng = "Longitude is not valid"
     }
 
-    if(!name || name === null) {
+    if(!name || name === null|| name.length >50) {
         errorsToPrint.name = "Name must be less than 50 characters"
     }
 
