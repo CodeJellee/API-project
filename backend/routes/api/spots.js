@@ -14,28 +14,105 @@ const router = express.Router();
 
 //GET ALL SPOTS
 router.get('/', async(req, res, next) => {
+
+    let { page, size, maxLat, minLat, minLng, maxLng, minPrice, maxPrice } = req.query
+
+    let errorsToPrint = {}
+
+    if(Spot.lat > maxLat) {
+        errorsToPrint.maxLat = "Maximum latitude is invalid"
+    }
+
+    if(Spot.lat < minLat) {
+        errorsToPrint.minLatLat = "Minimum latitude is invalid"
+    }
+
+    if(Spot.lng > maxLng) {
+        errorsToPrint.maxLng = "Maximum longitude is invalid"
+    }
+
+    if(Spot.lng < minLng){
+        errorsToPrint.minLng = "Minimum longitude is invalid"
+    }
+
+    if(Spot.price > maxPrice){
+        errorsToPrint.maxPrice = "Maximum price must be greater than or equal to 0"
+    }
+
+    if(Spot.price < minPrice){
+        errorsToPrint.minPrice = "Minimum price must be greater than or equal to 0"
+    }
+
+    if (Object.keys(errorsToPrint).length > 0) {
+        res.status(400)
+        return res.json({
+            message: "Bad Request",
+            errors: errorsToPrint
+        })
+    }
+
+
+    let pagination = {}
+
+    page = parseInt(page)
+    size = parseInt(size)
+
+    if (Number.isNaN(page) || Number(page) < 1 || Number(page) > 10) page = 1;
+    if (Number.isNaN(size) || Number(size) < 1 || Number(size) > 20) size = 20;
+
+    pagination.limit = size
+    pagination.offset = size * (page - 1)
+
     const allSpots = await Spot.findAll({
-        attributes: {
-            include: [
-            [sequelize.fn('AVG', sequelize.col("Reviews.stars")), "avgRating"], //Sequelize function that generates a function call in SQL-AVG and generates a column reference, alias w/ second param
-            [sequelize.col('SpotImages.url'), 'previewImage']
-        ]
-        },
-
-        include:[
-        {
-            model: Review,
-            attributes: []
-        },
-        {
-            model: SpotImage,
-            attributes: []
-        }
+        include: [
+            {
+                model: SpotImage,
+                attributes: ['url'],
+                where: {
+                    preview: true
+                }
+            },
+            {
+                model: Review,
+                attributes: ['stars']
+            }
         ],
-
-        group: ['Spot.id', 'SpotImages.id'] //group query result based on 'id' column of the 'Spot' model- needed this bc only 1 spot was printing
+        ...pagination
     })
-    return res.json({Spots: allSpots})
+
+
+    let allSpotsJSON = []
+
+    allSpots.forEach(eachSpot => {
+        allSpotsJSON.push(eachSpot.toJSON())
+    })
+
+    allSpotsJSON.forEach(spotPOJO => {
+        spotPOJO.previewImage = spotPOJO.SpotImages[0].url
+        delete spotPOJO.SpotImages
+    })
+
+
+    allSpotsJSON.forEach(spotPOJO => {
+        let sum = 0
+
+        spotPOJO.Reviews.forEach(review => {
+            sum += review.stars
+        })
+
+        let reviewLength = spotPOJO.Reviews.length
+        let avgRatingValue = sum / reviewLength
+
+        spotPOJO.avgRating = avgRatingValue
+        delete spotPOJO.Reviews
+    })
+
+
+    return res.json({
+        Spots: allSpotsJSON,
+        page: Number(page),
+        size: Number(size)
+    })
 })
 
 //CREATE A SPOT
@@ -168,58 +245,6 @@ router.get('/:spotId/reviews', async(req, res, next) => {
 });
 
 //GET BOOKINGS FOR A SPOT BASED ON SPOTS ID
-// router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
-//     const spotId = req.params.spotId
-//     const userId = req.user.id
-
-//     const nonOwner = await Booking.findAll({
-//         where: {
-//             spotId: spotId
-//         },
-//         attributes: ['spotId', 'startDate', 'endDate']
-//     })
-//     console.log('NON OWNER', nonOwner)
-
-// // console.log('FIND MEEEEEEEEEEEEEEEEEEEEEE')
-//     const ownerSpots = await Booking.findAll({
-//         where: {
-//             spotId: spotId,
-//             userId: userId
-//         },
-//         include: [
-//             {
-//                 model: User,
-//                 attributes: ['id', 'firstName', 'lastName']
-//             }
-//         ],
-//     })
-//     console.log('OWNERSPOTS', ownerSpots)
-
-
-//     // console.log(ownerSpots)
-//     if(nonOwner.length === 0 || ownerSpots.length === 0){
-//         res.status(404)
-//         return res.json({
-//             message: "Spot couldn't be found"
-//         })
-//     }
-
-//     if(userId !== nonOwner.userId){
-//         res.status(200)
-//         return res.json({
-//             Bookings: nonOwner
-//         })
-//     }
-
-
-//     if(userId === ownerSpots.userId){
-//         res.status(200)
-//         return res.json({
-//             Bookings: ownerSpots
-//         })
-//     }
-// })
-
 router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
     const spotId = req.params.spotId
     const userId = req.user.id
