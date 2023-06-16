@@ -216,7 +216,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
     });
 
-    return res.json(currentUserSpots);
+    return res.json({Spots: currentUserSpots});
 });
 
 //GET REVIEWS BY SPOT ID

@@ -139,9 +139,9 @@ if(!toUpdate) {
 
 //only user can edit
 if(userId !== toUpdate.userId){
-    res.status(400)
+    res.status(404)
     return res.json({
-        message: "Spot couldn't be found"
+        message: "Review couldn't be found"
     })
 }
 
