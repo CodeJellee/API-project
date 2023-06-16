@@ -167,6 +167,120 @@ router.get('/:spotId/reviews', async(req, res, next) => {
     return res.json({Reviews: spotReviews})
 });
 
+//GET BOOKINGS FOR A SPOT BASED ON SPOTS ID
+// router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
+//     const spotId = req.params.spotId
+//     const userId = req.user.id
+
+//     const nonOwner = await Booking.findAll({
+//         where: {
+//             spotId: spotId
+//         },
+//         attributes: ['spotId', 'startDate', 'endDate']
+//     })
+//     console.log('NON OWNER', nonOwner)
+
+// // console.log('FIND MEEEEEEEEEEEEEEEEEEEEEE')
+//     const ownerSpots = await Booking.findAll({
+//         where: {
+//             spotId: spotId,
+//             userId: userId
+//         },
+//         include: [
+//             {
+//                 model: User,
+//                 attributes: ['id', 'firstName', 'lastName']
+//             }
+//         ],
+//     })
+//     console.log('OWNERSPOTS', ownerSpots)
+
+
+//     // console.log(ownerSpots)
+//     if(nonOwner.length === 0 || ownerSpots.length === 0){
+//         res.status(404)
+//         return res.json({
+//             message: "Spot couldn't be found"
+//         })
+//     }
+
+//     if(userId !== nonOwner.userId){
+//         res.status(200)
+//         return res.json({
+//             Bookings: nonOwner
+//         })
+//     }
+
+
+//     if(userId === ownerSpots.userId){
+//         res.status(200)
+//         return res.json({
+//             Bookings: ownerSpots
+//         })
+//     }
+// })
+
+router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
+    const spotId = req.params.spotId
+    const userId = req.user.id
+
+    const allBookingsById = await Booking.findAll({
+        where: {
+            spotId: spotId
+        },
+        include: [
+            {
+                model: User,
+                attributes: ['id', 'firstName', 'lastName']
+            }
+        ]
+    })
+
+
+    if(allBookingsById.length === 0){
+        res.status(404)
+        return res.json({
+            message: "Spot couldn't be found"
+        })
+    }
+
+    let nonOwnerJSON = []
+
+    allBookingsById.forEach(eachEl => {
+        nonOwnerJSON.push(eachEl.toJSON())
+    });
+
+    console.log('NON OWNER JSON', nonOwnerJSON)
+
+    if(userId !== nonOwnerJSON[0].userId){
+        res.status(200)
+
+        // console.log(nonOwnerJSON)
+
+        let forNonOwners = {}
+        nonOwnerJSON.forEach(eachNon => {
+            // console.log(eachNon.spotId)
+            // console.log(eachNon.startDate)
+            // console.log(eachNon.endDate)
+            forNonOwners.spotId = eachNon.spotId
+            forNonOwners.startDate = eachNon.startDate
+            forNonOwners.endDate = eachNon.endDate
+        });
+
+        return res.json({
+            Bookings: [forNonOwners]
+        })
+    }
+
+
+    if(userId === nonOwnerJSON[0].userId){
+        res.status(200)
+        return res.json({
+            Bookings: allBookingsById
+        })
+    }
+})
+
 //ADD AN IMAGE TO A SPOT BASED ON THE SPOTS ID
 router.post('/:spotId/images', requireAuth, async(req, res, next) => {
 
@@ -240,8 +354,6 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
         currentBookingJSON.push(eachBooking.toJSON())
     })
 
-    // console.log(currentBookings)
-    // console.log('FIND MEEEEEEEEEEEEEEEEEEEEEEEEEEE')
     currentBookingJSON.forEach(individualBooking => {
         // console.log(individualBooking)
         // console.log(individualBooking.endDate)
