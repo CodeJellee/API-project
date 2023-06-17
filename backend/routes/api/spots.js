@@ -19,27 +19,27 @@ router.get('/', async(req, res, next) => {
 
     let errorsToPrint = {}
 
-    if(Spot.lat > maxLat) {
+    if(maxLat && isNaN(Number(maxLat))) {
         errorsToPrint.maxLat = "Maximum latitude is invalid"
     }
 
-    if(Spot.lat < minLat) {
+    if(minLat && isNaN(Number(minLat))) {
         errorsToPrint.minLatLat = "Minimum latitude is invalid"
     }
 
-    if(Spot.lng > maxLng) {
+    if(maxLng && isNaN(Number(maxLng))) {
         errorsToPrint.maxLng = "Maximum longitude is invalid"
     }
 
-    if(Spot.lng < minLng){
+    if(minLng && isNaN(Number(minLng))){
         errorsToPrint.minLng = "Minimum longitude is invalid"
     }
 
-    if(Spot.price > maxPrice){
+    if(maxPrice && Number(maxPrice) < 0){
         errorsToPrint.maxPrice = "Maximum price must be greater than or equal to 0"
     }
 
-    if(Spot.price < minPrice){
+    if(minPrice && Number(minPrice) < 0){
         errorsToPrint.minPrice = "Minimum price must be greater than or equal to 0"
     }
 
