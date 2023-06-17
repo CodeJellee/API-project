@@ -63,6 +63,8 @@ router.get('/', async(req, res, next) => {
     pagination.limit = size
     pagination.offset = size * (page - 1)
 
+    // const test = await Spot.findAll()
+    // return res.json(test)
 
     const allSpots = await Spot.findAll({
         include: [
@@ -119,6 +121,7 @@ router.get('/', async(req, res, next) => {
 router.post('/', requireAuth, async(req, res, next) => {
     let errorsToPrint = {}
     const userId = req.user.id
+    // console.log(userId)
     const { address, city, state, country, lat, lng, name, description, price } = req.body
 
     if(!address || address === null) {
@@ -213,7 +216,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
     });
 
-    return res.json({Spots: currentUserSpots});
+    return res.json(currentUserSpots);
 });
 
 //GET REVIEWS BY SPOT ID
@@ -284,7 +287,9 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
 
         let forNonOwners = {}
         nonOwnerJSON.forEach(eachNon => {
-
+            // console.log(eachNon.spotId)
+            // console.log(eachNon.startDate)
+            // console.log(eachNon.endDate)
             forNonOwners.spotId = eachNon.spotId
             forNonOwners.startDate = eachNon.startDate
             forNonOwners.endDate = eachNon.endDate
@@ -380,7 +385,8 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
     })
 
     currentBookingJSON.forEach(individualBooking => {
-
+        // console.log(individualBooking)
+        // console.log(individualBooking.endDate)
         const currentBookingStartDate = new Date(individualBooking.startDate)
         const currentBookingStartDateTime = currentBookingStartDate.getTime()
         const currentBookingEndDate = new Date(individualBooking.endDate)
@@ -395,7 +401,7 @@ router.post('/:spotId/bookings', requireAuth, async(req, res, next) => {
             errorsBookingConflict.endDate = "End date conflicts with an existing booking"
         }
     })
-
+    // console.log(currentBookingJSON)
 
     if (Object.keys(errorsToPrint).length > 0) {
         res.status(400)
