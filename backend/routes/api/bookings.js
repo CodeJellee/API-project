@@ -49,8 +49,7 @@ router.get('/current', requireAuth, async(req, res, next) => {
     });
 
     allBookingJSON.forEach(eachImage => {
-        // console.log(eachImage.Spot)
-        // console.log(eachImage.Spot.SpotImages[0].previewImage)
+
         eachImage.Spot.previewImage = eachImage.Spot.SpotImages[0].previewImage
         delete eachImage.Spot["SpotImages"]
         delete eachImage.Spot["description"]
@@ -181,10 +180,10 @@ router.put('/:bookingId', requireAuth, async(req, res, next) => {
         createdAt: toEdit.createdAt,
         updatedAt: toEdit.updatedAt
     })
-    // return res.json(toEdit)
 
 
-})
+
+});
 
 
 //DELETE A BOOKING
@@ -200,7 +199,6 @@ router.delete('/:bookingId', requireAuth, async(req, res, next) => {
         })
     }
 
-    // return res.json(toDelete.startDate)
     const toDeleteStartDate = new Date(toDelete.startDate)
     const toDeleteStartDateTime = toDeleteStartDate.getTime()
     const toDeleteEndDate = new Date(toDelete.endDate)

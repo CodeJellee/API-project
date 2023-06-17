@@ -62,8 +62,6 @@ router.get('/current', requireAuth, async(req, res, next) => {
     });
 
     allReviewJSON.forEach(eachImage => {
-        // console.log(eachImage)
-        // console.log(eachImage.Spot.SpotImages[0].previewImage)
         eachImage.Spot.previewImage = eachImage.Spot.SpotImages[0].previewImage
         delete eachImage.Spot["SpotImages"]
         delete eachImage.Spot["description"]
