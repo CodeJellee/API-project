@@ -62,6 +62,8 @@ router.get('/current', requireAuth, async(req, res, next) => {
     });
 
     allReviewJSON.forEach(eachImage => {
+        // console.log(eachImage)
+        // console.log(eachImage.Spot.SpotImages[0].previewImage)
         eachImage.Spot.previewImage = eachImage.Spot.SpotImages[0].previewImage
         delete eachImage.Spot["SpotImages"]
         delete eachImage.Spot["description"]
@@ -137,9 +139,9 @@ if(!toUpdate) {
 
 //only user can edit
 if(userId !== toUpdate.userId){
-    res.status(404)
+    res.status(400)
     return res.json({
-        message: "Review couldn't be found"
+        message: "Spot couldn't be found"
     })
 }
 
