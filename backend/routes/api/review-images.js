@@ -22,6 +22,8 @@ router.delete('/:imageId', requireAuth, async(req, res, next) => {
             model: Review
         }
     })
+
+    
     const review = await Review.findByPk(relatedImage.reviewId)
 
     if(userId !== review.userId) {
