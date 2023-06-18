@@ -219,7 +219,10 @@ router.get('/current', requireAuth, async (req, res, next) => {
 //GET REVIEWS BY SPOT ID
 router.get('/:spotId/reviews', async(req, res, next) => {
 
-    const spotReviews = await Review.findByPk(req.params.spotId, {
+    const spotReviews = await Review.findAll({
+        where: {
+            spotId: req.params.spotId
+        },
         include: [
             {
                 model: User,
@@ -447,7 +450,7 @@ router.post('/:spotId/reviews', requireAuth, async(req, res, next) => {
         }
 
         //checking if spotId was provided in req
-        const singleSpot = await Review.findByPk(specificSpot)
+        const singleSpot = await Spot.findByPk(specificSpot)
 
         if(!singleSpot) {
             res.status(404)
