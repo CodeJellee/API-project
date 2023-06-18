@@ -107,14 +107,19 @@ router.post('/:reviewId/images', requireAuth, async(req, res, next) => {
         url
     })
 
+
     //dont want the userId, createdAt, updatedAt
-    const finalNewImage= {
-        id:imageAdd.id,
+    // const finalNewImage= {
+    //     id:imageAdd.id,
+    //     url: newImage.url
+    // }
+
+
+    // return res.json(finalNewImage)
+    return res.json({
+        id: newImage.id,
         url: newImage.url
-    }
-
-
-    return res.json(finalNewImage)
+    })
 });
 
 
