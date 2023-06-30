@@ -23,7 +23,7 @@ const demoSpotImages = [
   {
     spotId: 3,
     url: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Seattle_Center_as_night_falls.jpg',
-    preview: false
+    preview: true
   }
 
 ]
