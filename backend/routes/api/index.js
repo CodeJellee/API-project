@@ -31,8 +31,8 @@ const { restoreUser } = require("../../utils/auth.js");
 
   router.use('/spot-images', spotImagesRouter);
 
-  router.post('/test', (req, res) => {
-    res.json({ requestBody: req.body });
-  });
+  // router.post('/test', (req, res) => {
+  //   res.json({ requestBody: req.body });
+  // });
 
   module.exports = router;
