@@ -1,3 +1,4 @@
+import {csrfFetch} from './csrf'
 
 //action type- CRUD
 const CREATE_SPOT = 'spots/createSpot'
@@ -9,34 +10,34 @@ const DELETE_SPOT = 'spots/deleteSpot'
 //action function
 const createSpot = () => ({
     type: CREATE_SPOT,
-    payload
+    // payload
 });
 
 const getSpotById = () => ({
     type: GET_SPOT_BY_ID,
-    payload
+    // payload
 });
 
-const getAllSpots = () => ({
-    type: GET_ALL_SPOTS,
-    payload
+const getAllSpots = (spots) => ({
+    type: GET_ALL_SPOTS, //already an obj
+    payload: spots
 });
 
 const updateSpot = () => ({
     type: UPDATE_SPOT,
-    payload
+    // payload
 });
 
 const deleteSpot = () => ({
     type: DELETE_SPOT,
-    payload
+    // payload
 });
 
 
 //thunks
 /*----------------CREATE A SPOT ----------------------*/
 export const fetchCreateSpot = (spot) => async (dispatch) => {
-    const res = await csrfFetch('/api/', { //fix the route
+    const res = await csrfFetch('/api/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(spot),
@@ -54,7 +55,7 @@ export const fetchCreateSpot = (spot) => async (dispatch) => {
 
 /*----------------GET ALL SPOTS ----------------------*/
 export const fetchGetAllSpots = () => async (dispatch) => {
-    const res = await csrfFetch('/api/');
+    const res = await csrfFetch('/api/spots');
 
     if (res.ok) {
         const getAllSpotsDetails = await res.json();
@@ -67,7 +68,7 @@ export const fetchGetAllSpots = () => async (dispatch) => {
 
 /*----------------GET SPOT BY ID ----------------------*/
 export const fetchGetSpotById = (spotId) => async (dispatch) => {
-const res = await csrfFetch(`/api/${spotId}`);
+const res = await csrfFetch(`/api/spots/${spotId}`);
 
 if (res.ok) {
     const getSpotsByIdDetails = await res.json();
@@ -80,7 +81,7 @@ if (res.ok) {
 
 /*----------------UPDATE SPOT ----------------------*/
 export const fetchUpdateSpot = (spot) => async (dispatch) => {
-    const res = await csrfFetch(`/api/${spot.id}`, {
+    const res = await csrfFetch(`/api/spots/${spot.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(spot),
@@ -99,7 +100,7 @@ export const fetchUpdateSpot = (spot) => async (dispatch) => {
 
 /*----------------DELETE SPOT ----------------------*/
 export const fetchDeleteSpot = (spotId) => async (dispatch) => {
-    const res = await csrfFetch(`/api/${spotId}`, {
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
       method: 'DELETE',
     });
 
@@ -116,25 +117,36 @@ export const fetchDeleteSpot = (spotId) => async (dispatch) => {
 
 
 
-const initialState = {
 
-}
+
 
 //reducer
-const spotReducer = (state = initialState, action) => {
+const spotsReducer = (state = {}, action) => {
     switch(action.type){
         case CREATE_SPOT:
             return {
 
             };
-        case GET_SPOT_BY_ID:
-            return {
-
-            };
-        case GET_ALL_SPOTS:
-            return {
-
-            };
+        case GET_SPOT_BY_ID: {
+            // const newState = { ...state };
+            // const spots = action.payload.Spots;
+            // newState.entries = spots.reduce((acc, spot) => {
+            //     acc[spot.id].id = spot; //making sure to have id equal to each spot -> flattening
+            //     return acc;
+            // }, {});
+            // newState.isLoading = false;
+            // return newState;
+        }
+        case GET_ALL_SPOTS: {
+            const newState = { ...state,  };
+            console.log('THIS IS ACTION', action)
+            const spots = action.payload.Spots;
+            newState.Spots = spots.reduce((newAllSpots, spot) => {
+                newAllSpots[spot.id] = {...spot}; //making sure to have id equal to each spot -> flattening
+                return newAllSpots;
+            }, {});
+            return newState;
+        }
         case UPDATE_SPOT:
             return {
 
@@ -148,4 +160,4 @@ const spotReducer = (state = initialState, action) => {
     }
 }
 
-export default spotReducer;
+export default spotsReducer;
