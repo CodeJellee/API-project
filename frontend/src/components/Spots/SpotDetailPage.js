@@ -30,7 +30,7 @@ const SpotId = () => {
           <h2>{spots.city}, {spots.state}, {spots.country}</h2>
           <div>
             {spots.SpotImages.map((spot) => (
-                <img src={spots.SpotImages.indexOf(spot).url}></img>
+                <img id={spots.SpotImages[spots.SpotImages.indexOf(spot)].id} src={spots.SpotImages[spots.SpotImages.indexOf(spot)].url}></img>
             ))}
           </div>
           <div>Hosted by {spots.Owner.firstName} {spots.Owner.lastName} </div>
