@@ -1,5 +1,5 @@
 
-  // // frontend/src/components/Spots/index.js
+// frontend/src/components/Spots/index.js
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -18,10 +18,10 @@ const Spots = () => {
 
     return (
     <>
-        <div className="spots-container">
+        <div id="spots-container">
           {spots.map((spot) => (
-            <div key={spot.id} className="spots-item">
-              <NavLink to={`/spots/${spot.id}`} className="spots-link">
+            <div key={spot.id} id="spots-item">
+              <NavLink to={`/spots/${spot.id}`} id="spots-link">
                 <EachSpot spot={spot}/>
               </NavLink>
             </div>
@@ -34,4 +34,3 @@ const Spots = () => {
   };
 
   export default Spots;
-
