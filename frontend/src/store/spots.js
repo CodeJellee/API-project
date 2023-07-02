@@ -134,15 +134,13 @@ const spotsReducer = (state = {}, action) => {
         //     return newState.spots;
         // }
         case GET_ALL_SPOTS: {
-            const newState = { ...state,  };
-            console.log('THIS IS ACTION', action)
+            const newState = { ...state };
             const spots = action.payload.Spots;
-            newState.Spots = spots.reduce((newAllSpots, spot) => {
-                newAllSpots[spot.id] = {...spot}; //making sure to have id equal to each spot -> flattening
-                return newAllSpots;
-            }, {});
+            spots.forEach((spot) => {
+              newState[spot.id] = { ...spot };
+            });
             return newState;
-        }
+          }
         // case UPDATE_SPOT:
         //     return {
 
