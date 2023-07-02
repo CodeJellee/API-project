@@ -115,6 +115,7 @@ export const fetchGetSpotById = (spotId) => async (dispatch) => {
 
 
 
+
 //reducer
 const spotsReducer = (state = {}, action) => {
     switch(action.type){

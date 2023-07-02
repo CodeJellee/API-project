@@ -18,19 +18,21 @@ const SpotId = () => {
     }, [dispatch]);
 
     const spots = useSelector((state) => (state.spots.spots));
-    console.log('THIS IS WHAT WERE WORKING WITH', spots)
+
+    if(!spots) return null //NEED THIS, bc will cause error w/ refresh
+    console.log('THIS IS WHAT WERE WORKING WITH', spots.SpotImages)
+
     return (
     <>
         <div id="spot-details-container">
             <h1>INSERT SPOT DATA HERE</h1>
           <h1>{spots.name}</h1>
           <h2>{spots.city}, {spots.state}, {spots.country}</h2>
-          {/* <div>
-            {spots.spotImages.map((eachSpotImageSet) => (
-                console.log('WHAT IS THIS', eachSpotImageSet)
+          <div>
+            {spots.SpotImages.map((spot) => (
+                <img src={spots.SpotImages.indexOf(spot).url}></img>
             ))}
-            <img src={spots.SpotImages[0].url}></img>
-          </div> */}
+          </div>
           <div>Hosted by {spots.Owner.firstName} {spots.Owner.lastName} </div>
           <div>{spots.description}</div>
         </div>
