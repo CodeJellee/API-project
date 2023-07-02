@@ -1,28 +1,39 @@
-/* Spots.css */
+
+
 .spots-container {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: stretch;
+    grid-gap: 10px;
+    grid-auto-flow: dense;
   }
 
   .spots-item {
-    flex: 0 0 33.33%; /* Adjust this value to control the number of columns */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
     padding: 10px;
-    box-sizing: border-box;
+    background-color: #ccc;
   }
 
+  img {
+    object-fit: cover;
+    width: 250px;
+    height: 250px;
+  }
   .spots-link {
-    display: block;
     text-decoration: none;
-    color: #333;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    transition: background-color 0.3s ease;
+    color: black;
+    font-weight: bold;
   }
 
-  .spots-link:hover {
-    background-color: #f5f5f5;
+  .spots-rate {
+    display: flex;
+    align-items: center;
+  }
+
+  .spots-rate-star {
+    margin-right: 5px;
+    color: gold;
   }
