@@ -16,8 +16,63 @@ const demoSpotImages = [
     preview: true
   },
   {
+    spotId: 1,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/d/de/6T4A9446-HDR-3.jpg',
+    preview: true
+  },
+  {
+    spotId: 1,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/d/de/6T4A9446-HDR-3.jpg',
+    preview: true
+  },
+  {
+    spotId: 1,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/d/de/6T4A9446-HDR-3.jpg',
+    preview: true
+  },
+  {
+    spotId: 1,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/d/de/6T4A9446-HDR-3.jpg',
+    preview: true
+  },
+  {
     spotId: 2,
     url: 'https://upload.wikimedia.org/wikipedia/commons/8/80/Flatirons_Winter_Sunrise_edit_2.jpg',
+    preview: true
+  },
+  {
+    spotId: 2,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/8/80/Flatirons_Winter_Sunrise_edit_2.jpg',
+    preview: true
+  },
+  {
+    spotId: 2,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/8/80/Flatirons_Winter_Sunrise_edit_2.jpg',
+    preview: true
+  },
+  {
+    spotId: 2,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/8/80/Flatirons_Winter_Sunrise_edit_2.jpg',
+    preview: true
+  },
+  {
+    spotId: 2,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/8/80/Flatirons_Winter_Sunrise_edit_2.jpg',
+    preview: true
+  },
+  {
+    spotId: 3,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Seattle_Center_as_night_falls.jpg',
+    preview: true
+  },
+  {
+    spotId: 3,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Seattle_Center_as_night_falls.jpg',
+    preview: true
+  },
+  {
+    spotId: 3,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Seattle_Center_as_night_falls.jpg',
     preview: true
   },
   {
