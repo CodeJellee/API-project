@@ -35,20 +35,3 @@ const Spots = () => {
 
   export default Spots;
 
-
-  /*
-  return (
-      <div className='main-spots-container'>
-        <div className="spots-container">
-          {spots.map((spot) => (
-            <div key={spot.id} className="spots-item">
-              <NavLink to={`/spots/${spot.id}`} className="spots-link">
-                {spot.name}
-              </NavLink>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-
-  */
