@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import {fetchGetSpotById} from "../../store/spots";
+import ReviewsBySpotId from "../Reviews/SpotIdReviews";
+import {Route} from "react-router-dom"
 import './Spots.css';
 
 
@@ -19,7 +21,7 @@ const SpotId = () => {
     const spots = useSelector((state) => (state.spots.spots));
 
     if(!spots) return null //NEED THIS, bc will cause error w/ refresh
-    console.log('THIS IS WHAT WERE WORKING WITH', spots.SpotImages)
+
 
     return (
     <>
@@ -43,11 +45,10 @@ const SpotId = () => {
             <div>
                 <h3>add a line here to seprate above and start of below</h3>
                 <div>★ {spots.avgRating} · {spots.numReviews} reviews</div>
-                <div>
-                    <h3>{spots.Owner.firstName}</h3>
-                    <h4>{spots.createdAt}THIS IS ASS DATE...NEED TO JUST BE MONTH AND YEAR</h4>
-                </div>
             </div>
+          </div>
+          <div >
+            <ReviewsBySpotId />
           </div>
         </div>
 
@@ -57,12 +58,3 @@ const SpotId = () => {
   };
 
   export default SpotId;
-
-
-//   <div>
-//             {spots.spotImages.map((eachSpotImageSet) =>
-//                 eachSpotImageSet.url.map((singleImage) =>
-//                     <img src=singleImage></img>
-//                 )
-//                 </div>
-//             )}

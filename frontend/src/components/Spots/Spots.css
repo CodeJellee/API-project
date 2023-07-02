@@ -34,3 +34,22 @@
     justify-content: space-between;
 
   }
+
+  /* Adjust grid-template-columns based on screen width */
+@media screen and (max-width: 1200px) {
+  #spots-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  #spots-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #spots-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
