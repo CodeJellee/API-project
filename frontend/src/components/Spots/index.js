@@ -8,6 +8,7 @@ import EachSpot from "./GetAllSpots";
 import './Spots.css';
 
 
+
 const Spots = () => {
     const dispatch = useDispatch();
     const spots = useSelector((state) => Object.values(state.spots)); // using Object.values to turn obj into an array to be mapped below

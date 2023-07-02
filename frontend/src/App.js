@@ -4,8 +4,10 @@ import { useDispatch } from "react-redux";
 import { Switch } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Spots from './components/Spots'
+import SpotId from "./components/Spots/SpotDetailPage";
 import Navigation from "./components/Navigation";
 import {Route} from "react-router-dom"
+
 
 
 function App() {
@@ -23,6 +25,9 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Spots />
+        </Route>
+        <Route path="/spots/:spotId">
+          <SpotId />
         </Route>
       </Switch>
     </>

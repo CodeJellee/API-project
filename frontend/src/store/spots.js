@@ -2,7 +2,7 @@ import {csrfFetch} from './csrf'
 
 //action type- CRUD
 // const CREATE_SPOT = 'spots/createSpot'
-// const GET_SPOT_BY_ID = 'spots/getSpotById'
+const GET_SPOT_BY_ID = 'spots/getSpotById'
 const GET_ALL_SPOTS = 'spots/getAllSpots'
 // const UPDATE_SPOT = 'spots/updateSpot'
 // const DELETE_SPOT = 'spots/deleteSpot'
@@ -13,10 +13,10 @@ const GET_ALL_SPOTS = 'spots/getAllSpots'
 //     // payload
 // });
 
-// const getSpotById = (spotId) => ({
-//     type: GET_SPOT_BY_ID,
-//     payload: spotId
-// });
+const getSpotById = (spotId) => ({
+    type: GET_SPOT_BY_ID,
+    payload: spotId
+});
 
 const getAllSpots = (spots) => ({
     type: GET_ALL_SPOTS, //already an obj
@@ -67,17 +67,17 @@ export const fetchGetAllSpots = () => async (dispatch) => {
   };
 
 /*----------------GET SPOT BY ID ----------------------*/
-// export const fetchGetSpotById = (spotId) => async (dispatch) => {
-//     const res = await csrfFetch(`/api/spots/${spotId}`);
+export const fetchGetSpotById = (spotId) => async (dispatch) => {
+    const res = await csrfFetch(`/api/spots/${spotId}`);
 
-//     if (res.ok) {
-//         const getSpotsByIdDetails = await res.json();
-//         dispatch(getSpotById(getSpotsByIdDetails));
-//       } else {
-//         const errors = await res.json();
-//         return errors;
-//       }
-//     };
+    if (res.ok) {
+        const getSpotsByIdDetails = await res.json();
+        dispatch(getSpotById(getSpotsByIdDetails));
+      } else {
+        const errors = await res.json();
+        return errors;
+      }
+    };
 
 /*----------------UPDATE SPOT ----------------------*/
 // export const fetchUpdateSpot = (spot) => async (dispatch) => {
@@ -115,11 +115,6 @@ export const fetchGetAllSpots = () => async (dispatch) => {
 
 
 
-
-
-
-
-
 //reducer
 const spotsReducer = (state = {}, action) => {
     switch(action.type){
@@ -127,12 +122,12 @@ const spotsReducer = (state = {}, action) => {
         //     return {
 
         //     };
-        // case GET_SPOT_BY_ID: {
-        //     const newState = { ...state };
-        //     const spot = action.payload;
-        //     newState.spots = spot;
-        //     return newState.spots;
-        // }
+        case GET_SPOT_BY_ID: {
+            const newState = { ...state };
+            const spot = action.payload;
+            newState.spots = spot;
+            return newState;
+        }
         case GET_ALL_SPOTS: {
             const newState = { ...state };
             const spots = action.payload.Spots;
