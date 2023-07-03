@@ -19,7 +19,7 @@ const reviews = useSelector((state) => Object.values(state.reviews)); //changing
 //dont forget map through it within the return
 
 
-if(!reviews) return null //NEED THIS, bc will cause error w/ refresh
+// if(!reviews) return null //NEED THIS, bc will cause error w/ refresh
 
 return (
     <>

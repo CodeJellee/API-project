@@ -25,12 +25,14 @@ export const fetchGetReviewsBySpotId = (spotId) => async (dispatch) => {
     };
 
 
+
 //reducer
 const reviewsReducer = (state ={}, action) => {
     switch(action.type){
         case GET_REVIEWS_BY_SPOT_ID: {
-            const newState = {...state};
+            const newState = {};
             const reviews = action.payload.Reviews;
+            console.log(reviews)
             reviews.forEach((review) => { //flattened it so the each index and id num will match
                 newState[review.id] = {...review}
             })
