@@ -5,11 +5,14 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import { NavLink } from 'react-router-dom';
+import './Navigation.css'
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const openMenu = () => {
     if (showMenu) return;
@@ -30,6 +33,11 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
+
+  useEffect(() => {
+    setIsLoggedIn(user !== null);
+  }, [user]);
+
   const closeMenu = () => setShowMenu(false);
 
   const logout = (e) => {
@@ -42,7 +50,12 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
+      {isLoggedIn && (
+      <NavLink to={`/spots/`}>
+        Create a New Spot
+      </NavLink>
+    )}
+      <button id='header-links' onClick={openMenu}>
         <i className="fas fa-user-circle" />
       </button>
       <ul className={ulClassName} ref={ulRef}>

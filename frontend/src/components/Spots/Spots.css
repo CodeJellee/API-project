@@ -1,0 +1,55 @@
+/* frontend/src/components/Spots/Spots.css */
+
+#spots-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: stretch;
+    grid-gap: 10px;
+    grid-auto-flow: dense;
+  }
+
+  #spots-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 10px;
+    background-color: #ccc;
+  }
+
+  img {
+    object-fit: cover;
+    width: 250px;
+    height: 250px;
+  }
+
+  #spots-link {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+  }
+
+  #city-state-avgRating {
+    display: flex;
+    justify-content: space-between;
+
+  }
+
+  /* Adjust grid-template-columns based on screen width */
+@media screen and (max-width: 1200px) {
+  #spots-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 900px) {
+  #spots-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #spots-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
