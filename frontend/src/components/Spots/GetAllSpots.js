@@ -12,7 +12,7 @@ function EachSpot({spot}) {
             )}
             {!spot.avgRating && <div id="each-spot-avgRating">★ New</div>}
         </div>
-        <div id='each-spot-price'>${spot.price} night</div>
+        <div id='each-spot-price'>${spot.price.toFixed(2)} night</div>
         </>
     )
 }

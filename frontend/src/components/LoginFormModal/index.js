@@ -4,6 +4,7 @@ import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./LoginForm.css";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
 function LoginFormModal() {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,6 +24,19 @@ function LoginFormModal() {
         if (data && data.errors) {
           setErrors(data.errors);
         }
+      });
+  };
+
+  const handleDemoUserSubmit = () => {
+    const demoUser = {
+      credential: "demo@user.io",
+      password: "password", // Replace with the demo user password
+    };
+
+    dispatch(sessionActions.login(demoUser))
+      .then(closeModal)
+      .catch((err) => {
+        //prob dont need a catch error here?
       });
   };
 
@@ -52,6 +67,9 @@ function LoginFormModal() {
         )}
         <button type="submit">Log In</button>
       </form>
+      <NavLink to="/" className="demo-user-button" onClick={handleDemoUserSubmit}>
+        Log in as Demo User
+      </NavLink>
     </>
   );
 }

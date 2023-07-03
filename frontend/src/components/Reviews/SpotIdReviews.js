@@ -17,7 +17,6 @@ const ReviewsBySpotId = () => {
 
 const reviews = useSelector((state) => Object.values(state.reviews)); //changing into an array
 //dont forget map through it within the return
-console.log('LETS TRY AGAIN', reviews)
 
 
 if(!reviews) return null //NEED THIS, bc will cause error w/ refresh

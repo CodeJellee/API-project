@@ -22,7 +22,6 @@ const SpotId = () => {
 
     if(!spots) return null //NEED THIS, bc will cause error w/ refresh
 
-
     return (
     <>
         <div id="spot-details-container">
@@ -39,12 +38,32 @@ const SpotId = () => {
                 <div>{spots.description}</div>
             </div>
             <div>
-                <div>$ {spots.price} night, ★ {spots.avgRating.toFixed(1)} · {spots.numReviews} reviews</div>
+                <div>
+                  <div>
+                    $ {spots.price.toFixed(2)} night,
+                  </div>
+                  <div>
+                    {spots.avgRating && (
+                          <div id="each-spot-avgRating">★ {spots.avgRating.toFixed(1)}</div>
+                        )}
+                      {!spots.avgRating && <div id="each-spot-avgRating">★ New</div>}
+                  </div>
+                  <div>
+                    · {spots.numReviews} reviews
+
+                  </div>
+                </div>
                 <button>Reserve</button>
             </div>
             <div>
                 <h3>add a line here to seprate above and start of below</h3>
-                <div>★ {spots.avgRating.toFixed(1)} · {spots.numReviews} reviews</div>
+                <div>
+                    {spots.avgRating && (
+                        <div id="each-spot-avgRating">★ {spots.avgRating.toFixed(1)}</div>
+                      )}
+                    {!spots.avgRating && <div id="each-spot-avgRating">★ New</div>}
+                    <div>· {spots.numReviews} reviews</div>
+                  </div>
             </div>
           </div>
           <div >
