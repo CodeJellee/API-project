@@ -11,7 +11,7 @@ import './Spots.css';
 
 const Spots = () => {
     const dispatch = useDispatch();
-    const spots = useSelector((state) => Object.values(state.spots)); // using Object.values to turn obj into an array to be mapped below
+    const spots = useSelector((state) => Object.values(state.spots.spots)); // using Object.values to turn obj into an array to be mapped below
 
     useEffect(() => {
       dispatch(fetchGetAllSpots());

@@ -18,7 +18,7 @@ const SpotId = () => {
         dispatch(fetchGetSpotById(spotId));
     }, [dispatch]);
 
-    const spots = useSelector((state) => (state.spots.spots));
+    const spots = useSelector((state) => (state.spots.singleSpot));
 
     if(!spots) return null //NEED THIS, bc will cause error w/ refresh
 

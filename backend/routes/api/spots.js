@@ -85,12 +85,18 @@ router.get('/', async(req, res, next) => {
 
         allSpotsJSON.push(eachSpot.toJSON())
     })
-
+/********************NEEDED TO ADD NULL ELEMENT********************************/
     allSpotsJSON.forEach(spotPOJO => {
-        spotPOJO.previewImage = spotPOJO.SpotImages[0].url
-        delete spotPOJO.SpotImages
+        if (spotPOJO.SpotImages && spotPOJO.SpotImages[0]) {
+            spotPOJO.previewImage = spotPOJO.SpotImages[0].url;
+        } else {
+            spotPOJO.previewImage = null;
+        }
+        if (!spotPOJO.SpotImages) {
+            spotPOJO.previewImage = null;
+        }
+        delete spotPOJO.SpotImages;
     })
-
 
     allSpotsJSON.forEach(spotPOJO => {
         let sum = 0
@@ -282,8 +288,6 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
 
     if(userId !== nonOwnerJSON[0].userId){
         res.status(200)
-
-        // console.log(nonOwnerJSON)
 
         let forNonOwners = {}
         nonOwnerJSON.forEach(eachNon => {
