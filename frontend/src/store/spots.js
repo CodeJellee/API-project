@@ -158,9 +158,14 @@ const spotsReducer = (state = initialState, action) => {
         }
         case GET_SPOTS_BY_USER: {
           const newState = { ...state };
-          const spot = action.payload;
-          newState.usersSpots = spot;
-          return newState;
+          // const spots = Object.values(action.payload);
+          const spots = action.payload;
+          // console.log('WHAT AM I',spots)
+          newState.userSpots = spots;
+          // spots.forEach((spot) => {
+          //   newState.userSpots[spots.spots.id] = spot;
+          // });
+          return newState; //getting back an obj of arrays
       }
         case GET_ALL_SPOTS: {
             const newState = { ...state };
