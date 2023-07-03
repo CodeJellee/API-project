@@ -27,8 +27,9 @@ function App() {
         <Route exact path="/">
           <Spots />
         </Route>
-        <Route path="/spots/" >
-          <NewSpot />
+        <Route exact path="/spots/" >
+          {/* <NewSpot /> */}
+          <h2>hello</h2>
         </Route>
         <Route path="/spots/:spotId">
           <SpotId />
