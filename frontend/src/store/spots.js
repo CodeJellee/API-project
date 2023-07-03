@@ -36,21 +36,50 @@ const getAllSpots = (spots) => ({
 
 //thunks
 /*----------------CREATE A SPOT ----------------------*/
-export const fetchCreateSpot = (spot) => async (dispatch) => {
-    const res = await csrfFetch('/api/spots', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(spot),
-      });
+// export const fetchCreateSpot = (spot) => async (dispatch) => {
+//     const res = await csrfFetch('/api/spots', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(spot),
+//       });
 
-      if (res.ok) {
-        const newSpot = await res.json();
-        dispatch(createSpot(newSpot));
-        return newSpot;
-      } else {
-        const errors = await res.json();
-        return errors;
-      }
+//       if (res.ok) {
+//         const newSpot = await res.json();
+//         dispatch(createSpot(newSpot));
+//         return newSpot;
+//       } else {
+//         const errors = await res.json();
+//         return errors;
+//       }
+// }
+//above works but thought would have to destructure here to pull each on the component end?
+
+export const fetchCreateSpot = (spot) => async (dispatch) => {
+  const {address, city, state, country, lat, lng, name, description, price } = spot;
+  const res = await csrfFetch('/api/spots', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price,
+      }),
+    });
+
+    if (res.ok) {
+      const newSpot = await res.json();
+      dispatch(createSpot(newSpot));
+      return newSpot;
+    } else {
+      const errors = await res.json();
+      return errors;
+    }
 }
 
 /*----------------GET ALL SPOTS ----------------------*/
