@@ -8,6 +8,7 @@ import {csrfFetch} from './csrf'
 const CREATE_SPOT = 'spots/createSpot'
 const GET_SPOT_BY_ID = 'spots/getSpotById'
 const GET_ALL_SPOTS = 'spots/getAllSpots'
+const GET_SPOTS_BY_USER = 'spots/getSpotsByUser'
 // const UPDATE_SPOT = 'spots/updateSpot'
 // const DELETE_SPOT = 'spots/deleteSpot'
 
@@ -26,6 +27,11 @@ const getAllSpots = (spots) => ({
     type: GET_ALL_SPOTS, //already an obj
     payload: spots
 });
+
+const getSpotsByUser = (userId) => ({
+  type: GET_SPOTS_BY_USER,
+  payload: userId
+})
 
 // const updateSpot = () => ({
 //     type: UPDATE_SPOT,
@@ -83,6 +89,20 @@ export const fetchGetSpotById = (spotId) => async (dispatch) => {
       }
     };
 
+/*----------------GET SPOT BY USER ----------------------*/
+
+export const fetchGetSpotsByUser = (userId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/current`);
+
+  if (res.ok) {
+      const getSpotsByUserDetails = await res.json();
+      dispatch(getSpotsByUser(getSpotsByUserDetails));
+    } else {
+      const errors = await res.json();
+      return errors;
+    }
+  };
+
 /*----------------UPDATE SPOT ----------------------*/
 // export const fetchUpdateSpot = (spot) => async (dispatch) => {
 //     const res = await csrfFetch(`/api/spots/${spot.id}`, {
@@ -128,8 +148,6 @@ const spotsReducer = (state = initialState, action) => {
           const newSpot = action.payload
           // newState[action.payload.id] = newSpot
           // return newState
-
-
           return {...state, spots:{...state.spots, [newSpot.id]: newSpot}}
         }
         case GET_SPOT_BY_ID: {
@@ -138,6 +156,12 @@ const spotsReducer = (state = initialState, action) => {
             newState.singleSpot = spot;
             return newState;
         }
+        case GET_SPOTS_BY_USER: {
+          const newState = { ...state };
+          const spot = action.payload;
+          newState.usersSpots = spot;
+          return newState;
+      }
         case GET_ALL_SPOTS: {
             const newState = { ...state };
             const spots = action.payload.Spots;
