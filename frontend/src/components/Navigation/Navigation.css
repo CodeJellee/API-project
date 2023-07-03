@@ -1,3 +1,16 @@
+#home-drop-down-container {
+  border-bottom: 2px solid #C2CBCB;
+  list-style-type: none;
+
+  display: flex;
+  justify-content: space-between;
+
+}
+
+#header-links {
+  cursor: pointer;
+}
+
 .profile-dropdown.hidden {
     display: none;
   }

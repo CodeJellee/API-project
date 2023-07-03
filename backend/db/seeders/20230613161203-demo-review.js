@@ -27,8 +27,55 @@ const demoReviews = [
     userId: 3,
     review: 'Such a rainy place here.',
     stars: 3
+  },
+  {
+    spotId: 4,
+    userId: 1,
+    review: 'Beautiful Springfield but meh.',
+    stars: 2
+  },
+  {
+    spotId: 5,
+    userId: 2,
+    review: 'Stunning Boulder',
+    stars: 5
+  },
+  {
+    spotId: 6,
+    userId: 3,
+    review: 'Such a rainy place here.',
+    stars: 3
+  },
+  {
+    spotId: 7,
+    userId: 1,
+    review: 'Beautiful Springfield but meh.',
+    stars: 2
+  },
+  {
+    spotId: 8,
+    userId: 2,
+    review: 'Stunning Boulder',
+    stars: 5
+  },
+  {
+    spotId: 9,
+    userId: 3,
+    review: 'Such a rainy place here.',
+    stars: 3
+  },
+  {
+    spotId: 10,
+    userId: 1,
+    review: 'Beautiful Springfield but meh.',
+    stars: 2
+  },
+  {
+    spotId: 11,
+    userId: 2,
+    review: 'Stunning Boulder',
+    stars: 5
   }
-
 ]
 
 module.exports = {
