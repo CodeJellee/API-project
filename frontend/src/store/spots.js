@@ -1,17 +1,17 @@
 import {csrfFetch} from './csrf'
 
 //action type- CRUD
-// const CREATE_SPOT = 'spots/createSpot'
+const CREATE_SPOT = 'spots/createSpot'
 const GET_SPOT_BY_ID = 'spots/getSpotById'
 const GET_ALL_SPOTS = 'spots/getAllSpots'
 // const UPDATE_SPOT = 'spots/updateSpot'
 // const DELETE_SPOT = 'spots/deleteSpot'
 
 //action function
-// const createSpot = () => ({
-//     type: CREATE_SPOT,
-//     // payload
-// });
+const createSpot = (spot) => ({
+    type: CREATE_SPOT,
+    payload: spot
+});
 
 const getSpotById = (spotId) => ({
     type: GET_SPOT_BY_ID,
@@ -36,22 +36,22 @@ const getAllSpots = (spots) => ({
 
 //thunks
 /*----------------CREATE A SPOT ----------------------*/
-// export const fetchCreateSpot = (spot) => async (dispatch) => {
-//     const res = await csrfFetch('/api/', {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(spot),
-//       });
+export const fetchCreateSpot = (spot) => async (dispatch) => {
+    const res = await csrfFetch('/api/spots', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(spot),
+      });
 
-//       if (res.ok) {
-//         const newSpot = await res.json();
-//         dispatch(createSpot(newSpot));
-//         return newSpot;
-//       } else {
-//         const errors = await res.json();
-//         return errors;
-//       }
-// }
+      if (res.ok) {
+        const newSpot = await res.json();
+        dispatch(createSpot(newSpot));
+        return newSpot;
+      } else {
+        const errors = await res.json();
+        return errors;
+      }
+}
 
 /*----------------GET ALL SPOTS ----------------------*/
 export const fetchGetAllSpots = () => async (dispatch) => {
@@ -119,10 +119,12 @@ export const fetchGetSpotById = (spotId) => async (dispatch) => {
 //reducer
 const spotsReducer = (state = {}, action) => {
     switch(action.type){
-        // case CREATE_SPOT:
-        //     return {
-
-        //     };
+        case CREATE_SPOT: {
+          const newState = {...state}
+          const newSpot = action.payload
+          newState[action.payload.id] = newSpot
+          return newState
+        }
         case GET_SPOT_BY_ID: {
             const newState = { ...state };
             const spot = action.payload;
