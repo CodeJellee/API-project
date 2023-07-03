@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import {fetchGetSpotsByUser} from "../../store/spots";
+import {actionClearSpotsByUser} from "../../store/spots";
 import EachSpot from "./GetAllSpots";
 import './Spots.css';
 
@@ -15,21 +16,36 @@ const UserSpots = () => {
       dispatch(fetchGetSpotsByUser());
     }, [dispatch]);
 
+    useEffect(() => {
+        return () => dispatch(actionClearSpotsByUser())
+    }, [dispatch])
 
     return (
         <>
+            <h1>Manage Your Spots</h1>
             <div>
-            {allUserSpots.map((spot) => (
-                <div key={spot.id}>
-                    <NavLink to={`/spots/${spot.id}`} id="spots-link">
-                        <EachSpot spot={spot}/>
-                    </NavLink>
-                </div>
-            ))}
+                {allUserSpots.length > 0 ? (
+                    allUserSpots.map((spot) => (
+                        <div key={spot.id}>
+                            <NavLink to={`/spots/${spot.id}`} id="spots-link">
+                                <EachSpot spot={spot}/>
+                            </NavLink>
+                            <div>
+                                <button>Update</button>
+                                <button>Delete</button>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <div>
+                        <NavLink to="/new-spot" id="create-spot-link">Create a New Spot</NavLink>
+                    </div>
+                )}
             </div>
         </>
-    )
-
+    );
 }
+
+
 
 export default UserSpots;

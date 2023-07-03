@@ -9,6 +9,7 @@ import {csrfFetch} from './csrf'
 const GET_SPOT_BY_ID = 'spots/getSpotById'
 const GET_ALL_SPOTS = 'spots/getAllSpots'
 const GET_SPOTS_BY_USER = 'spots/getSpotsByUser'
+const CLEAR_SPOTS_BY_USER ='spots/clearSpotsByUser'
 // const UPDATE_SPOT = 'spots/updateSpot'
 // const DELETE_SPOT = 'spots/deleteSpot'
 
@@ -31,6 +32,10 @@ const getAllSpots = (spots) => ({
 const getSpotsByUser = (spotsOfUser) => ({
   type: GET_SPOTS_BY_USER,
   payload: spotsOfUser
+})
+
+export const actionClearSpotsByUser = () => ({
+  type: CLEAR_SPOTS_BY_USER
 })
 
 // const updateSpot = () => ({
@@ -89,7 +94,7 @@ export const fetchGetSpotById = (spotId) => async (dispatch) => {
       }
     };
 
-/*----------------GET SPOT BY USER ----------------------*/
+/*----------------GET SPOTS BY USER ----------------------*/
 
 export const fetchGetSpotsByUser = () => async (dispatch) => {
   const res = await csrfFetch(`/api/spots/current`);
@@ -163,6 +168,11 @@ const spotsReducer = (state = initialState, action) => {
             newState.userSpots[spot.id] = spot;
           });
           return newState; //getting back an obj of arrays
+      }
+      case CLEAR_SPOTS_BY_USER:{
+        const newState = {...state}
+        newState.userSpots = {}
+        return newState
       }
         case GET_ALL_SPOTS: {
             const newState = { ...state };
