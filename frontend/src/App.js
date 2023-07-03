@@ -7,6 +7,7 @@ import Spots from './components/Spots'
 import SpotId from "./components/Spots/SpotDetailPage";
 import NewSpot from "./components/Spots/CreateNewSpot";
 import Navigation from "./components/Navigation";
+import UserSpots from "./components/Spots/GetAllUserSpots";
 import {Route} from "react-router-dom"
 
 
@@ -32,7 +33,7 @@ function App() {
           <h2>create new spot, dont forget to import component at top</h2>
         </Route>
         <Route path="/spots/current">
-          <h2>users spots, dont forget to import component at top</h2>
+          <UserSpots />
         </Route>
         <Route path="/spots/:spotId">
           <SpotId />
