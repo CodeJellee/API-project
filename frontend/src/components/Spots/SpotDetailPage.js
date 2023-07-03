@@ -39,12 +39,12 @@ const SpotId = () => {
                 <div>{spots.description}</div>
             </div>
             <div>
-                <div>$ {spots.price} night, ★ {spots.avgRating} · {spots.numReviews} reviews</div>
+                <div>$ {spots.price} night, ★ {spots.avgRating.toFixed(1)} · {spots.numReviews} reviews</div>
                 <button>Reserve</button>
             </div>
             <div>
                 <h3>add a line here to seprate above and start of below</h3>
-                <div>★ {spots.avgRating} · {spots.numReviews} reviews</div>
+                <div>★ {spots.avgRating.toFixed(1)} · {spots.numReviews} reviews</div>
             </div>
           </div>
           <div >
