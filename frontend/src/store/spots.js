@@ -43,9 +43,9 @@ export const actionClearSpotsByUser = () => ({
 //     // payload
 // });
 
-const deleteSpot = (toDelete) => ({
+const deleteSpot = (spotId) => ({
     type: DELETE_SPOT,
-    payload: toDelete
+    payload: spotId
 });
 
 
@@ -187,9 +187,12 @@ const spotsReducer = (state = initialState, action) => {
 
         //     };
         case DELETE_SPOT:
-            return {
-
-            };
+          const newState = {...state};
+          console.log('NEWSATE', newState)
+          const spotId = action.payload
+          console.log('WHAT IS THIS SPOTID', spotId)
+          delete newState.userSpots[spotId];
+          return newState;
         default:
             return state;
     }

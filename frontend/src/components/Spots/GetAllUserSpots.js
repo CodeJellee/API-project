@@ -3,6 +3,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import {fetchGetSpotsByUser} from "../../store/spots";
 import {actionClearSpotsByUser} from "../../store/spots";
+import DeleteSpotModal from "./DeleteSpotModal";
+import OpenModalButton from "../OpenModalButton"
+
+
 import EachSpot from "./GetAllSpots";
 import './Spots.css';
 
@@ -31,8 +35,10 @@ const UserSpots = () => {
                                 <EachSpot spot={spot}/>
                             </NavLink>
                             <div>
-                                <button>Update</button>
-                                <button>Delete</button>
+                            <OpenModalButton
+                                buttonText="Delete"
+                                modalComponent={<DeleteSpotModal spotId={spot.id} />}
+                            />
                             </div>
                         </div>
                     ))
