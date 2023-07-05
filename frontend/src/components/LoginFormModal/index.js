@@ -13,6 +13,9 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  const isUsernameValid = credential.length >= 4;
+  const isPasswordValid = password.length >= 6;
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -62,10 +65,10 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.credential && (
-          <p>{errors.credential}</p>
-        )}
-        <button type="submit">Log In</button>
+        {errors.credential && <p>{errors.credential}</p>}
+        <button type="submit" disabled={!isUsernameValid || !isPasswordValid}>
+          Log In
+        </button>
       </form>
       <NavLink to="/" className="demo-user-button" onClick={handleDemoUserSubmit}>
         Log in as Demo User
