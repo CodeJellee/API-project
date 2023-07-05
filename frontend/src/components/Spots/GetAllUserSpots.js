@@ -10,7 +10,7 @@ import './Spots.css';
 const UserSpots = () => {
     const dispatch = useDispatch();
     const allUserSpots = useSelector((state) => Object.values(state.spots.userSpots)); // using Object.values to turn obj into an array to be mapped below
-    console.log('waht is this', allUserSpots)
+
 
     useEffect(() => {
       dispatch(fetchGetSpotsByUser());
@@ -38,7 +38,7 @@ const UserSpots = () => {
                     ))
                 ) : (
                     <div>
-                        <NavLink to="/new-spot" id="create-spot-link">Create a New Spot</NavLink>
+                        <NavLink to="/spots/" id="create-spot-link">Create a New Spot</NavLink>
                     </div>
                 )}
             </div>
