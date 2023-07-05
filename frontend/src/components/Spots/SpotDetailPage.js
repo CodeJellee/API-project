@@ -20,7 +20,8 @@ const SpotId = () => {
 
     const spots = useSelector((state) => (state.spots.singleSpot));
 
-    if(!spots) return null //NEED THIS, bc will cause error w/ refresh
+    if(!spots.SpotImages) return null //NEED THIS, bc will cause error w/ refresh
+    //make sure to add spots.SpotImages or spots.Owner not JUST spots, need to key in because AN EMPTY OBJ WILL BE TRUTHY AND CANNOT DO .LENGTH ON AN OBJ
 
     const handleReserveClick = () => {
       alert("Feature coming soon");

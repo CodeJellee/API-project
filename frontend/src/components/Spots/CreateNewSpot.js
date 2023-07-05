@@ -28,7 +28,7 @@ const NewSpotForm = () => {
     const [imageFour, setImageFour] = useState("")
 
     const [errors, setErrors] = useState({});
-    const [submitted, setSubmitted] = useState(false);
+
 
     useEffect(() => {
         const errorsObject = {}
@@ -76,9 +76,7 @@ const NewSpotForm = () => {
     function onSubmit(e){
         e.preventDefault()
 
-        setSubmitted(true)
-
-        console.log({
+        const payload ={
             address,
             city,
             state,
@@ -91,19 +89,18 @@ const NewSpotForm = () => {
             imageTwo,
             imageThree,
             imageFour
-        })
-        history.push(`/spots/${spotId}`)
+        }
+
+        let createdSpot;
+
+        if (createdSpot.errors) { //this will catch errors, will correlate to the thunk in spots
+            setErrors(createdSpot.errors)
+        } else {
+            history.push(`/spots/${createdSpot.id}`)
+
+        }
     }
 
-    useEffect (() => {
-        dispatch(fetchCreateSpot())
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data && data.errors) {
-            setErrors(data.errors);
-          }
-        });
-    }, [dispatch]);
 
     return (
         <form id="create-new-spot-form" onSubmit={onSubmit}>
@@ -123,7 +120,7 @@ const NewSpotForm = () => {
                         onChange={(e) => setCountry(e.target.value)}
                     />
                 </label>
-                {submitted && errors.country && <p className="errors">{errors.country}</p>}
+                {errors.country && <p className="errors">{errors.country}</p>}
                 <br></br>
                 <label>
                     Street Address
@@ -136,7 +133,7 @@ const NewSpotForm = () => {
                         onChange={(e) => setAddress(e.target.value)}
                     />
                     </label>
-                    {submitted && errors.address && <p className="errors">{errors.address}</p>}
+                    {errors.address && <p className="errors">{errors.address}</p>}
                     <br></br>
                     <label>
                         City
@@ -149,7 +146,7 @@ const NewSpotForm = () => {
                         onChange={(e) => setCity(e.target.value)}
                         />
                     </label>
-                    {submitted && errors.city && <p className="errors">{errors.city}</p>}
+                    {errors.city && <p className="errors">{errors.city}</p>}
                     <br></br>
                     <label>
                         State
@@ -162,7 +159,7 @@ const NewSpotForm = () => {
                         onChange={(e) => setState(e.target.value)}
                         />
                     </label>
-                    {submitted && errors.state && <p className="errors">{errors.state}</p>}
+                    {errors.state && <p className="errors">{errors.state}</p>}
                 </div>
 
                 <div id="spot-description-container">
@@ -177,7 +174,7 @@ const NewSpotForm = () => {
                         onChange={(e) => setDescription(e.target.value)}
                         />
                     </label>
-                    {submitted && errors.description && <p className="errors">{errors.description}</p>}
+                    {errors.description && <p className="errors">{errors.description}</p>}
                 </div>
 
                 <div id="spot-title-container">
@@ -192,7 +189,7 @@ const NewSpotForm = () => {
                         onChange={(e) => setName(e.target.value)}
                         />
                     </label>
-                    {submitted && errors.name && <p className="errors">{errors.name}</p>}
+                    {errors.name && <p className="errors">{errors.name}</p>}
                 </div>
 
                 <div id="spot-price-container">
@@ -207,7 +204,7 @@ const NewSpotForm = () => {
                         onChange={(e) => setPrice(e.target.value)}
                         />
                     </label>
-                    {submitted && errors.price && <p className="errors">{errors.price}</p>}
+                    {errors.price && <p className="errors">{errors.price}</p>}
                 </div>
 
                 <div id="spot-photos-container">
@@ -222,7 +219,7 @@ const NewSpotForm = () => {
                         onChange={(e) => setPreviewImage(e.target.value)}
                         />
                     </label>
-                    {submitted && errors.previewImage && <p className="errors">{errors.previewImage}</p>}
+                    {errors.previewImage && <p className="errors">{errors.previewImage}</p>}
                     <div id="upload-images">
                         <label>
                             <input
@@ -233,7 +230,7 @@ const NewSpotForm = () => {
                             onChange={(e) => setImageOne(e.target.value)}
                             />
                         </label>
-                        {submitted && errors.imageOne && <p className="errors">{errors.imageOne}</p>}
+                        {errors.imageOne && <p className="errors">{errors.imageOne}</p>}
                         <label>
                             <input
                             type="text"
@@ -243,7 +240,7 @@ const NewSpotForm = () => {
                             onChange={(e) => setImageTwo(e.target.value)}
                             />
                         </label>
-                        {submitted && errors.imageTwo && <p className="errors">{errors.imageTwo}</p>}
+                        {errors.imageTwo && <p className="errors">{errors.imageTwo}</p>}
                         <label>
                             <input
                             type="text"
@@ -253,7 +250,7 @@ const NewSpotForm = () => {
                             onChange={(e) => setImageThree(e.target.value)}
                             />
                         </label>
-                        {submitted && errors.imageThree && <p className="errors">{errors.imageThree}</p>}
+                        {errors.imageThree && <p className="errors">{errors.imageThree}</p>}
                         <label>
                             <input
                             type="text"
@@ -263,7 +260,7 @@ const NewSpotForm = () => {
                             onChange={(e) => setImageFour(e.target.value)}
                             />
                         </label>
-                        {submitted && errors.imageFour && <p className="errors">{errors.imageFour}</p>}
+                        {errors.imageFour && <p className="errors">{errors.imageFour}</p>}
                     </div>
                 </div>
             </div>

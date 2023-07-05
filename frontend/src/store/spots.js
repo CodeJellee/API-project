@@ -52,20 +52,23 @@ const deleteSpot = (spotId) => ({
 //thunks
 /*----------------CREATE A SPOT ----------------------*/
 export const fetchCreateSpot = (spotFormData) => async (dispatch) => {
-    const res = await csrfFetch('/api/spots', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(spotFormData),
-      });
 
-      if (res.ok) {
-        const newSpot = await res.json();
-        dispatch(createSpot(newSpot));
-        return newSpot;
-      } else {
-        const errors = await res.json();
-        return errors;
-      }
+  try {
+    const res = await csrfFetch('/api/spots', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(spotFormData),
+    });
+
+    const newSpot = await res.json();
+    dispatch(createSpot(newSpot));
+    return newSpot;
+
+  } catch (e) {
+    const errors = await res.json();
+    return errors;
+
+  }
 }
 
 /*----------------GET ALL SPOTS ----------------------*/
@@ -144,17 +147,17 @@ export const fetchDeleteSpot = (spotId) => async (dispatch) => {
 
 
 
-const initialState = { spots: {} , userSpots: {}}
+const initialState = { spots: {} , userSpots: {}, singleSpot: {}}
 
 //reducer
 const spotsReducer = (state = initialState, action) => {
     switch(action.type){
         case CREATE_SPOT: {
-          // const newState = {...state}
+          const newState = {...state, singleState: {...state.singleSpot}}
           const newSpot = action.payload
-          // newState[action.payload.id] = newSpot
-          // return newState
-          return {...state, spots:{...state.spots, [newSpot.id]: newSpot}}
+          newState.singleSpot[newSpot.id] = newSpot
+          return newState
+          // return {...state, singleSpot:{[newSpot.id]: newSpot}}
         }
         case GET_SPOT_BY_ID: {
             const newState = { ...state };
