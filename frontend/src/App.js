@@ -29,8 +29,7 @@ function App() {
           <Spots />
         </Route>
         <Route exact path="/spots/" >
-          {/* <NewSpot /> */}
-          <h2>create new spot, dont forget to import component at top</h2>
+          <NewSpot />
         </Route>
         <Route path="/spots/current">
           <UserSpots />

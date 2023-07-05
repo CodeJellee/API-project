@@ -22,7 +22,7 @@ const Spots = () => {
         <div id="spots-container">
           {spots.map((spot) => (
             <div key={spot.id} id="spots-item">
-              <NavLink to={`/spots/${spot.id}`} id="spots-link">
+              <NavLink to={`/spots/${spot.id}`} id="spots-link" title={spot.name}>
                 <EachSpot spot={spot}/>
               </NavLink>
             </div>

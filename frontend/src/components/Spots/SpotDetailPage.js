@@ -22,12 +22,16 @@ const SpotId = () => {
 
     if(!spots) return null //NEED THIS, bc will cause error w/ refresh
 
+    const handleReserveClick = () => {
+      alert("Feature coming soon");
+    };
+
     return (
     <>
         <div id="spot-details-container">
           <h1>{spots.name}</h1>
           <h2>{spots.city}, {spots.state}, {spots.country}</h2>
-          <div>
+          <div id='spot-images'>
             {spots.SpotImages.map((spot) => (
                 <img id={spots.SpotImages[spots.SpotImages.indexOf(spot)].id} src={spots.SpotImages[spots.SpotImages.indexOf(spot)].url}></img>
             ))}
@@ -53,7 +57,7 @@ const SpotId = () => {
 
                   </div>
                 </div>
-                <button>Reserve</button>
+                <button onClick={handleReserveClick}>Reserve</button>
             </div>
             <div>
                 <h3>add a line here to seprate above and start of below</h3>
