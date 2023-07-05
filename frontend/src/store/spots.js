@@ -169,11 +169,11 @@ const spotsReducer = (state = initialState, action) => {
           });
           return newState; //getting back an obj of arrays
       }
-      case CLEAR_SPOTS_BY_USER:{
-        const newState = {...state}
-        newState.userSpots = {}
-        return newState
-      }
+        case CLEAR_SPOTS_BY_USER:{
+          const newState = {...state}
+          newState.userSpots = {}
+          return newState
+        }
         case GET_ALL_SPOTS: {
             const newState = { ...state };
             const spots = action.payload.Spots;
@@ -188,9 +188,7 @@ const spotsReducer = (state = initialState, action) => {
         //     };
         case DELETE_SPOT:
           const newState = {...state};
-          console.log('NEWSATE', newState)
           const spotId = action.payload
-          console.log('WHAT IS THIS SPOTID', spotId)
           delete newState.userSpots[spotId];
           return newState;
         default:

@@ -53,20 +53,41 @@ const SpotId = () => {
                       {!spots.avgRating && <div id="each-spot-avgRating">★ New</div>}
                   </div>
                   <div>
-                    · {spots.numReviews} reviews
-
+                    {
+                      (() => {
+                        if (spots.numReviews === 1) {
+                          return <div id="each-spot-reviews"> · {spots.numReviews} Review</div>;
+                        } else if (spots.numReviews > 1) {
+                          return <div id="each-spot-reviews"> · {spots.numReviews} Reviews</div>;
+                        } else {
+                          return <div id="each-spot-reviews"></div>;
+                        }
+                      })()
+                    }
                   </div>
                 </div>
                 <button onClick={handleReserveClick}>Reserve</button>
             </div>
             <div>
-                <h3>add a line here to seprate above and start of below</h3>
+                <h3>add a line here to separate above and start of below</h3>
                 <div>
                     {spots.avgRating && (
                         <div id="each-spot-avgRating">★ {spots.avgRating.toFixed(1)}</div>
                       )}
                     {!spots.avgRating && <div id="each-spot-avgRating">★ New</div>}
-                    <div>· {spots.numReviews} reviews</div>
+                    <div>
+                    {
+                      (() => {
+                        if (spots.numReviews === 1) {
+                          return <div id="each-spot-reviews"> · {spots.numReviews} Review</div>;
+                        } else if (spots.numReviews > 1) {
+                          return <div id="each-spot-reviews"> · {spots.numReviews} Reviews</div>;
+                        } else {
+                          return <div id="each-spot-reviews"></div>;
+                        }
+                      })()
+                    }
+                  </div>
                   </div>
             </div>
           </div>
