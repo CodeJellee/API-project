@@ -74,24 +74,24 @@ const NewSpotForm = () => {
             errorsObject.previewImage = "Preview image is required."
         }
 
-        if(previewImage && previewImage.endsWith('.png') || previewImage.endsWith('.jpg') || previewImage.endsWith('.jpeg')) {
+        if(previewImage && !(previewImage.endsWith('.png') || previewImage.endsWith('.jpg') || previewImage.endsWith('.jpeg'))) {
             errorsObject.previewImage = "Preview image must end in .png, .jpg, or .jpeg"
         }
 
-        if(imageOne && imageOne.endsWith('.png') || imageOne.endsWith('.jpg') || imageOne.endsWith('.jpeg')) {
-            errorsObject.images = "Images must end in .png, .jpg, or .jpeg"
+        if(imageOne && !(imageOne.endsWith('.png') || imageOne.endsWith('.jpg') || imageOne.endsWith('.jpeg'))) {
+            errorsObject.imageOne = "Images must end in .png, .jpg, or .jpeg"
         }
 
-        if(imageTwo && imageTwo.endsWith('.png') || imageTwo.endsWith('.jpg') || imageTwo.endsWith('.jpeg')) {
-            errorsObject.images = "Images must end in .png, .jpg, or .jpeg"
+        if(imageTwo && !(imageTwo.endsWith('.png') || imageTwo.endsWith('.jpg') || imageTwo.endsWith('.jpeg'))) {
+            errorsObject.imageTwo = "Images must end in .png, .jpg, or .jpeg"
         }
 
-        if(imageThree && imageThree.endsWith('.png') || imageThree.endsWith('.jpg') || imageThree.endsWith('.jpeg')) {
-            errorsObject.images = "Images must end in .png, .jpg, or .jpeg"
+        if(imageThree && !(imageThree.endsWith('.png') || imageThree.endsWith('.jpg') || imageThree.endsWith('.jpeg'))) {
+            errorsObject.imageThree = "Images must end in .png, .jpg, or .jpeg"
         }
 
-        if(imageFour && imageFour.endsWith('.png') || imageFour.endsWith('.jpg') || imageFour.endsWith('.jpeg')) {
-            errorsObject.images = "Images must end in .png, .jpg, or .jpeg"
+        if(imageFour && !(imageFour.endsWith('.png') || imageFour.endsWith('.jpg') || imageFour.endsWith('.jpeg'))) {
+            errorsObject.imageFour = "Images must end in .png, .jpg, or .jpeg"
         }
 
         if (Object.values(errorsObject).length) return setErrors(errorsObject) // if there are any errors, stop here and return the errors
@@ -256,6 +256,7 @@ const NewSpotForm = () => {
                             />
                         </label>
                         {submitted && errors.imageOne && <p className="errors">{errors.imageOne}</p>}
+                        <br></br>
                         <label>
                             <input
                             type="text"
@@ -266,6 +267,7 @@ const NewSpotForm = () => {
                             />
                         </label>
                         {submitted && errors.imageTwo && <p className="errors">{errors.imageTwo}</p>}
+                        <br></br>
                         <label>
                             <input
                             type="text"
@@ -276,6 +278,7 @@ const NewSpotForm = () => {
                             />
                         </label>
                         {submitted && errors.imageThree && <p className="errors">{errors.imageThree}</p>}
+                        <br></br>
                         <label>
                             <input
                             type="text"
@@ -291,7 +294,6 @@ const NewSpotForm = () => {
             </div>
             <button
             type="submit"
-            // disabled={!previewImage || !(previewImage.endsWith(".png") || previewImage.endsWith(".jpg") || previewImage.endsWith(".jpeg"))}
             >
             Create Spot
             </button>
