@@ -17,6 +17,7 @@ const Spots = () => {
       dispatch(fetchGetAllSpots());
     }, [dispatch]);
 
+
     return (
     <>
         <div id="spots-container">

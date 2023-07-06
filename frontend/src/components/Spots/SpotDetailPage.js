@@ -34,7 +34,8 @@ const SpotId = () => {
           <h2>{spots.city}, {spots.state}, {spots.country}</h2>
           <div id='spot-images'>
             {spots.SpotImages.map((spot) => (
-                <img id={spots.SpotImages[spots.SpotImages.indexOf(spot)].id} src={spots.SpotImages[spots.SpotImages.indexOf(spot)].url}></img>
+                // <img id={spots.SpotImages[spots.SpotImages.indexOf(spot)].id} src={spots.SpotImages[spots.SpotImages.indexOf(spot)].url}></img>
+                  <img id={spot.id} src={spot.url}/>
             ))}
           </div>
           <div>

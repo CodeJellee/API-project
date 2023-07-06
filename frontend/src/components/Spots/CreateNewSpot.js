@@ -96,7 +96,9 @@ const NewSpotForm = () => {
 
         if (Object.values(errorsObject).length) return setErrors(errorsObject) // if there are any errors, stop here and return the errors
 
-        const images =[previewImage, imageOne, imageTwo, imageThree, imageFour] //created an array of the images provided
+        let images =[previewImage, imageOne, imageTwo, imageThree, imageFour] //created an array of the images provided
+
+        images = images.filter(image => !!image) //empty strings in images array is messing up the await? so need the filter this way
 
         console.log('IMAGES IN TE CREATENEWSPOT COMPONENET', images)
         let payload = {
@@ -114,13 +116,6 @@ const NewSpotForm = () => {
         let fetchResponseFromThunk = await dispatch(fetchCreateSpot(payload, images)); //fetch response will return and obj of errors or newly created spotsId
         console.log('WHAT IS THIS- this is the new spot id for the new spot created', fetchResponseFromThunk.id)
         history.push(`/spots/${fetchResponseFromThunk.id}`)
-
-
-        // if (fetchResponseFromThunk.errors) { //this will catch errors, will correlate to the thunk in spots
-        //     setErrors(fetchResponseFromThunk.errors)
-        // } else {
-        //     history.push(`/spots/${fetchResponseFromThunk}`) //the fetchResponseFromThunk will be the key
-        // }
 
     }
 

@@ -6,11 +6,11 @@ import {csrfFetch} from './csrf'
 
 //action type- CRUD
 const CREATE_SPOT = 'spots/createSpot'
-const CREATE_IMAGE = 'spots/createImage'
 const GET_SPOT_BY_ID = 'spots/getSpotById'
 const GET_ALL_SPOTS = 'spots/getAllSpots'
 const GET_SPOTS_BY_USER = 'spots/getSpotsByUser'
 const CLEAR_SPOTS_BY_USER ='spots/clearSpotsByUser'
+// const CLEAR_DELETED_SPOT = 'spots/clearDeleteSpot'
 // const UPDATE_SPOT = 'spots/updateSpot'
 const DELETE_SPOT = 'spots/deleteSpot'
 
@@ -19,11 +19,6 @@ const createSpot = (newSpot) => ({
     type: CREATE_SPOT,
     payload: newSpot
 });
-
-const createImage = (newImages, spotId) => ({
-  type: CREATE_IMAGE,
-  payload: newImages, spotId
-})
 
 const getSpotById = (spotId) => ({
     type: GET_SPOT_BY_ID,
@@ -44,6 +39,9 @@ export const actionClearSpotsByUser = () => ({
   type: CLEAR_SPOTS_BY_USER
 })
 
+// export const actionClearDeleteSpot = () => ({
+//   type: CLEAR_DELETED_SPOT
+// })
 // const updateSpot = () => ({
 //     type: UPDATE_SPOT,
 //     // payload
@@ -81,7 +79,9 @@ export const fetchCreateSpot = (payload, images) => async (dispatch) => {
       }
     }
     let newGetFetch = await csrfFetch(`/api/spots/${newSpot.id}`)
+    console.log('NEWSPOT', newSpot)
     const getSpotsByIdDetails = await newGetFetch.json();
+    console.log('GETSPOTSBYIDDETAILS',getSpotsByIdDetails)
     dispatch(getSpotById(getSpotsByIdDetails));
     return getSpotsByIdDetails;
 
@@ -92,53 +92,6 @@ export const fetchCreateSpot = (payload, images) => async (dispatch) => {
 
   }
 }
-
-
-
-/*----------------CREATE A SPOT ADD IMAGES ----------------*/
-//create imagefetch thunk
-//pass in obj of images {url, previewImage} --> what each obj img should look like or array?
-//will then interate through it via for loop, and for each image obj, pass it in and do a fetch request to create the image
-//fetch getSpotById action, then spot.json() and dispatch to load action
-//below should alredy by formatted by teh get fetch
-//create numReview = 0
-//avgRating null
-
-// export const fetchCreateImage = () => async (dispatch) => {
-//   console.log('IS THIS IMAGE', image)
-//   if (image) {
-//     spot.SpotImages = [];
-//     for (let i = 0; i < image.length; i++){
-//       if (image.url) {
-//         const response = await csrfFetch(`/api/spots/${spot.id}/images`, {
-//           method: "POST",
-//           headers: {"Content-Type": "application/json"},
-//           body: JSON.stringify({
-//             url: image[i].url
-//           }),
-//         })
-//         const newImage = await response.json();
-//         spot.SpotImages.push(newImage);
-//         console.log('IS THIS NEWIMAGE', newImage)
-//       }
-//     }
-//   }
-//   dispatch(fetchGetSpotById(spot));
-//   return spot.id
-// }
-
-
-// export const fetchCreateImage = (spotId) => async (dispatch) => {
-//   const res = await csrfFetch(`/api/spots/${spotId}/images`)
-
-//   if (res.ok) {
-//     const getAddedImages = await res.json();
-//     dispatch(createImage(getAddedImages));
-//   } else {
-//     const errors = await res.json();
-//     return errors;
-//   }
-// }
 
 
 
@@ -209,7 +162,8 @@ export const fetchDeleteSpot = (spotId) => async (dispatch) => {
     });
 
     if (res.ok) {
-      dispatch(deleteSpot(spotId));
+      dispatch(deleteSpot(spotId))
+      return true;
     } else {
       const errors = await res.json();
       return errors;
@@ -262,14 +216,22 @@ const spotsReducer = (state = initialState, action) => {
         //     return {
 
         //     };
+        // case CLEAR_DELETED_SPOT:{
+        //   const newState = {...state, singleSpot: {...state.singleSpot}}
+        //   newState.singleSpot = {}
+        //   return newState
+        // }
         case DELETE_SPOT:
           const newState = {...state};
           const spotId = action.payload
-          delete newState.userSpots[spotId];
-          return newState;
+          delete newState.spots[spotId]
+          delete newState.userSpots[spotId]
+          newState.singleSpot = {}
+          return newState
         default:
             return state;
     }
+
 }
 
 export default spotsReducer;

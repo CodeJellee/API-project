@@ -3,6 +3,8 @@ import React from "react";
 import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
 import { fetchDeleteSpot } from "../../store/spots";
+// import { actionClearDeleteSpot } from "../../store/spots";
+import { useEffect } from "react";
 
 
 
@@ -17,6 +19,10 @@ function DeleteSpotModal({spotId}) {
         dispatch(fetchDeleteSpot(spotId))
         .then(closeModal)
     }
+
+    // useEffect(() => {
+    // return () => dispatch(actionClearDeleteSpot())
+    // }, [dispatch])
 
 
 

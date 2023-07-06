@@ -20,9 +20,9 @@ const UserSpots = () => {
       dispatch(fetchGetSpotsByUser());
     }, [dispatch]);
 
-    useEffect(() => {
-        return () => dispatch(actionClearSpotsByUser())
-    }, [dispatch])
+    // useEffect(() => {
+    //     return () => dispatch(actionClearSpotsByUser())
+    // }, [dispatch])
 
     return (
         <>

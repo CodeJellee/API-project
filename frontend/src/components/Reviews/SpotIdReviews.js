@@ -23,17 +23,20 @@ const reviews = useSelector((state) => Object.values(state.reviews)); //changing
 
 return (
     <>
-        {reviews.map((review) => (
-            <div key={review.id}>
-                <p>{review.User.firstName}</p>
-                <p>{review.createdAt}</p>
-                <p>{review.review}</p>
-            </div>
+        {reviews.map((review) => {
+            const reviewCreatedAt = new Date(review.createdAt);
+            const options = { year: 'numeric', month: 'long' };
+            const formattedDate = reviewCreatedAt.toLocaleDateString('en-US', options);
 
-        ))}
+            return (
+                <div key={review.id}>
+                    <p>{review.User.firstName}</p>
+                    <p>{formattedDate}</p>
+                    <p>{review.review}</p>
+                </div>
+            );
+        })}
     </>
-
-
 );
 }
 
