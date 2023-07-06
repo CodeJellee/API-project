@@ -9,17 +9,20 @@ import './Reviews.css';
 
 
 const ReviewsBySpotId = () => {
- let {spotId} = useParams();
- const sessionUser = useSelector(state => state.session.user);
+    let {spotId} = useParams();
+    const sessionUser = useSelector(state => state.session.user);
 
- const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
- useEffect(() => {
-    dispatch(fetchGetReviewsBySpotId(spotId));
-}, [dispatch]);
+    useEffect(() => {
+        dispatch(fetchGetReviewsBySpotId(spotId));
 
-const reviews = useSelector((state) => Object.values(state.reviews)); //changing into an array
-//dont forget map through it within the return
+
+    }, [dispatch]);
+
+    const reviews = useSelector((state) => Object.values(state.reviews)); //changing into an array
+    //dont forget map through it within the return
+
 
 
 // if(!reviews) return null //NEED THIS, bc will cause error w/ refresh
@@ -35,7 +38,7 @@ return (
         const deleteButton = isUserReview ? (
           <OpenModalButton
             buttonText="Delete"
-            modalComponent={<DeleteReviewModal reviewId={review.id} />}
+            modalComponent={<DeleteReviewModal reviewId={review.id} spotId={review.spotId} />}
           />
         ) : null;
 

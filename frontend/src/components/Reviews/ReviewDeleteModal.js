@@ -10,18 +10,22 @@ import { useEffect } from "react";
 
 
 
-function DeleteReviewModal({reviewId}) {
+function DeleteReviewModal({reviewId, spotId}) {
     const reviewObject = useSelector(state => state.reviews)
     const { closeModal } = useModal()
     const dispatch = useDispatch()
 
+
     const onClick = (e) => {
         e.preventDefault();
         dispatch(fetchDeleteReview(reviewId))
+        .then (() => dispatch(fetchGetSpotById(spotId)))
         .then(closeModal)
     }
 
-    console.log('IS THIS AN ARRAY', Object.keys(reviewObject))
+
+    // console.log('IS THIS AN ARRAY', Object.keys(reviewObject))
+
     // useEffect(() => {
     // dispatch(fetchGetSpotById(reviewObject.spotId))
     // }, [dispatch])

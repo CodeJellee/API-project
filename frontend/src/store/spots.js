@@ -11,7 +11,7 @@ const GET_ALL_SPOTS = 'spots/getAllSpots'
 const GET_SPOTS_BY_USER = 'spots/getSpotsByUser'
 const CLEAR_SPOTS_BY_USER ='spots/clearSpotsByUser'
 // const CLEAR_DELETED_SPOT = 'spots/clearDeleteSpot'
-// const UPDATE_SPOT = 'spots/updateSpot'
+const UPDATE_SPOT = 'spots/updateSpot'
 const DELETE_SPOT = 'spots/deleteSpot'
 
 // action function
@@ -42,10 +42,10 @@ export const actionClearSpotsByUser = () => ({
 // export const actionClearDeleteSpot = () => ({
 //   type: CLEAR_DELETED_SPOT
 // })
-// const updateSpot = () => ({
-//     type: UPDATE_SPOT,
-//     // payload
-// });
+const updateSpot = (updateData) => ({
+    type: UPDATE_SPOT,
+    payload: updateData
+});
 
 const deleteSpot = (spotId) => ({
     type: DELETE_SPOT,
@@ -79,9 +79,7 @@ export const fetchCreateSpot = (payload, images) => async (dispatch) => {
       }
     }
     let newGetFetch = await csrfFetch(`/api/spots/${newSpot.id}`)
-    console.log('NEWSPOT', newSpot)
     const getSpotsByIdDetails = await newGetFetch.json();
-    console.log('GETSPOTSBYIDDETAILS',getSpotsByIdDetails)
     dispatch(getSpotById(getSpotsByIdDetails));
     return getSpotsByIdDetails;
 
