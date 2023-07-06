@@ -10,7 +10,6 @@ const GET_SPOT_BY_ID = 'spots/getSpotById'
 const GET_ALL_SPOTS = 'spots/getAllSpots'
 const GET_SPOTS_BY_USER = 'spots/getSpotsByUser'
 const CLEAR_SPOTS_BY_USER ='spots/clearSpotsByUser'
-// const CLEAR_DELETED_SPOT = 'spots/clearDeleteSpot'
 const UPDATE_SPOT = 'spots/updateSpot'
 const DELETE_SPOT = 'spots/deleteSpot'
 
@@ -39,12 +38,9 @@ export const actionClearSpotsByUser = () => ({
   type: CLEAR_SPOTS_BY_USER
 })
 
-// export const actionClearDeleteSpot = () => ({
-//   type: CLEAR_DELETED_SPOT
-// })
-const updateSpot = (updateData) => ({
+const updateSpot = (updateSpot) => ({
     type: UPDATE_SPOT,
-    payload: updateData
+    payload: updateSpot
 });
 
 const deleteSpot = (spotId) => ({
@@ -66,7 +62,6 @@ export const fetchCreateSpot = (payload, images) => async (dispatch) => {
     //add another fetch to get the images
     newSpot =  await newSpot.json();
     if(newSpot) {
-      console.log('IMAGES RETURN IN THUNK', images)
       for (let i = 0; i <images.length; i++) {
         let newImage = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
           method:'POST',
@@ -135,23 +130,40 @@ export const fetchGetSpotsByUser = () => async (dispatch) => {
   };
 
 /*----------------UPDATE SPOT ----------------------*/
-// export const fetchUpdateSpot = (spot) => async (dispatch) => {
-//     const res = await csrfFetch(`/api/spots/${spot.id}`, {
-//       method: 'PUT',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify(spot),
-//     });
+export const fetchUpdateSpot = (payload, images, spotId) => async (dispatch) => {
 
-//     if (res.ok) {
-//       const updatedSpot = await res.json();
-//       dispatch(updateSpot(updatedSpot));
-//       return updatedSpot;
-//     } else {
-//       const errors = await res.json();
-//       return errors;
-//     }
-//   };
+  try {
+    let spotUpdate = await csrfFetch(`/api/spots/${spotId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
 
+    spotUpdate =  await spotUpdate.json();
+    if(spotUpdate) {
+
+      for (let i = 0; i <images.length; i++) {
+        let newImage = await csrfFetch(`/api/spots/${spotUpdate.id}/images`, {
+          method:'PUT',
+          body: JSON.stringify({
+            preview: i === 0 ? true : false,
+            url: images[i]
+          })
+        });
+      }
+    }
+    let newGetFetch = await csrfFetch(`/api/spots/${spotUpdate.id}`)
+    const getSpotsByIdDetails = await newGetFetch.json();
+    dispatch(getSpotById(getSpotsByIdDetails));
+    return getSpotsByIdDetails;
+
+
+  } catch (e) {
+    // const errors = await e.json();
+    // return errors;
+
+  }
+}
 
 /*----------------DELETE SPOT ----------------------*/
 export const fetchDeleteSpot = (spotId) => async (dispatch) => {
@@ -177,12 +189,10 @@ const spotsReducer = (state = initialState, action) => {
     switch(action.type){
         case CREATE_SPOT: {
           const newState = {...state, singleSpot: {...state.singleSpot}}
-          console.log('WHAT IS THE NEWSTATE', newState)
           const newSpot = action.payload
           newState.spots[newSpot.id] = newSpot
           newState.singleSpot = newSpot; //need this for the redirection bc will pull from singleSpot
           return newState
-          // return {...state, singleSpot:{[newSpot.id]: newSpot}}
         }
         case GET_SPOT_BY_ID: {
             const newState = { ...state };
@@ -210,15 +220,13 @@ const spotsReducer = (state = initialState, action) => {
             });
             return newState;
           }
-        // case UPDATE_SPOT:
-        //     return {
-
-        //     };
-        // case CLEAR_DELETED_SPOT:{
-        //   const newState = {...state, singleSpot: {...state.singleSpot}}
-        //   newState.singleSpot = {}
-        //   return newState
-        // }
+          case UPDATE_SPOT: {
+            const newState = {...state, singleSpot: {...state.singleSpot}}
+            const newSpot = action.payload
+            newState.spots[newSpot.id] = newSpot
+            newState.singleSpot = newSpot; //need this for the redirection bc will pull from singleSpot
+            return newState
+          }
         case DELETE_SPOT:
           const newState = {...state};
           const spotId = action.payload

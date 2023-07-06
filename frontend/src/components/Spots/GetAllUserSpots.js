@@ -7,8 +7,10 @@ import DeleteSpotModal from "./DeleteSpotModal";
 import OpenModalButton from "../OpenModalButton"
 
 
+
 import EachSpot from "./GetAllSpots";
 import './Spots.css';
+import UpdateSpotForm from "./UpdateSpot";
 
 
 const UserSpots = () => {
@@ -35,6 +37,11 @@ const UserSpots = () => {
                                 <EachSpot spot={spot}/>
                             </NavLink>
                             <div>
+                            <button >
+                            <NavLink exact to={`/spots/${spot.id}/edit`}>
+                                Update
+                            </NavLink>
+                            </button>
                             <OpenModalButton
                                 buttonText="Delete"
                                 modalComponent={<DeleteSpotModal spotId={spot.id} />}

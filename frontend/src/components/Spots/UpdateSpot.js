@@ -2,12 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import {useHistory} from 'react-router-dom';
+import { fetchUpdateSpot } from "../../store/spots";
 import {fetchCreateSpot} from "../../store/spots";
 import * as spotsActions from '../../store/spots'
 import './Spots.css';
 
 
-const NewSpotForm = () => {
+const UpdateSpotForm = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const spotId = useSelector(state => state.spots.singleSpot);
@@ -112,7 +113,7 @@ const NewSpotForm = () => {
             price: Number(price)
         }
 
-        let fetchResponseFromThunk = await dispatch(fetchCreateSpot(payload, images)); //fetch response will return and obj of errors or newly created spotsId
+        let fetchResponseFromThunk = await dispatch(fetchUpdateSpot(payload, images, spotId)); //fetch response will return and obj of errors or newly created spotsId
         // console.log('WHAT IS THIS- this is the new spot id for the new spot created', fetchResponseFromThunk.id)
         history.push(`/spots/${fetchResponseFromThunk.id}`)
 
@@ -294,4 +295,4 @@ const NewSpotForm = () => {
     )
 };
 
-export default NewSpotForm
+export default UpdateSpotForm
