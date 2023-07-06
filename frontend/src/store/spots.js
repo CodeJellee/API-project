@@ -68,18 +68,24 @@ export const fetchCreateSpot = (payload, images) => async (dispatch) => {
     //add another fetch to get the images
     newSpot =  await newSpot.json();
     if(newSpot) {
-      let newImage = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
-        method:'POST',
-        body: JSON.stringify({
-          preview: true,
-          url: images
-        })
-      });
+      console.log('IMAGES RETURN IN THUNK', images)
+      for (let i = 0; i <images.length; i++) {
+        let newImage = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+          method:'POST',
+          body: JSON.stringify({
+            preview: i === 0 ? true : false,
+            url: images[i]
+          })
+        });
+
+      }
     }
-      // const newSpot = await res.json(); //can pass newSpot into the other thunk
-      // const newSpotId = newSpot.id
-      // dispatch(fetchCreateImage(newSpot))
-      // return newSpotId
+    let newGetFetch = await csrfFetch(`/api/spots/${newSpot.id}`)
+    const getSpotsByIdDetails = await newGetFetch.json();
+    dispatch(getSpotById(getSpotsByIdDetails));
+    return getSpotsByIdDetails;
+
+
   } catch (e) {
     const errors = await e.json();
     return errors;
@@ -219,6 +225,7 @@ const spotsReducer = (state = initialState, action) => {
     switch(action.type){
         case CREATE_SPOT: {
           const newState = {...state, singleSpot: {...state.singleSpot}}
+          console.log('WHAT IS THE NEWSTATE', newState)
           const newSpot = action.payload
           newState.spots[newSpot.id] = newSpot
           newState.singleSpot = newSpot; //need this for the redirection bc will pull from singleSpot

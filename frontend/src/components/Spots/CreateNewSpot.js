@@ -98,6 +98,7 @@ const NewSpotForm = () => {
 
         const images =[previewImage, imageOne, imageTwo, imageThree, imageFour] //created an array of the images provided
 
+        console.log('IMAGES IN TE CREATENEWSPOT COMPONENET', images)
         let payload = {
             address,
             city,
@@ -110,11 +111,9 @@ const NewSpotForm = () => {
             price: Number(price)
         }
 
-        let fetchResponseFromThunk = await dispatch(fetchCreateSpot(payload)); //fetch response will return and obj of errors or newly created spotsId
-        // console.log('WHAT IS THIS- this is the new spot id for the new spot created', createdSpot)
-
-        const newSpot = await dispatch(fetchCreateSpot(payload, images))
-        history.push(`/spots/${fetchResponseFromThunk}`)
+        let fetchResponseFromThunk = await dispatch(fetchCreateSpot(payload, images)); //fetch response will return and obj of errors or newly created spotsId
+        console.log('WHAT IS THIS- this is the new spot id for the new spot created', fetchResponseFromThunk.id)
+        history.push(`/spots/${fetchResponseFromThunk.id}`)
 
 
         // if (fetchResponseFromThunk.errors) { //this will catch errors, will correlate to the thunk in spots
