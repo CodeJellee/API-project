@@ -322,6 +322,7 @@ router.post('/:spotId/images', requireAuth, async(req, res, next) => {
     let addPhoto = await Spot.findByPk(req.params.spotId)
     const { url, preview } = req.body
 
+
     if(!addPhoto || userId !== addPhoto.ownerId || addPhoto === null){ //changed req.user.id to userId
         res.status(404)
         return res.json({
