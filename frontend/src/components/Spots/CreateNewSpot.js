@@ -10,7 +10,7 @@ import './Spots.css';
 const NewSpotForm = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const spotId = useSelector(state => state.spots.fetchCreateSpot);
+    const spotId = useSelector(state => state.spots.singleSpot);
 
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
@@ -28,32 +28,37 @@ const NewSpotForm = () => {
     const [imageFour, setImageFour] = useState("")
 
     const [errors, setErrors] = useState({});
+    const [submitted, setSubmitted] = useState(false)
 
 
-    useEffect(() => {
+
+    const onSubmit = async(e) => {
+        e.preventDefault()
+        setSubmitted(true);
+
         const errorsObject = {}
 
-        if(!address) {
+        if(address === "") {
             errorsObject.address = "Address is required."
         }
 
-        if(!city) {
+        if(city === "") {
             errorsObject.city = "City is required."
         }
 
-        if(!state) {
+        if(state === "") {
             errorsObject.state = "State is required."
         }
 
-        if(!country) {
+        if(country === "") {
             errorsObject.country = "Country is required."
         }
 
-        if(!name) {
+        if(name === "") {
             errorsObject.name = "Name is required."
         }
 
-        if(!description) {
+        if(description === "") {
             errorsObject.description = "Description is required."
         }
 
@@ -61,45 +66,65 @@ const NewSpotForm = () => {
             errorsObject.description = "Description needs 30 or more characters."
         }
 
-        if(!price) {
+        if(price === "") {
             errorsObject.price = "Price is required."
         }
 
-        if(!previewImage) {
+        if(previewImage === "") {
             errorsObject.previewImage = "Preview image is required."
         }
 
-        setErrors(errorsObject)
-    }, [address, city, state, country, name, description, price, previewImage, imageOne, imageTwo, imageThree, imageFour])
+        if(previewImage && previewImage.endsWith('.png') || previewImage.endsWith('.jpg') || previewImage.endsWith('.jpeg')) {
+            errorsObject.previewImage = "Preview image must end in .png, .jpg, or .jpeg"
+        }
 
+        if(imageOne && imageOne.endsWith('.png') || imageOne.endsWith('.jpg') || imageOne.endsWith('.jpeg')) {
+            errorsObject.images = "Images must end in .png, .jpg, or .jpeg"
+        }
 
-    function onSubmit(e){
-        e.preventDefault()
+        if(imageTwo && imageTwo.endsWith('.png') || imageTwo.endsWith('.jpg') || imageTwo.endsWith('.jpeg')) {
+            errorsObject.images = "Images must end in .png, .jpg, or .jpeg"
+        }
 
-        const payload ={
+        if(imageThree && imageThree.endsWith('.png') || imageThree.endsWith('.jpg') || imageThree.endsWith('.jpeg')) {
+            errorsObject.images = "Images must end in .png, .jpg, or .jpeg"
+        }
+
+        if(imageFour && imageFour.endsWith('.png') || imageFour.endsWith('.jpg') || imageFour.endsWith('.jpeg')) {
+            errorsObject.images = "Images must end in .png, .jpg, or .jpeg"
+        }
+
+        if (Object.values(errorsObject).length) return setErrors(errorsObject) // if there are any errors, stop here and return the errors
+
+        const images =[previewImage, imageOne, imageTwo, imageThree, imageFour] //created an array of the images provided
+
+        let payload = {
             address,
             city,
             state,
             country,
+            lat: 19.9403,
+            lng: -33.2930,
             name,
             description,
-            price,
-            previewImage,
-            imageOne,
-            imageTwo,
-            imageThree,
-            imageFour
+            price: Number(price)
         }
 
-        let createdSpot;
+        let fetchResponseFromThunk = await dispatch(fetchCreateSpot(payload)); //fetch response will return and obj of errors or newly created spotsId
+        // console.log('WHAT IS THIS- this is the new spot id for the new spot created', createdSpot)
 
-        if (createdSpot.errors) { //this will catch errors, will correlate to the thunk in spots
-            setErrors(createdSpot.errors)
-        } else {
-            history.push(`/spots/${createdSpot.id}`)
+        const newSpot = await dispatch(fetchCreateSpot(payload, images))
+        history.push(`/spots/${fetchResponseFromThunk}`)
 
-        }
+
+        // if (fetchResponseFromThunk.errors) { //this will catch errors, will correlate to the thunk in spots
+        //     setErrors(fetchResponseFromThunk.errors)
+        // } else {
+        //     history.push(`/spots/${fetchResponseFromThunk}`) //the fetchResponseFromThunk will be the key
+        // }
+
     }
+
 
 
     return (
@@ -120,7 +145,7 @@ const NewSpotForm = () => {
                         onChange={(e) => setCountry(e.target.value)}
                     />
                 </label>
-                {errors.country && <p className="errors">{errors.country}</p>}
+                {submitted && errors.country && <p className="errors">{errors.country}</p>}
                 <br></br>
                 <label>
                     Street Address
@@ -133,7 +158,7 @@ const NewSpotForm = () => {
                         onChange={(e) => setAddress(e.target.value)}
                     />
                     </label>
-                    {errors.address && <p className="errors">{errors.address}</p>}
+                    {submitted && errors.address && <p className="errors">{errors.address}</p>}
                     <br></br>
                     <label>
                         City
@@ -146,7 +171,7 @@ const NewSpotForm = () => {
                         onChange={(e) => setCity(e.target.value)}
                         />
                     </label>
-                    {errors.city && <p className="errors">{errors.city}</p>}
+                    {submitted && errors.city && <p className="errors">{errors.city}</p>}
                     <br></br>
                     <label>
                         State
@@ -159,7 +184,7 @@ const NewSpotForm = () => {
                         onChange={(e) => setState(e.target.value)}
                         />
                     </label>
-                    {errors.state && <p className="errors">{errors.state}</p>}
+                    {submitted && errors.state && <p className="errors">{errors.state}</p>}
                 </div>
 
                 <div id="spot-description-container">
@@ -174,7 +199,7 @@ const NewSpotForm = () => {
                         onChange={(e) => setDescription(e.target.value)}
                         />
                     </label>
-                    {errors.description && <p className="errors">{errors.description}</p>}
+                    {submitted && errors.description && <p className="errors">{errors.description}</p>}
                 </div>
 
                 <div id="spot-title-container">
@@ -189,7 +214,7 @@ const NewSpotForm = () => {
                         onChange={(e) => setName(e.target.value)}
                         />
                     </label>
-                    {errors.name && <p className="errors">{errors.name}</p>}
+                    {submitted && errors.name && <p className="errors">{errors.name}</p>}
                 </div>
 
                 <div id="spot-price-container">
@@ -204,7 +229,7 @@ const NewSpotForm = () => {
                         onChange={(e) => setPrice(e.target.value)}
                         />
                     </label>
-                    {errors.price && <p className="errors">{errors.price}</p>}
+                    {submitted && errors.price && <p className="errors">{errors.price}</p>}
                 </div>
 
                 <div id="spot-photos-container">
@@ -219,7 +244,7 @@ const NewSpotForm = () => {
                         onChange={(e) => setPreviewImage(e.target.value)}
                         />
                     </label>
-                    {errors.previewImage && <p className="errors">{errors.previewImage}</p>}
+                    {submitted && errors.previewImage && <p className="errors">{errors.previewImage}</p>}
                     <div id="upload-images">
                         <label>
                             <input
@@ -230,7 +255,7 @@ const NewSpotForm = () => {
                             onChange={(e) => setImageOne(e.target.value)}
                             />
                         </label>
-                        {errors.imageOne && <p className="errors">{errors.imageOne}</p>}
+                        {submitted && errors.imageOne && <p className="errors">{errors.imageOne}</p>}
                         <label>
                             <input
                             type="text"
@@ -240,7 +265,7 @@ const NewSpotForm = () => {
                             onChange={(e) => setImageTwo(e.target.value)}
                             />
                         </label>
-                        {errors.imageTwo && <p className="errors">{errors.imageTwo}</p>}
+                        {submitted && errors.imageTwo && <p className="errors">{errors.imageTwo}</p>}
                         <label>
                             <input
                             type="text"
@@ -250,7 +275,7 @@ const NewSpotForm = () => {
                             onChange={(e) => setImageThree(e.target.value)}
                             />
                         </label>
-                        {errors.imageThree && <p className="errors">{errors.imageThree}</p>}
+                        {submitted && errors.imageThree && <p className="errors">{errors.imageThree}</p>}
                         <label>
                             <input
                             type="text"
@@ -260,14 +285,15 @@ const NewSpotForm = () => {
                             onChange={(e) => setImageFour(e.target.value)}
                             />
                         </label>
-                        {errors.imageFour && <p className="errors">{errors.imageFour}</p>}
+                        {submitted && errors.imageFour && <p className="errors">{errors.imageFour}</p>}
                     </div>
                 </div>
             </div>
             <button
             type="submit"
+            // disabled={!previewImage || !(previewImage.endsWith(".png") || previewImage.endsWith(".jpg") || previewImage.endsWith(".jpeg"))}
             >
-                Create Spot
+            Create Spot
             </button>
         </form>
     )

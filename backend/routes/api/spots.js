@@ -160,7 +160,7 @@ router.post('/', requireAuth, async(req, res, next) => {
     }
 
     if(!price || price === null) {
-        errorsToPrint.price = "Price per day is required"
+        errorsToPrint.price = "Price per night is required"
     }
 
     if (Object.keys(errorsToPrint).length > 0) {
@@ -582,8 +582,12 @@ router.put('/:spotId', requireAuth, async(req, res, next) => {
         errorsToPrint.description = "Description is required"
     }
 
+    if(description.length < 30){
+        errorsToPrint.description = "Description needs a minimum of 30 characters"
+    }
+
     if(!price || price === null) {
-        errorsToPrint.price = "Price per day is required"
+        errorsToPrint.price = "Price is required"
     }
 
     if (Object.keys(errorsToPrint).length > 0) {

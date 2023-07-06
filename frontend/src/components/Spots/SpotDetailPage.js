@@ -16,7 +16,7 @@ const SpotId = () => {
 
     useEffect(() => {
         dispatch(fetchGetSpotById(spotId));
-    }, [dispatch]);
+    }, [dispatch, spotId]);
 
     const spots = useSelector((state) => (state.spots.singleSpot));
 

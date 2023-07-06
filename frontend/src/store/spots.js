@@ -6,6 +6,7 @@ import {csrfFetch} from './csrf'
 
 //action type- CRUD
 const CREATE_SPOT = 'spots/createSpot'
+const CREATE_IMAGE = 'spots/createImage'
 const GET_SPOT_BY_ID = 'spots/getSpotById'
 const GET_ALL_SPOTS = 'spots/getAllSpots'
 const GET_SPOTS_BY_USER = 'spots/getSpotsByUser'
@@ -14,10 +15,15 @@ const CLEAR_SPOTS_BY_USER ='spots/clearSpotsByUser'
 const DELETE_SPOT = 'spots/deleteSpot'
 
 // action function
-const createSpot = (spot) => ({
+const createSpot = (newSpot) => ({
     type: CREATE_SPOT,
-    payload: spot
+    payload: newSpot
 });
+
+const createImage = (newImages, spotId) => ({
+  type: CREATE_IMAGE,
+  payload: newImages, spotId
+})
 
 const getSpotById = (spotId) => ({
     type: GET_SPOT_BY_ID,
@@ -51,25 +57,84 @@ const deleteSpot = (spotId) => ({
 
 //thunks
 /*----------------CREATE A SPOT ----------------------*/
-export const fetchCreateSpot = (spotFormData) => async (dispatch) => {
+export const fetchCreateSpot = (payload, images) => async (dispatch) => {
 
   try {
-    const res = await csrfFetch('/api/spots', {
+    let newSpot = await csrfFetch('/api/spots', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(spotFormData),
+      body: JSON.stringify(payload),
     });
-
-    const newSpot = await res.json();
-    dispatch(createSpot(newSpot));
-    return newSpot;
-
+    //add another fetch to get the images
+    newSpot =  await newSpot.json();
+    if(newSpot) {
+      let newImage = await csrfFetch(`/api/spots/${newSpot.id}/images`, {
+        method:'POST',
+        body: JSON.stringify({
+          preview: true,
+          url: images
+        })
+      });
+    }
+      // const newSpot = await res.json(); //can pass newSpot into the other thunk
+      // const newSpotId = newSpot.id
+      // dispatch(fetchCreateImage(newSpot))
+      // return newSpotId
   } catch (e) {
-    const errors = await res.json();
+    const errors = await e.json();
     return errors;
 
   }
 }
+
+
+
+/*----------------CREATE A SPOT ADD IMAGES ----------------*/
+//create imagefetch thunk
+//pass in obj of images {url, previewImage} --> what each obj img should look like or array?
+//will then interate through it via for loop, and for each image obj, pass it in and do a fetch request to create the image
+//fetch getSpotById action, then spot.json() and dispatch to load action
+//below should alredy by formatted by teh get fetch
+//create numReview = 0
+//avgRating null
+
+// export const fetchCreateImage = () => async (dispatch) => {
+//   console.log('IS THIS IMAGE', image)
+//   if (image) {
+//     spot.SpotImages = [];
+//     for (let i = 0; i < image.length; i++){
+//       if (image.url) {
+//         const response = await csrfFetch(`/api/spots/${spot.id}/images`, {
+//           method: "POST",
+//           headers: {"Content-Type": "application/json"},
+//           body: JSON.stringify({
+//             url: image[i].url
+//           }),
+//         })
+//         const newImage = await response.json();
+//         spot.SpotImages.push(newImage);
+//         console.log('IS THIS NEWIMAGE', newImage)
+//       }
+//     }
+//   }
+//   dispatch(fetchGetSpotById(spot));
+//   return spot.id
+// }
+
+
+// export const fetchCreateImage = (spotId) => async (dispatch) => {
+//   const res = await csrfFetch(`/api/spots/${spotId}/images`)
+
+//   if (res.ok) {
+//     const getAddedImages = await res.json();
+//     dispatch(createImage(getAddedImages));
+//   } else {
+//     const errors = await res.json();
+//     return errors;
+//   }
+// }
+
+
 
 /*----------------GET ALL SPOTS ----------------------*/
 export const fetchGetAllSpots = () => async (dispatch) => {
@@ -153,9 +218,10 @@ const initialState = { spots: {} , userSpots: {}, singleSpot: {}}
 const spotsReducer = (state = initialState, action) => {
     switch(action.type){
         case CREATE_SPOT: {
-          const newState = {...state, singleState: {...state.singleSpot}}
+          const newState = {...state, singleSpot: {...state.singleSpot}}
           const newSpot = action.payload
-          newState.singleSpot[newSpot.id] = newSpot
+          newState.spots[newSpot.id] = newSpot
+          newState.singleSpot = newSpot; //need this for the redirection bc will pull from singleSpot
           return newState
           // return {...state, singleSpot:{[newSpot.id]: newSpot}}
         }
