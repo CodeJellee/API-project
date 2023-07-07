@@ -3,15 +3,37 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import { fetchUpdateSpot } from "../../store/spots";
-import {fetchCreateSpot} from "../../store/spots";
+import { fetchGetSpotById } from "../../store/spots";
 import * as spotsActions from '../../store/spots'
+import { useParams } from "react-router-dom";
 import './Spots.css';
 
 
-const UpdateSpotForm = () => {
+const UpdateSpotForm = ({}) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const spotId = useSelector(state => state.spots.singleSpot);
+    // const spotId = useSelector(state => state.spots.spots);
+    const {spotId} = useParams()
+    // console.log('THIS SHOULD BE A VALUE', typeof spotId, typeof parseInt(spotId), parseInt(spotId))
+    const oldSpotInfo = useSelector((state) => state.spots.singleSpot)
+    console.log('what is oldSpotIfno', oldSpotInfo)
+
+    useEffect(() => {
+        console.log('THIS IS THE THUNK', fetchGetSpotById(spotId))
+        dispatch(fetchGetSpotById(spotId));
+    }, [dispatch])
+
+
+    useEffect(() => {
+        setAddress(oldSpotInfo.address)
+        setCity(oldSpotInfo.city)
+        setState(oldSpotInfo.state)
+        setCountry(oldSpotInfo.country)
+        setName(oldSpotInfo.name)
+        setDescription(oldSpotInfo.description)
+        setPrice(oldSpotInfo.price)
+
+    }, [oldSpotInfo])
 
     const [address, setAddress] = useState("");
     const [city, setCity] = useState("");
@@ -22,14 +44,17 @@ const UpdateSpotForm = () => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
-    const [previewImage, setPreviewImage] = useState("")
-    const [imageOne, setImageOne] = useState("")
-    const [imageTwo, setImageTwo] = useState("")
-    const [imageThree, setImageThree] = useState("")
-    const [imageFour, setImageFour] = useState("")
+    // const [previewImage, setPreviewImage] = useState()
+    // const [imageOne, setImageOne] = useState("")
+    // const [imageTwo, setImageTwo] = useState("")
+    // const [imageThree, setImageThree] = useState("")
+    // const [imageFour, setImageFour] = useState("")
 
     const [errors, setErrors] = useState({});
     const [submitted, setSubmitted] = useState(false)
+
+
+
 
 
 
@@ -71,35 +96,35 @@ const UpdateSpotForm = () => {
             errorsObject.price = "Price is required."
         }
 
-        if(previewImage === "") {
-            errorsObject.previewImage = "Preview image is required."
-        }
+        // if(previewImage === "") {
+        //     errorsObject.previewImage = "Preview image is required."
+        // }
 
-        if(previewImage && !(previewImage.endsWith('.png') || previewImage.endsWith('.jpg') || previewImage.endsWith('.jpeg'))) {
-            errorsObject.previewImage = "Preview image must end in .png, .jpg, or .jpeg"
-        }
+        // if(previewImage && !(previewImage.endsWith('.png') || previewImage.endsWith('.jpg') || previewImage.endsWith('.jpeg'))) {
+        //     errorsObject.previewImage = "Preview image must end in .png, .jpg, or .jpeg"
+        // }
 
-        if(imageOne && !(imageOne.endsWith('.png') || imageOne.endsWith('.jpg') || imageOne.endsWith('.jpeg'))) {
-            errorsObject.imageOne = "Images must end in .png, .jpg, or .jpeg"
-        }
+        // if(imageOne && !(imageOne.endsWith('.png') || imageOne.endsWith('.jpg') || imageOne.endsWith('.jpeg'))) {
+        //     errorsObject.imageOne = "Images must end in .png, .jpg, or .jpeg"
+        // }
 
-        if(imageTwo && !(imageTwo.endsWith('.png') || imageTwo.endsWith('.jpg') || imageTwo.endsWith('.jpeg'))) {
-            errorsObject.imageTwo = "Images must end in .png, .jpg, or .jpeg"
-        }
+        // if(imageTwo && !(imageTwo.endsWith('.png') || imageTwo.endsWith('.jpg') || imageTwo.endsWith('.jpeg'))) {
+        //     errorsObject.imageTwo = "Images must end in .png, .jpg, or .jpeg"
+        // }
 
-        if(imageThree && !(imageThree.endsWith('.png') || imageThree.endsWith('.jpg') || imageThree.endsWith('.jpeg'))) {
-            errorsObject.imageThree = "Images must end in .png, .jpg, or .jpeg"
-        }
+        // if(imageThree && !(imageThree.endsWith('.png') || imageThree.endsWith('.jpg') || imageThree.endsWith('.jpeg'))) {
+        //     errorsObject.imageThree = "Images must end in .png, .jpg, or .jpeg"
+        // }
 
-        if(imageFour && !(imageFour.endsWith('.png') || imageFour.endsWith('.jpg') || imageFour.endsWith('.jpeg'))) {
-            errorsObject.imageFour = "Images must end in .png, .jpg, or .jpeg"
-        }
+        // if(imageFour && !(imageFour.endsWith('.png') || imageFour.endsWith('.jpg') || imageFour.endsWith('.jpeg'))) {
+        //     errorsObject.imageFour = "Images must end in .png, .jpg, or .jpeg"
+        // }
 
         if (Object.values(errorsObject).length) return setErrors(errorsObject) // if there are any errors, stop here and return the errors
 
-        let images =[previewImage, imageOne, imageTwo, imageThree, imageFour] //created an array of the images provided
+        // let images =[previewImage, imageOne, imageTwo, imageThree, imageFour] //created an array of the images provided
 
-        images = images.filter(image => !!image) //empty strings in images array is messing up the await? so need the filter this way
+        // images = images.filter(image => !!image) //empty strings in images array is messing up the await? so need the filter this way
 
         let payload = {
             address,
@@ -113,7 +138,7 @@ const UpdateSpotForm = () => {
             price: Number(price)
         }
 
-        let fetchResponseFromThunk = await dispatch(fetchUpdateSpot(payload, images, spotId)); //fetch response will return and obj of errors or newly created spotsId
+        let fetchResponseFromThunk = await dispatch(fetchUpdateSpot(payload, spotId)); //fetch response will return and obj of errors or newly created spotsId
         // console.log('WHAT IS THIS- this is the new spot id for the new spot created', fetchResponseFromThunk.id)
         history.push(`/spots/${fetchResponseFromThunk.id}`)
 
@@ -134,7 +159,7 @@ const UpdateSpotForm = () => {
                     <input
                         type="text"
                         name="country"
-                        placeholder="Country"
+                        placeholder={spotId.country}
                         value={country}
                         onChange={(e) => setCountry(e.target.value)}
                     />
@@ -226,7 +251,7 @@ const UpdateSpotForm = () => {
                     {submitted && errors.price && <p className="errors">{errors.price}</p>}
                 </div>
 
-                <div id="spot-photos-container">
+                {/* <div id="spot-photos-container">
                     <h4>Liven up your spot with photos</h4>
                     <h5>Submit a link to at least one photo to publish your spot</h5>
                     <label>
@@ -284,7 +309,7 @@ const UpdateSpotForm = () => {
                         </label>
                         {submitted && errors.imageFour && <p className="errors">{errors.imageFour}</p>}
                     </div>
-                </div>
+                </div> */}
             </div>
             <button
             type="submit"

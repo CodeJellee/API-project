@@ -130,7 +130,7 @@ export const fetchGetSpotsByUser = () => async (dispatch) => {
   };
 
 /*----------------UPDATE SPOT ----------------------*/
-export const fetchUpdateSpot = (payload, images, spotId) => async (dispatch) => {
+export const fetchUpdateSpot = (payload,spotId) => async (dispatch) => {
 
   try {
     let spotUpdate = await csrfFetch(`/api/spots/${spotId}`, {
@@ -140,18 +140,18 @@ export const fetchUpdateSpot = (payload, images, spotId) => async (dispatch) => 
     });
 
     spotUpdate =  await spotUpdate.json();
-    if(spotUpdate) {
+    // if(spotUpdate) {
 
-      for (let i = 0; i <images.length; i++) {
-        let newImage = await csrfFetch(`/api/spots/${spotUpdate.id}/images`, {
-          method:'PUT',
-          body: JSON.stringify({
-            preview: i === 0 ? true : false,
-            url: images[i]
-          })
-        });
-      }
-    }
+    //   for (let i = 0; i <images.length; i++) {
+    //     let newImage = await csrfFetch(`/api/spots/${spotUpdate.id}/images`, {
+    //       method:'PUT',
+    //       body: JSON.stringify({
+    //         preview: i === 0 ? true : false,
+    //         url: images[i]
+    //       })
+    //     });
+    //   }
+    // }
     let newGetFetch = await csrfFetch(`/api/spots/${spotUpdate.id}`)
     const getSpotsByIdDetails = await newGetFetch.json();
     dispatch(getSpotById(getSpotsByIdDetails));
