@@ -33,8 +33,22 @@ const SpotId = () => {
       alert("Feature coming soon");
     };
 
-    const isCurrentUserOwner = sessionUser && sessionUser.id === spots.Owner.id;
-    const shouldShowReviewButton = !(sessionUser && isCurrentUserOwner);
+    // const isCurrentUserOwner = sessionUser && sessionUser.id === spots.Owner.id; //is current user and current user matches spot owner ID
+    // const shouldShowReviewButton = !(sessionUser && isCurrentUserOwner); //if NOT current user and
+
+    //if current user is logged-in and they view a spots detail page for a spot that they have not posted a review yet, +'post your review'
+
+    // if(!sessionUser) return null
+
+
+    const sessionUserNotNull = sessionUser !== null
+    const reviewDoesNotHaveReviewByUser = sessionUser && sessionUserNotNull && Object.values(reviews).every(review => review.userId !== sessionUser.id);
+    const spotDoesNotBelongToUser = sessionUser && sessionUserNotNull && sessionUser.id !== spots.Owner.id
+    const loggedInButNoReviewByUserAndSpotDoesNotBelongToUser = sessionUser && sessionUserNotNull && reviewDoesNotHaveReviewByUser && spotDoesNotBelongToUser
+
+
+
+
 
     return (
     <>
@@ -102,7 +116,7 @@ const SpotId = () => {
                   </div>
             </div>
           </div>
-          {shouldShowReviewButton && (
+          {loggedInButNoReviewByUserAndSpotDoesNotBelongToUser && (
           <OpenModalButton
             buttonText="Post Your Review"
             modalComponent={<CreateReviewModal reviewId={reviews.id} />}
