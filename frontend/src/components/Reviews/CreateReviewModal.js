@@ -17,6 +17,7 @@ function CreateReviewModal({reviewId, spotId}) {
     const dispatch = useDispatch()
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
+    const [error, setError] = useState(null);
 
     const handleSubmit= (e) => {
         e.preventDefault()
@@ -25,11 +26,14 @@ function CreateReviewModal({reviewId, spotId}) {
             reviewId: reviewId,
             rating: rating, // Pass the rating to the review data
             description: comment,
-          };
+        };
 
-          dispatch(fetchCreateReview(reviewData))
-          .then(() => dispatch(fetchGetSpotById(spotId)))
-          .then(closeModal);
+        dispatch(fetchCreateReview(reviewData))
+        .then(() => dispatch(fetchGetSpotById(spotId)))
+        .then(closeModal)
+        .catch((error) => setError(error.message));
+
+        setError(null);
     }
 
 
@@ -41,6 +45,7 @@ function CreateReviewModal({reviewId, spotId}) {
     return (
         <form onSubmit={handleSubmit}>
             <h4>How was your stay?</h4>
+            {error && <p className="error">{error}</p>}
             <textarea
                 type="text"
                 name="description"
