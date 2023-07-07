@@ -4,6 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import {fetchGetSpotById} from "../../store/spots";
 import ReviewsBySpotId from "../Reviews/SpotIdReviews";
+import OpenModalButton from "../OpenModalButton";
+import CreateReviewModal from "../Reviews/CreateReviewModal";
+import { UseSelector } from "react-redux";
 import {Route} from "react-router-dom"
 import './Spots.css';
 
@@ -19,6 +22,9 @@ const SpotId = () => {
     }, [dispatch, spotId]);
 
     const spots = useSelector((state) => (state.spots.singleSpot));
+    const reviews = useSelector((state) => (state.reviews));
+    const sessionUser = useSelector((state) => state.session.user);
+
 
     if(!spots.SpotImages) return null //NEED THIS, bc will cause error w/ refresh
     //make sure to add spots.SpotImages or spots.Owner not JUST spots, need to key in because AN EMPTY OBJ WILL BE TRUTHY AND CANNOT DO .LENGTH ON AN OBJ
@@ -26,6 +32,9 @@ const SpotId = () => {
     const handleReserveClick = () => {
       alert("Feature coming soon");
     };
+
+    const isCurrentUserOwner = sessionUser && sessionUser.id === spots.Owner.id;
+    const shouldShowReviewButton = !(sessionUser && isCurrentUserOwner);
 
     return (
     <>
@@ -93,6 +102,12 @@ const SpotId = () => {
                   </div>
             </div>
           </div>
+          {shouldShowReviewButton && (
+          <OpenModalButton
+            buttonText="Post Your Review"
+            modalComponent={<CreateReviewModal reviewId={reviews.id} />}
+          />
+        )}
           <div >
             <ReviewsBySpotId />
           </div>
