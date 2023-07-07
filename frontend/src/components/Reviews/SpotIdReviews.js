@@ -11,6 +11,7 @@ import './Reviews.css';
 const ReviewsBySpotId = () => {
     let {spotId} = useParams();
     const sessionUser = useSelector((state) => state.session.user);
+    const spotObj = useSelector((state) => state.spots.singleSpot )
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -50,7 +51,7 @@ return (
 
                 return (
                     <div key={review.id}>
-                    <p>{sessionUser.firstName}</p>
+                    <p>{spotObj.Owner.firstName}</p>
                     <p>{formattedDate}</p>
                     <p>{review.review}</p>
                     {deleteButton}

@@ -52,7 +52,6 @@ export const fetchDeleteReview = (reviewId) => async (dispatch) => {
   /*---------------- CREATE REVIEW ----------------------*/
 
   export const fetchCreateReview = (reviewData, spotId) => async (dispatch) => {
-    console.log("%c some message", "color:orange; font-size: 16px;", {reviewData, spotId})
 
   try {
 
@@ -69,10 +68,6 @@ export const fetchDeleteReview = (reviewId) => async (dispatch) => {
 
     }
 
-    // let newGetFetch = await csrfFetch(`/api/spots/${newSpot.id}`)
-    // const getSpotsByIdDetails = await newGetFetch.json();
-    // dispatch(getSpotById(getSpotsByIdDetails));
-    // return getSpotsByIdDetails;
 
   } catch (e) {
     const errors = await e.json();
@@ -88,8 +83,6 @@ const reviewsReducer = (state ={}, action) => {
         case CREATE_REVIEW: {
           const newState = {...state}
           const newReview = action.payload
-          console.log('NEWREVIEW', newReview)
-          console.log('NEWSTATE', newState)
           newState[newReview.id] = newReview
           return newState
         }
