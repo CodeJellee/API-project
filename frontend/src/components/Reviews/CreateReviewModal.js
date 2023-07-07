@@ -16,6 +16,7 @@ function CreateReviewModal({reviewId, spotId}) {
     const { closeModal } = useModal()
     const dispatch = useDispatch()
     const [rating, setRating] = useState(0);
+    const [comment, setComment] = useState("");
 
 
     const onClick = (e) => {
@@ -23,7 +24,7 @@ function CreateReviewModal({reviewId, spotId}) {
         const reviewData = {
           reviewId: reviewId,
           rating: rating, // Pass the rating to the review data
-          description: e.target.form.description.value,
+          description: comment,
         };
 
         dispatch(fetchCreateReview(reviewData))
@@ -55,9 +56,11 @@ function CreateReviewModal({reviewId, spotId}) {
                 type="text"
                 name="description"
                 placeholder="Leave your review here..."
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
             />
             <StarRating rating={rating} setRating={setRating} />
-            <button onClick={onClick}>Submit Your Review</button>
+            <button onClick={onClick} disabled={comment.length < 10}>Submit Your Review</button>
         </>
     );
 }

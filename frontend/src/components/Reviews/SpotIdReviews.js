@@ -5,7 +5,6 @@ import { NavLink, useParams } from 'react-router-dom';
 import {fetchGetReviewsBySpotId} from "../../store/reviews";
 import DeleteReviewModal from "./ReviewDeleteModal";
 import OpenModalButton from "../OpenModalButton";
-import NotLoggedInReviews from "./NotLoggInReviews";
 import './Reviews.css';
 
 
