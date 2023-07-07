@@ -51,7 +51,7 @@ return (
 
                 return (
                     <div key={review.id}>
-                    <p>{spotObj.Owner.firstName}</p>
+                    <p>{review.User.firstName}</p>
                     <p>{formattedDate}</p>
                     <p>{review.review}</p>
                     {deleteButton}
