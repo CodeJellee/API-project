@@ -51,7 +51,7 @@ export const fetchDeleteReview = (reviewId) => async (dispatch) => {
 
   /*---------------- CREATE REVIEW ----------------------*/
 
-  export const fetchCreateReview = (reviewData, spotId) => async (dispatch) => {
+  export const fetchCreateReview = (reviewData, spotId) => async (dispatch, getState) => {
 
   try {
 
@@ -62,7 +62,10 @@ export const fetchDeleteReview = (reviewId) => async (dispatch) => {
     })
 
     if(res.ok){
+      const currentState = getState()
+      const user = currentState.session
       const newReview = await res.json()
+      newReview.User = user
       dispatch(functionCreateReview(newReview))
       return newReview
 

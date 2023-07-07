@@ -31,17 +31,12 @@ const ReviewsBySpotId = () => {
         return <p>Be the first to post a review!</p>;
     }
 
-    reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    if (!reviews) return null; //sorting data in order from earliest
 
 return (
     <>
         {reviews.map((review) => {
-            const reviewCreatedAt = new Date(review.createdAt); //changing createdAt to just month and year
-            const theChange = { year: 'numeric', month: 'long' };
-            const formattedDate = reviewCreatedAt.toLocaleDateString('en-US', theChange);
-
             const isUserReview = review.userId === sessionUser?.id;
+            console.log('WHAT IS THIS', sessionUser?.id)
             const deleteButton = isUserReview ? (
                 <OpenModalButton
                 buttonText="Delete"
@@ -52,7 +47,7 @@ return (
                 return (
                     <div key={review.id}>
                     <p>{review.User.firstName}</p>
-                    <p>{formattedDate}</p>
+                    <p>{review.createdAt}</p>
                     <p>{review.review}</p>
                     {deleteButton}
                 </div>

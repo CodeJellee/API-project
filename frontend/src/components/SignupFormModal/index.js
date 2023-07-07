@@ -17,6 +17,7 @@ function SignupFormModal() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [submitted, setSubmitted] = useState(false);
   const { closeModal } = useModal();
   const isFormValid = email && username && firstName && lastName && password && confirmPassword;
   const isUsernameValid = username.length >= 4;
