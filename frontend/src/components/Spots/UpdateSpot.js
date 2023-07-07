@@ -56,8 +56,6 @@ const UpdateSpotForm = ({}) => {
 
 
 
-
-
     const onSubmit = async(e) => {
         e.preventDefault()
         setSubmitted(true);
@@ -150,7 +148,7 @@ const UpdateSpotForm = ({}) => {
         <form id="create-new-spot-form" onSubmit={onSubmit}>
             <div id="main-container">
                 <div id="location-container">
-                    <h1>Create New Spot</h1>
+                    <h1>Update your Spot</h1>
                     <h4>Where's your place located?</h4>
                     <h5>Guests will only get your exact address once they booked a reservation.</h5>
                     <label>
