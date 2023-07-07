@@ -1,8 +1,10 @@
 import {csrfFetch} from './csrf'
+import * as spotsActions from './spots'
 
 //action type- CRUD
 const GET_REVIEWS_BY_SPOT_ID = 'reviews/getReviewsBySpotId'
 const DELETE_REVIEW = 'review/deleteReview'
+const CREATE_REVIEW = 'review/createReview'
 
 //action function
 const getReviewsBySpotId = (reviews) => ({
@@ -15,6 +17,10 @@ const deleteReview = (reviewId) => ({
     payload: reviewId
 });
 
+const functionCreateReview = (newReview) => ({
+  type: CREATE_REVIEW,
+  payload: newReview
+})
 
 //thunks
 /*----------------GET REVIEWS BY SPOT ID ----------------------*/
@@ -45,7 +51,37 @@ export const fetchDeleteReview = (reviewId) => async (dispatch) => {
     }
   };
 
+  /*---------------- CREATE REVIEW ----------------------*/
 
+export const fetchCreateReview = (payload, spotId) => async (dispatch) => {
+
+  try {
+
+    let res = await csrfFetch(`/api/spots/${spotId}/review`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    })
+
+    if(res.ok){
+      const newReview = await res.json()
+      dispatch(functionCreateReview(newReview))
+      return newReview
+
+    }
+
+    // let newGetFetch = await csrfFetch(`/api/spots/${newSpot.id}`)
+    // const getSpotsByIdDetails = await newGetFetch.json();
+    // dispatch(getSpotById(getSpotsByIdDetails));
+    // return getSpotsByIdDetails;
+
+  } catch (e) {
+    const errors = await e.json();
+    console.log(errors)
+    return errors;
+
+  }
+}
 
 //reducer
 const reviewsReducer = (state ={}, action) => {

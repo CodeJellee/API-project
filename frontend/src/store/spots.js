@@ -9,7 +9,7 @@ const CREATE_SPOT = 'spots/createSpot'
 const GET_SPOT_BY_ID = 'spots/getSpotById'
 const GET_ALL_SPOTS = 'spots/getAllSpots'
 const GET_SPOTS_BY_USER = 'spots/getSpotsByUser'
-const CLEAR_SPOTS_BY_USER ='spots/clearSpotsByUser'
+// const CLEAR_SPOTS_BY_USER ='spots/clearSpotsByUser'
 const UPDATE_SPOT = 'spots/updateSpot'
 const DELETE_SPOT = 'spots/deleteSpot'
 
@@ -34,9 +34,9 @@ const getSpotsByUser = (spotsOfUser) => ({
   payload: spotsOfUser
 })
 
-export const actionClearSpotsByUser = () => ({
-  type: CLEAR_SPOTS_BY_USER
-})
+// export const actionClearSpotsByUser = () => ({
+//   type: CLEAR_SPOTS_BY_USER
+// })
 
 const updateSpot = (updateSpot) => ({
     type: UPDATE_SPOT,
@@ -207,11 +207,11 @@ const spotsReducer = (state = initialState, action) => {
           });
           return newState; //getting back an obj of arrays
       }
-        case CLEAR_SPOTS_BY_USER:{
-          const newState = {...state}
-          newState.userSpots = {}
-          return newState
-        }
+        // case CLEAR_SPOTS_BY_USER:{
+        //   const newState = {...state}
+        //   newState.userSpots = {}
+        //   return newState
+        // }
         case GET_ALL_SPOTS: {
             const newState = { ...state };
             const spots = action.payload.Spots;

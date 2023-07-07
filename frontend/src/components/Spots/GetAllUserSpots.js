@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import {fetchGetSpotsByUser} from "../../store/spots";
-import {actionClearSpotsByUser} from "../../store/spots";
 import DeleteSpotModal from "./DeleteSpotModal";
 import OpenModalButton from "../OpenModalButton"
 
@@ -22,9 +21,6 @@ const UserSpots = () => {
       dispatch(fetchGetSpotsByUser());
     }, [dispatch]);
 
-    // useEffect(() => {
-    //     return () => dispatch(actionClearSpotsByUser())
-    // }, [dispatch])
 
     return (
         <>

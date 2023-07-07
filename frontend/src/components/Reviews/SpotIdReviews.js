@@ -23,9 +23,13 @@ const ReviewsBySpotId = () => {
     const reviews = useSelector((state) => Object.values(state.reviews)); //changing into an array
     //dont forget map through it within the return
 
-
-
+    reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    if (!reviews) return null;
 // if(!reviews) return null //NEED THIS, bc will cause error w/ refresh
+
+if (reviews.length === 0 && sessionUser && sessionUser.id !== reviews.spotId) {
+    return <p>Be the first to post a review!</p>;
+  }
 
 return (
     <>
