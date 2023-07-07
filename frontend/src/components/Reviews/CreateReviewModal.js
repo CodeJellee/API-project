@@ -6,13 +6,17 @@ import { fetchCreateReview } from "../../store/reviews";
 import { fetchGetSpotById } from "../../store/spots";
 import StarRating from "./StarRatingForReview";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 
 
 
-function CreateReviewModal({reviewId, spotId}) {
+function CreateReviewModal() {
     const reviewObject = useSelector(state => state.reviews)
-    const spotObject = useSelector(state => state.spots)
+    const spotId = useSelector(state => state.spots.singleSpot.id)
+    // console.log('SPODID', spotId)
+
+
     const { closeModal } = useModal()
     const dispatch = useDispatch()
     const [rating, setRating] = useState(0);
@@ -23,12 +27,13 @@ function CreateReviewModal({reviewId, spotId}) {
         e.preventDefault()
 
         const reviewData = {
-            reviewId: reviewId,
-            rating: rating, // Pass the rating to the review data
-            description: comment,
+            // reviewId: reviewId,
+            review: comment,
+            stars: rating, // Pass the rating to the review data
         };
 
-        dispatch(fetchCreateReview(reviewData))
+
+        dispatch(fetchCreateReview(reviewData, spotId)) //make sure to pass both parameters from thunk, in the same order as well
         .then(() => dispatch(fetchGetSpotById(spotId)))
         .then(closeModal)
         .catch((error) => setError(error.message));

@@ -33,11 +33,8 @@ const ReviewsBySpotId = () => {
 return (
     <>
         {reviews.map((review) => {
-            const reviewCreatedAt = new Date(review.createdAt);
-            const theChange = { year: 'numeric', month: 'long' };
-            const formattedDate = reviewCreatedAt.toLocaleDateString('en-US', theChange);
 
-            const isUserReview = review.User.id === sessionUser?.id;
+            const isUserReview = review.userId === sessionUser?.id;
             const deleteButton = isUserReview ? (
                 <OpenModalButton
                 buttonText="Delete"
@@ -47,8 +44,8 @@ return (
 
                 return (
                     <div key={review.id}>
-                    <p>{review.User.firstName}</p>
-                    <p>{formattedDate}</p>
+                    <p>{sessionUser.firstName}</p>
+                    <p>{review.createdAt}</p>
                     <p>{review.review}</p>
                     {deleteButton}
                 </div>

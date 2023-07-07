@@ -1,6 +1,4 @@
 import {csrfFetch} from './csrf'
-import * as spotsActions from './spots'
-
 //action type- CRUD
 const GET_REVIEWS_BY_SPOT_ID = 'reviews/getReviewsBySpotId'
 const DELETE_REVIEW = 'review/deleteReview'
@@ -53,14 +51,15 @@ export const fetchDeleteReview = (reviewId) => async (dispatch) => {
 
   /*---------------- CREATE REVIEW ----------------------*/
 
-export const fetchCreateReview = (payload, spotId) => async (dispatch) => {
+  export const fetchCreateReview = (reviewData, spotId) => async (dispatch) => {
+    console.log("%c some message", "color:orange; font-size: 16px;", {reviewData, spotId})
 
   try {
 
-    let res = await csrfFetch(`/api/spots/${spotId}/review`, {
+    let res = await csrfFetch(`/api/spots/${spotId}/reviews`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(reviewData),
     })
 
     if(res.ok){
@@ -86,6 +85,14 @@ export const fetchCreateReview = (payload, spotId) => async (dispatch) => {
 //reducer
 const reviewsReducer = (state ={}, action) => {
     switch(action.type){
+        case CREATE_REVIEW: {
+          const newState = {...state}
+          const newReview = action.payload
+          console.log('NEWREVIEW', newReview)
+          console.log('NEWSTATE', newState)
+          newState[newReview.id] = newReview
+          return newState
+        }
         case GET_REVIEWS_BY_SPOT_ID: {
             const newState = {};
             const reviews = action.payload.Reviews;
