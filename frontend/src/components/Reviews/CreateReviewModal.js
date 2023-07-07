@@ -18,39 +18,28 @@ function CreateReviewModal({reviewId, spotId}) {
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
 
+    const handleSubmit= (e) => {
+        e.preventDefault()
 
-    const onClick = (e) => {
-        e.preventDefault();
         const reviewData = {
-          reviewId: reviewId,
-          rating: rating, // Pass the rating to the review data
-          description: comment,
-        };
+            reviewId: reviewId,
+            rating: rating, // Pass the rating to the review data
+            description: comment,
+          };
 
-        dispatch(fetchCreateReview(reviewData))
+          dispatch(fetchCreateReview(reviewData))
           .then(() => dispatch(fetchGetSpotById(spotId)))
           .then(closeModal);
-      };
+    }
 
 
-    // const onClick = (e) => {
-    //     e.preventDefault();
-    //     dispatch(fetchCreateReview(reviewId))
-    //     .then (() => dispatch(fetchGetSpotById(spotId)))
-    //     .then(closeModal)
-    // }
-
-
-    // console.log('IS THIS AN ARRAY', Object.keys(reviewObject))
-
-    // useEffect(() => {
-    // dispatch(fetchGetSpotById(reviewObject.spotId))
-    // }, [dispatch])
-
+    const handleRatingChange = (number) => {
+        setRating(parseInt(number))
+    }
 
 
     return (
-        <>
+        <form onSubmit={handleSubmit}>
             <h4>How was your stay?</h4>
             <textarea
                 type="text"
@@ -59,9 +48,18 @@ function CreateReviewModal({reviewId, spotId}) {
                 value={comment}
                 onChange={(e) => setComment(e.target.value)}
             />
-            <StarRating rating={rating} setRating={setRating} />
-            <button onClick={onClick} disabled={comment.length < 10}>Submit Your Review</button>
-        </>
+            <StarRating
+            disabled={false}
+            onChange={handleRatingChange}
+            rating={rating}
+            />
+            <button
+            type="submit"
+            disabled={comment.length < 10 || rating.length === 0}
+            >
+                Submit Your Review
+            </button>
+        </form>
     );
 }
 

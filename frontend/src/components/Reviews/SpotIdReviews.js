@@ -34,8 +34,8 @@ return (
     <>
         {reviews.map((review) => {
             const reviewCreatedAt = new Date(review.createdAt);
-            const options = { year: 'numeric', month: 'long' };
-            const formattedDate = reviewCreatedAt.toLocaleDateString('en-US', options);
+            const theChange = { year: 'numeric', month: 'long' };
+            const formattedDate = reviewCreatedAt.toLocaleDateString('en-US', theChange);
 
             const isUserReview = review.User.id === sessionUser?.id;
             const deleteButton = isUserReview ? (
