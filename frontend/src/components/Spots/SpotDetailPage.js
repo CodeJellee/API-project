@@ -58,15 +58,15 @@ const SpotId = () => {
 
 
         <div id="photo-container">
-          <div id='preview-container'>
+          {/* <div id='preview-container'> */}
               {spots.SpotImages.map((spot, index) => (
-                  index === 0 ? (<div key={index} id="preview-img"> <img id={spot.id} src={spot.url}/></div>) : null
+                  index === 0 ? (<div key={index}> <img className="preview-image" id={spot.id} src={spot.url}/></div>) : null
               )) }
-            </div>
+            {/* </div> */}
 
           <div id='other-images-container'>
               {spots.SpotImages.map((spot, index) => (
-                  index !== 0 ? (<div key={index} id="other-img"> <img id={spot.id} src={spot.url}/></div>) : null
+                  index !== 0 ? (<div key={index} > <img className="other-img" id={spot.id} src={spot.url}/></div>) : null
               )) }
           </div>
       </div>

@@ -1,4 +1,4 @@
-/* frontend/src/components/Spots/Spots.css */
+/*Main Page*/
 
 #spots-container {
     display: grid;
@@ -17,21 +17,37 @@
     background-color: #ccc;
   }
 
-  /* #spot-images {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 0px 0px;
-    grid-template-areas:
-      "preview-img preview-img other-img other-img"
-      "preview-img preview-img other-img other-img";
-  } */
-
   img {
     object-fit: cover;
-    width: 250px;
-    height: 250px;
+    width: 100%;
+    height: 100%;
+}
+
+  /*Each Spot*/
+
+  #photo-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
+
+  .preview-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #other-images-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    object-fit: cover
+  }
+
+  .other-img {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
 
   #spots-link {
     text-decoration: none;
