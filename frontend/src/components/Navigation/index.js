@@ -11,8 +11,9 @@ function Navigation({ isLoaded }){
   return (
     <ul id='home-drop-down-container'>
       <li id='header-links'>
-        <NavLink exact to="/">Home</NavLink>
+        <NavLink exact to="/"><i className="fa fa-paper-plane"></i> AirBnBeyond </NavLink>
       </li>
+
       {isLoaded && (
         <li id='header-links'>
           <ProfileButton user={sessionUser} />
