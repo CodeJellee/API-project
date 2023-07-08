@@ -31,6 +31,7 @@ function CreateReviewModal() {
             review: comment,
             stars: rating, // Pass the rating to the review data
         };
+        console.log('what is rating', rating)
 
 
         dispatch(fetchCreateReview(reviewData, spotId)) //make sure to pass both parameters from thunk, in the same order as well

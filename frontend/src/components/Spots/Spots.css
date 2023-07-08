@@ -17,6 +17,16 @@
     background-color: #ccc;
   }
 
+  /* #spot-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "preview-img preview-img other-img other-img"
+      "preview-img preview-img other-img other-img";
+  } */
+
   img {
     object-fit: cover;
     width: 250px;

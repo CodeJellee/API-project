@@ -55,12 +55,23 @@ const SpotId = () => {
         <div id="spot-details-container">
           <h1>{spots.name}</h1>
           <h2>{spots.city}, {spots.state}, {spots.country}</h2>
-          <div id='spot-images'>
-            {spots.SpotImages.map((spot) => (
-                // <img id={spots.SpotImages[spots.SpotImages.indexOf(spot)].id} src={spots.SpotImages[spots.SpotImages.indexOf(spot)].url}></img>
-                  <img id={spot.id} src={spot.url}/>
-            ))}
+
+
+        <div id="photo-container">
+          <div id='preview-container'>
+              {spots.SpotImages.map((spot, index) => (
+                  index === 0 ? (<div key={index} id="preview-img"> <img id={spot.id} src={spot.url}/></div>) : null
+              )) }
+            </div>
+
+          <div id='other-images-container'>
+              {spots.SpotImages.map((spot, index) => (
+                  index !== 0 ? (<div key={index} id="other-img"> <img id={spot.id} src={spot.url}/></div>) : null
+              )) }
           </div>
+      </div>
+
+
           <div>
             <div>
                 <div>Hosted by {spots.Owner.firstName} {spots.Owner.lastName} </div>
