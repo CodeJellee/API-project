@@ -58,11 +58,9 @@ const SpotId = () => {
 
 
         <div id="photo-container">
-          {/* <div id='preview-container'> */}
               {spots.SpotImages.map((spot, index) => (
                   index === 0 ? (<div key={index}> <img className="preview-image" id={spot.id} src={spot.url}/></div>) : null
               )) }
-            {/* </div> */}
 
           <div id='other-images-container'>
               {spots.SpotImages.map((spot, index) => (
@@ -73,44 +71,50 @@ const SpotId = () => {
 
 
           <div>
+            <div id="spot-details-page-upper-container">
             <div>
-                <div>Hosted by {spots.Owner.firstName} {spots.Owner.lastName} </div>
+                <div id="hosted-by">Hosted by {spots.Owner.firstName} {spots.Owner.lastName} </div>
                 <div>{spots.description}</div>
             </div>
-            <div>
-                <div>
+            <div id="reservation-box">
+                <div id="price-rating-review">
                   <div>
-                    $ {spots.price.toFixed(2)} night,
+                    ${spots.price.toFixed(2)} night
                   </div>
-                  <div>
-                    {spots.avgRating && (
-                          <div id="each-spot-avgRating">★ {spots.avgRating.toFixed(1)}</div>
-                        )}
-                      {!spots.avgRating && <div id="each-spot-avgRating">★ New</div>}
-                  </div>
-                  <div>
-                    {
-                      (() => {
-                        if (spots.numReviews === 1) {
-                          return <div id="each-spot-reviews"> · {spots.numReviews} Review</div>;
-                        } else if (spots.numReviews > 1) {
-                          return <div id="each-spot-reviews"> · {spots.numReviews} Reviews</div>;
-                        } else {
-                          return <div id="each-spot-reviews"></div>;
+
+              <div id="reservation-rating-and-review-container">
+                      <div>
+                        {spots.avgRating && (
+                              <div id="each-spot-avgRating"><i className="fa fa-star"></i> {spots.avgRating.toFixed(1)}</div>
+                            )}
+                          {!spots.avgRating && <div id="each-spot-avgRating"><i className="fa fa-star"></i> New</div>}
+                      </div>
+                      <div>
+                        {
+                          (() => {
+                            if (spots.numReviews === 1) {
+                              return <div id="each-spot-reviews"> · {spots.numReviews} Review</div>;
+                            } else if (spots.numReviews > 1) {
+                              return <div id="each-spot-reviews"> · {spots.numReviews} Reviews</div>;
+                            } else {
+                              return <div id="each-spot-reviews"></div>;
+                            }
+                          })()
                         }
-                      })()
-                    }
-                  </div>
+                      </div>
                 </div>
-                <button onClick={handleReserveClick}>Reserve</button>
+                </div>
+                <button id="reserve-button" onClick={handleReserveClick}>Reserve</button>
             </div>
+            </div>
+
+
             <div>
-                <h3>add a line here to separate above and start of below</h3>
-                <div>
+                <div id="spot-details-page-middle-container">
                     {spots.avgRating && (
-                        <div id="each-spot-avgRating">★ {spots.avgRating.toFixed(1)}</div>
+                        <div id="each-spot-avgRating"><i className="fa fa-star"></i> {spots.avgRating.toFixed(1)}</div>
                       )}
-                    {!spots.avgRating && <div id="each-spot-avgRating">★ New</div>}
+                    {!spots.avgRating && <div id="each-spot-avgRating"><i className="fa fa-star"></i> New</div>}
                     <div>
                     {
                       (() => {
