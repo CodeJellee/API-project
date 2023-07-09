@@ -24,9 +24,9 @@ const UserSpots = () => {
 
 
     return (
-        <>
-            <h1>Manage Your Spots</h1>
-            <div>
+        <div id="user-spots-container">
+            <h1 id="manage-spot-header">Manage Spots</h1>
+            <div id="manage-each-spots">
                 {allUserSpots.length > 0 ? (
                     allUserSpots.map((spot) => (
                         <div key={spot.id}>
@@ -52,7 +52,7 @@ const UserSpots = () => {
                     </div>
                 )}
             </div>
-        </>
+        </div>
     );
 }
 

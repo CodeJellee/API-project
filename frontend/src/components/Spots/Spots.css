@@ -5,7 +5,7 @@
     grid-template-columns: repeat(4, 1fr);
     align-items: stretch;
     grid-gap: 10px;
-    grid-auto-flow: dense;
+    grid-auto-flow: row;
   }
 
   #spots-item {
@@ -43,6 +43,11 @@
 
 
   /*Spot Details Page*/
+  #header-link-to-home a {
+    font-size: 30px;
+    text-decoration: none;
+    color: rgb(72, 189, 231)
+  }
 
   #spot-detail-titles{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -172,7 +177,7 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
 }
 
 /*all spots of user*/
-#all-user-buttons{
+/* #all-user-buttons{
   border: 2px solid black;
   box-shadow: 5px 5px black;
   background-color: #999999;
@@ -180,7 +185,26 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
   padding-top: 2px;
   padding-bottom: 2px;
   cursor: pointer;
+} */
+
+#user-spots-container{
+  margin-left: 40px;
+  margin-right: 40px;
 }
+
+#manage-spot-header{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#manage-each-spots{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: stretch;
+  grid-gap: 10px;
+  grid-auto-flow: row;
+}
+
+
 
 
   /* Adjust grid-template-columns based on screen width */
