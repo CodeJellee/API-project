@@ -1,14 +1,52 @@
 #home-drop-down-container {
+  position: relative; /* Add relative positioning */
   border-bottom: 2px solid #C2CBCB;
   list-style-type: none;
-
   display: flex;
   justify-content: space-between;
+  z-index: 1; /* Add a higher z-index value */
 
 }
 
-#header-links {
+#header-link-to-home {
   cursor: pointer;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+#header-link-to-profile {
+  cursor: pointer;
+  padding:11px;
+}
+
+#header-link-to-profile > button{
+  border-radius: 50px;
+  height: 40px;
+  width: 70px;
+}
+
+i.fas.fa-user-circle {
+  font-size: 20px;
+}
+
+#header-link-to-home a.active {
+  font-size: 30px;
+  text-decoration: none;
+  color: rgb(72, 189, 231)
+}
+
+.profile-dropdown{
+  position: absolute; /* Position the dropdown */
+  top: 90%; /* Position it below the container */
+  right: 0;
+  background-color: white;
+  border: 1px solid #C2CBCB;
+  padding: 10px;
+  padding-right: 75px;
+  z-index: 2; /* Add a higher z-index value */
+  list-style-type: none;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  border: 2px black solid;
 }
 
 .profile-dropdown.hidden {

@@ -36,3 +36,4 @@ const Spots = () => {
   };
 
   export default Spots;
+
