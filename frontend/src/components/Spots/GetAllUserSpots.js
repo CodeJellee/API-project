@@ -29,20 +29,24 @@ const UserSpots = () => {
             <div id="manage-each-spots">
                 {allUserSpots.length > 0 ? (
                     allUserSpots.map((spot) => (
-                        <div key={spot.id}>
+                        <div id="each-spot-of-user" key={spot.id}>
+
+                        <div id="image-and-lower-description">
                             <NavLink to={`/spots/${spot.id}`} id="spots-link">
                                 <EachSpot spot={spot}/>
                             </NavLink>
+                        </div>
+
                             <div id="all-user-buttons-container">
-                            <button id="all-user-buttons">
-                            <NavLink exact to={`/spots/${spot.id}/edit`}>
-                                Update
-                            </NavLink>
-                            </button>
-                            <OpenModalButton
-                                buttonText="Delete"
-                                modalComponent={<DeleteSpotModal spotId={spot.id} />}
-                            />
+                                <button id="all-user-buttons">
+                                <NavLink exact to={`/spots/${spot.id}/edit`}>
+                                    Update
+                                </NavLink>
+                                </button>
+                                <OpenModalButton
+                                    buttonText="Delete"
+                                    modalComponent={<DeleteSpotModal spotId={spot.id} />}
+                                />
                             </div>
                         </div>
                     ))

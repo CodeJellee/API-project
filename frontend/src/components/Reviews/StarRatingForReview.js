@@ -14,6 +14,7 @@ const StarRating = ({ rating, disabled, onChange }) => {
   // necessary.
 
   return (
+    <>
     <div className="rating-input">
       <div
         className={activeRating >= 1 ? "filled" : "empty"}
@@ -55,7 +56,11 @@ const StarRating = ({ rating, disabled, onChange }) => {
       >
         <i className="fa fa-star"></i>
       </div>
+      <div id="star-name">
+        Stars
+      </div>
     </div>
+    </>
   );
 };
 

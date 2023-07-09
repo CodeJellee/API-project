@@ -48,8 +48,8 @@ function CreateReviewModal() {
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h4>How was your stay?</h4>
+        <form id="review-initial-form" onSubmit={handleSubmit}>
+            <div id="review-title">How was your stay?</div>
             {error && <p className="error">{error}</p>}
             <textarea
                 type="text"
@@ -65,7 +65,7 @@ function CreateReviewModal() {
             />
             <button
             type="submit"
-            disabled={comment.length < 10 && rating.length === 0}
+            disabled={comment.length < 10 || !rating}
             >
                 Submit Your Review
             </button>

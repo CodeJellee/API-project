@@ -177,6 +177,7 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
 }
 
 /*all spots of user*/
+
 /* #all-user-buttons{
   border: 2px solid black;
   box-shadow: 5px 5px black;
@@ -203,6 +204,19 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
   grid-gap: 10px;
   grid-auto-flow: row;
 }
+
+#each-spot-user-container{
+  display:grid;
+  grid-template-rows: 7fr 1fr 1fr;
+  align-items: center;
+  grid-gap: 10px;
+  display:flex;
+  flex-direction: column;
+
+}
+
+
+
 
 
 

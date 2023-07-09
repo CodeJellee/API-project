@@ -1,5 +1,34 @@
 
 /*RATING INPUT FOR CREATE REVIEW*/
+#review-initial-form {
+  display: flex;
+  flex-direction: column;
+  padding-top: 12px;
+  align-items: center;
+  justify-content: center;
+  row-gap: 15px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#review-initial-form > textarea{
+width: 200px;
+height: 45px;
+}
+
+#review-initial-form > button{
+  height: 35px;
+  width: 200px;
+  margin: 0 auto;
+  display: block;
+  border: 2px solid black;
+  box-shadow: 5px 5px black;
+  background-color: #FF5A5F;
+  color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  cursor: pointer;
+  font-size: 8pt;
+}
+
 .rating-input {
     display: flex;
     margin-right: 4px;
@@ -15,6 +44,12 @@
 
   .rating-input .empty {
     color: burlywood;
+  }
+
+  #star-name{
+    margin-left: 5px;
+    font-size: 12px;
+    padding-top: 3px;
   }
 
 
