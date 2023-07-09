@@ -1,3 +1,5 @@
+
+/*RATING INPUT FOR CREATE REVIEW*/
 .rating-input {
     display: flex;
     margin-right: 4px;
@@ -13,4 +15,12 @@
 
   .rating-input .empty {
     color: burlywood;
+  }
+
+
+  /*SPOT BY ID REVIEW BOTTOM HALF*/
+
+  #body-of-each-review{
+    margin-left: 40px;
+    margin-right: 40px;
   }

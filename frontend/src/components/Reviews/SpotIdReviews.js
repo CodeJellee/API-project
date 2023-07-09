@@ -48,14 +48,15 @@ return (
                 modalComponent={<DeleteReviewModal reviewId={review.id} spotId={review.spotId} />}
                 />
                 ) : null;
+                console.log('waht is review here', review)
 
                 return (
-                    <div key={review.id}>
-                    <p>{review.User.firstName}</p>
-                    <p>{formattedDate}</p>
-                    <p>{review.review}</p>
+                    <div id="body-of-each-review" key={review.id}>
+                        <p>{review.User.firstName}</p>
+                        <p>{formattedDate}</p>
+                        <p>{review.review}</p>
                     {deleteButton}
-                </div>
+                    </div>
             );
         })}
     </>

@@ -53,8 +53,10 @@ const SpotId = () => {
     return (
     <>
         <div id="spot-details-container">
-          <h1>{spots.name}</h1>
-          <h2>{spots.city}, {spots.state}, {spots.country}</h2>
+          <div id="spot-detail-titles">
+            <h1 id="spots-detail-heading1">{spots.name}</h1>
+            <h4 id="spots-detail-heading2">{spots.city}, {spots.state}, {spots.country}</h4>
+          </div>
 
 
         <div id="photo-container">
@@ -74,7 +76,7 @@ const SpotId = () => {
             <div id="spot-details-page-upper-container">
             <div>
                 <div id="hosted-by">Hosted by {spots.Owner.firstName} {spots.Owner.lastName} </div>
-                <div>{spots.description}</div>
+                <div id="spots-description">{spots.description}</div>
             </div>
             <div id="reservation-box">
                 <div id="price-rating-review">
@@ -131,12 +133,17 @@ const SpotId = () => {
                   </div>
             </div>
           </div>
-          {loggedInButNoReviewByUserAndSpotDoesNotBelongToUser && (
-          <OpenModalButton
-            buttonText="Post Your Review"
-            modalComponent={<CreateReviewModal reviewId={reviews.id} />}
-          />
-        )}
+          <div id="post-your-review-button-container">
+              {loggedInButNoReviewByUserAndSpotDoesNotBelongToUser && (
+              <OpenModalButton
+                buttonText="Post Your Review"
+                modalComponent={<CreateReviewModal reviewId={reviews.id} />}
+                className="post-your-review-button"
+              />
+            )}
+          </div>
+
+
           <div >
             <ReviewsBySpotId />
           </div>

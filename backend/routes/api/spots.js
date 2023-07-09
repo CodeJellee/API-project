@@ -443,8 +443,6 @@ router.post('/:spotId/reviews', requireAuth, async(req, res, next) => {
         const specificSpot = req.params.spotId
         const { review, stars } = req.body
 
-        console.log('what is reqbody', req.body, review, stars)
-
         //checking to see if exist
         const existingReview = await Review.findOne({
             where: {

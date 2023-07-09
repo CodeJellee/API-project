@@ -65,7 +65,7 @@ export const fetchDeleteReview = (reviewId) => async (dispatch) => {
       const currentState = getState()
       const user = currentState.session
       const newReview = await res.json()
-      newReview.User = user
+      newReview.User = user.user
       dispatch(functionCreateReview(newReview))
       return newReview
 
