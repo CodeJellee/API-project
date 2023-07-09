@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import {fetchGetSpotsByUser} from "../../store/spots";
 import DeleteSpotModal from "./DeleteSpotModal";
 import OpenModalButton from "../OpenModalButton"
+import "./Spots.css"
 
 
 
@@ -32,8 +33,8 @@ const UserSpots = () => {
                             <NavLink to={`/spots/${spot.id}`} id="spots-link">
                                 <EachSpot spot={spot}/>
                             </NavLink>
-                            <div>
-                            <button >
+                            <div id="all-user-buttons-container">
+                            <button id="all-user-buttons">
                             <NavLink exact to={`/spots/${spot.id}/edit`}>
                                 Update
                             </NavLink>
