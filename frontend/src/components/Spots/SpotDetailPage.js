@@ -33,13 +33,6 @@ const SpotId = () => {
       alert("Feature coming soon");
     };
 
-    // const isCurrentUserOwner = sessionUser && sessionUser.id === spots.Owner.id; //is current user and current user matches spot owner ID
-    // const shouldShowReviewButton = !(sessionUser && isCurrentUserOwner); //if NOT current user and
-
-    //if current user is logged-in and they view a spots detail page for a spot that they have not posted a review yet, +'post your review'
-
-    // if(!sessionUser) return null
-
 
     const sessionUserNotNull = sessionUser !== null
     const reviewDoesNotHaveReviewByUser = sessionUser && sessionUserNotNull && Object.values(reviews).every(review => review.userId !== sessionUser.id);
@@ -91,13 +84,16 @@ const SpotId = () => {
                             )}
                           {!spots.avgRating && <div id="each-spot-avgRating"><i className="fa fa-star"></i> New</div>}
                       </div>
+                      <div id="center-dot">
+                      ·
+                      </div>
                       <div>
                         {
                           (() => {
                             if (spots.numReviews === 1) {
-                              return <div id="each-spot-reviews"> · {spots.numReviews} Review</div>;
+                              return <div id="each-spot-reviews"> {spots.numReviews} Review</div>;
                             } else if (spots.numReviews > 1) {
-                              return <div id="each-spot-reviews"> · {spots.numReviews} Reviews</div>;
+                              return <div id="each-spot-reviews"> {spots.numReviews} Reviews</div>;
                             } else {
                               return <div id="each-spot-reviews"></div>;
                             }
@@ -117,13 +113,16 @@ const SpotId = () => {
                         <div id="each-spot-avgRating"><i className="fa fa-star"></i> {spots.avgRating.toFixed(1)}</div>
                       )}
                     {!spots.avgRating && <div id="each-spot-avgRating"><i className="fa fa-star"></i> New</div>}
+                    <div id="center-dot">
+                      ·
+                    </div>
                     <div>
                     {
                       (() => {
                         if (spots.numReviews === 1) {
-                          return <div id="each-spot-reviews"> · {spots.numReviews} Review</div>;
+                          return <div id="each-spot-reviews"> {spots.numReviews} Review</div>;
                         } else if (spots.numReviews > 1) {
-                          return <div id="each-spot-reviews"> · {spots.numReviews} Reviews</div>;
+                          return <div id="each-spot-reviews"> {spots.numReviews} Reviews</div>;
                         } else {
                           return <div id="each-spot-reviews"></div>;
                         }
