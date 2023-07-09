@@ -189,3 +189,59 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
     grid-template-columns: repeat(1, 1fr);
   }
 }
+
+  /*DELETE SPOT MODAL*/
+
+  #modal-content{
+    border-radius: 20px;
+    height: 215px;
+    width: 350px;
+    border: 3px black solid;
+  }
+
+  #confirm-delete-spot{
+    font-size: 25px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  #delete-spot-description{
+    font-size: 14px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
+  #delete-spot-buttons-two{
+    display: grid;
+    row-gap: 10px;
+  }
+
+  #spot-yes{
+    height: 40px;
+    width: 320px;
+    margin: 0 auto;
+    display: block;
+    border: 2px solid black;
+    box-shadow: 5px 5px black;
+    background-color: #FF5A5F;
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    cursor: pointer;
+  }
+
+  #spot-no{
+    height: 40px;
+    width: 320px;
+    margin: 0 auto;
+    display: block;
+    border: 2px solid black;
+    box-shadow: 5px 5px black;
+    background-color: #999999;
+    color: white;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    cursor: pointer;
+  }

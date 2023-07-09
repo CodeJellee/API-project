@@ -20,19 +20,16 @@ function DeleteSpotModal({spotId}) {
         .then(closeModal)
     }
 
-    // useEffect(() => {
-    // return () => dispatch(actionClearDeleteSpot())
-    // }, [dispatch])
-
-
 
     return (
-        <>
-            <h4>Confirm Delete</h4>
-            <h3>Are you sure you want to remove this spot from the listings?</h3>
-            <button onClick={onClick}>Yes (Delete Spot)</button>
-            <button onClick={closeModal}>No (Keep Spot)</button>
-        </>
+        <div>
+            <div id="confirm-delete-spot">Confirm Delete</div>
+            <h3 id="delete-spot-description">Are you sure you want to remove this spot from the listings?</h3>
+            <div id="delete-spot-buttons-two">
+                <button id="spot-yes" onClick={onClick}>Yes (Delete Spot)</button>
+                <button id="spot-no" onClick={closeModal}>No (Keep Spot)</button>
+            </div>
+        </div>
     );
 }
 

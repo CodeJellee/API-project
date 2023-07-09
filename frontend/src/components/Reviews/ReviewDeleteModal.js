@@ -24,21 +24,15 @@ function DeleteReviewModal({reviewId, spotId}) {
     }
 
 
-    // console.log('IS THIS AN ARRAY', Object.keys(reviewObject))
-
-    // useEffect(() => {
-    // dispatch(fetchGetSpotById(reviewObject.spotId))
-    // }, [dispatch])
-
-
-
     return (
-        <>
-            <h4>Confirm Delete</h4>
-            <h3>Are you sure you want to delete this review?</h3>
-            <button onClick={onClick}>Yes (Delete Review)</button>
-            <button onClick={closeModal}>No (Keep Review)</button>
-        </>
+        <div id="review-delete-modal-container">
+            <div id="confirm-delete-review">Confirm Delete</div>
+            <h3 id="delete-review-description">Are you sure you want to delete this review?</h3>
+            <div id="delete-review-buttons-two">
+            <button id="review-yes" onClick={onClick}>Yes (Delete Review)</button>
+            <button id="review-no" onClick={closeModal}>No (Keep Review)</button>
+            </div>
+        </div>
     );
 }
 
