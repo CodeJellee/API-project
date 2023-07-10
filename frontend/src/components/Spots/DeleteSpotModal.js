@@ -22,7 +22,7 @@ function DeleteSpotModal({spotId}) {
 
 
     return (
-        <div>
+        <div id="delete-lieu-modal">
             <div id="confirm-delete-spot">Confirm Delete</div>
             <h3 id="delete-spot-description">Are you sure you want to remove this spot from the listings?</h3>
             <div id="delete-spot-buttons-two">

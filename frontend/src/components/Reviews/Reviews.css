@@ -1,5 +1,13 @@
 
 /*RATING INPUT FOR CREATE REVIEW*/
+#review-lieu-modal {
+  border-radius: 20px;
+  height: 205px;
+  width: 350px;
+  border: 3px black solid;
+}
+
+
 #review-initial-form {
   display: flex;
   flex-direction: column;
@@ -88,7 +96,7 @@ height: 45px;
 
   /*DELETE REVIEW MODAL*/
 
-#modal-content{
+#review-delete-modal-container{
   border-radius: 20px;
   height: 205px;
   width: 350px;

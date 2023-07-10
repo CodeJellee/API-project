@@ -54,7 +54,7 @@ function SignupFormModal() {
   };
 
   return (
-    <>
+    <div id="sign-up-lieu-modal">
       <div id="sign-up">Sign Up</div>
 
     <div id="sign-up-form">
@@ -121,7 +121,7 @@ function SignupFormModal() {
         </button>
       </form>
     </div>
-    </>
+    </div>
   );
 }
 

@@ -3,20 +3,29 @@
 #spots-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    align-items: stretch;
+    margin-left: 40px;
+    margin-right: 40px;
     grid-gap: 10px;
-    grid-auto-flow: row;
-  }
-
-  #spots-item {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding: 10px;
-    background-color: #ccc;
 
   }
+
+  img {
+    aspect-ratio: 6/5;
+  }
+
+#spots-link{
+  height: stretch;
+}
+
+#spots-item{
+  display: grid;
+  grid-template-rows: 5fr 1fr;
+}
+
+#each-spot-user-container{
+  object-fit:cover;
+
+}
 
   #each-spot-previewImage{
     width:fit-content;
@@ -32,7 +41,13 @@
 #city-state-avgRating {
   display: flex;
   justify-content: space-between;
+  padding-top: 5px;
+  font-size: 12px;
 
+}
+
+#each-spot-price{
+  padding-top: 5px;
 }
 
 #spots-link {
@@ -181,19 +196,9 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
 
 /*all spots of user*/
 
-/* #all-user-buttons{
-  border: 2px solid black;
-  box-shadow: 5px 5px black;
-  background-color: #999999;
-  color: white;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  cursor: pointer;
-} */
-
 #user-spots-container{
-  margin-left: 40px;
-  margin-right: 40px;
+  margin-left: 70px;
+  margin-right: 70px;
 }
 
 #manage-spot-header{
@@ -203,19 +208,8 @@ font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans
 #manage-each-spots{
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  align-items: stretch;
   grid-gap: 10px;
   grid-auto-flow: row;
-}
-
-#each-spot-user-container{
-  display:grid;
-  grid-template-rows: 7fr 1fr 1fr;
-  align-items: center;
-  grid-gap: 10px;
-  display:flex;
-  flex-direction: column;
-
 }
 
 #all-user-buttons a{
@@ -372,7 +366,7 @@ font-size: 12px;
 
 
   /* Adjust grid-template-columns based on screen width */
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1023px) {
   #spots-container {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -390,13 +384,34 @@ font-size: 12px;
   }
 }
 
+/*manage spot based on screen width*/
+
+@media screen and (max-width: 1023px) {
+  #manage-each-spots {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #manage-each-spots {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #manage-each-spots {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
   /*DELETE SPOT MODAL*/
 
-  #modal-content{
+  #delete-lieu-modal{
     border-radius: 20px;
     height: 215px;
     width: 350px;
     border: 3px black solid;
+    padding-bottom: 10px;
   }
 
   #confirm-delete-spot{

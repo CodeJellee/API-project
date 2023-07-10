@@ -44,10 +44,10 @@ function LoginFormModal() {
   };
 
   return (
-    <>
+    <div id="log-in-lieu-modal">
       <div id="error-message-log-in">
         <div id="log-in">Log In</div>
-        {errors.credential && <p>{errors.credential}</p>}
+        {errors.credential && <p className="error-message">{errors.credential}</p>}
       </div>
       <form id="login-form" onSubmit={handleSubmit}>
       <div id="username-or-email">
@@ -83,9 +83,9 @@ function LoginFormModal() {
         </button>
       </form>
       <NavLink id="demo-user-link" to="/" className="demo-user-button" onClick={handleDemoUserSubmit}>
-        Log in as Demo User
+        Demo User
       </NavLink>
-    </>
+    </div>
   );
 }
 

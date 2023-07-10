@@ -48,28 +48,30 @@ function CreateReviewModal() {
 
 
     return (
-        <form id="review-initial-form" onSubmit={handleSubmit}>
-            <div id="review-title">How was your stay?</div>
-            {error && <p className="error">{error}</p>}
-            <textarea
-                type="text"
-                name="description"
-                placeholder="Leave your review here..."
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-            />
-            <StarRating
-            disabled={false}
-            onChange={handleRatingChange}
-            rating={rating}
-            />
-            <button
-            type="submit"
-            disabled={comment.length < 10 || !rating}
-            >
-                Submit Your Review
-            </button>
-        </form>
+        <div id="review-lieu-modal">
+            <form id="review-initial-form" onSubmit={handleSubmit}>
+                <div id="review-title">How was your stay?</div>
+                {error && <p className="error">{error}</p>}
+                <textarea
+                    type="text"
+                    name="description"
+                    placeholder="Leave your review here..."
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                />
+                <StarRating
+                disabled={false}
+                onChange={handleRatingChange}
+                rating={rating}
+                />
+                <button
+                type="submit"
+                disabled={comment.length < 10 || !rating}
+                >
+                    Submit Your Review
+                </button>
+            </form>
+        </div>
     );
 }
 
