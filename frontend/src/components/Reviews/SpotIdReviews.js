@@ -28,7 +28,7 @@ const ReviewsBySpotId = () => {
     if (!reviews) return null;
 
     if (sessionUser && sessionUser.id !== reviews.spotId && reviews.length === 0) {
-        return <p>Be the first to post a review!</p>;
+        return <p id="first-to-review">Be the first to post a review!</p>;
     }
 
     reviews.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
