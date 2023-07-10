@@ -12,68 +12,68 @@ if (process.env.NODE_ENV === 'production') {
 const demoReviews = [
   {
     spotId: 1,
-    userId: 1,
-    review: 'Beautiful Springfield but meh.',
+    userId: 2,
+    review: 'Beautiful but meh.',
     stars: 2
   },
   {
-    spotId: 2,
-    userId: 2,
-    review: 'Stunning Boulder',
+    spotId: 1,
+    userId: 3,
+    review: 'Stunning place',
     stars: 5
   },
   {
-    spotId: 3,
-    userId: 3,
+    spotId: 2,
+    userId: 1,
     review: 'Such a rainy place here.',
     stars: 3
   },
   {
-    spotId: 4,
+    spotId: 2,
+    userId: 3,
+    review: 'Beautiful but meh.',
+    stars: 2
+  },
+  {
+    spotId: 3,
     userId: 1,
-    review: 'Beautiful Springfield but meh.',
+    review: 'Stunning place',
+    stars: 5
+  },
+  {
+    spotId: 4,
+    userId: 2,
+    review: 'Such a rainy place here.',
+    stars: 3
+  },
+  {
+    spotId: 5,
+    userId: 1,
+    review: 'Would recommend to family and friends!',
     stars: 2
   },
   {
     spotId: 5,
-    userId: 2,
-    review: 'Stunning Boulder',
-    stars: 5
-  },
-  {
-    spotId: 6,
     userId: 3,
-    review: 'Such a rainy place here.',
-    stars: 3
-  },
-  {
-    spotId: 7,
-    userId: 1,
-    review: 'Beautiful Springfield but meh.',
-    stars: 2
+    review: 'Stunning place',
+    stars: 5
   },
   {
     spotId: 8,
-    userId: 2,
-    review: 'Stunning Boulder',
-    stars: 5
-  },
-  {
-    spotId: 9,
     userId: 3,
     review: 'Such a rainy place here.',
     stars: 3
   },
   {
     spotId: 10,
-    userId: 1,
-    review: 'Beautiful Springfield but meh.',
+    userId: 2,
+    review: 'Super sunny all day every day while we were here!',
     stars: 2
   },
   {
     spotId: 11,
-    userId: 2,
-    review: 'Stunning Boulder',
+    userId: 1,
+    review: 'Stunning rental unit!',
     stars: 5
   }
 ]

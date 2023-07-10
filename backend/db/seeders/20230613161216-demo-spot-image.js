@@ -119,6 +119,16 @@ const demoSpotImages = [
     spotId: 11,
     url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Memorial_Stadium_Pregame.JPG/800px-Memorial_Stadium_Pregame.JPG',
     preview: true
+  },
+  {
+    spotId: 12,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/103_Hanover.jpg/1920px-103_Hanover.jpg',
+    preview: true
+  },
+  {
+    spotId: 13,
+    url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/9%2C_Strada_Mitropolit_Nifon%2C_Bucharest_%28Romania%29.jpg/1920px-9%2C_Strada_Mitropolit_Nifon%2C_Bucharest_%28Romania%29.jpg',
+    preview: true
   }
 
 ]
