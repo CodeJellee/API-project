@@ -1,0 +1,55 @@
+#modal-content{
+height: 250px;
+}
+
+#log-in{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    font-size: 25px;
+    padding-top: 5px;
+}
+
+#error-message-log-in{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#login-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+#log-in p{
+    margin-top: 0;
+}
+
+
+#full-width-this{
+    width: 300px;
+    border: 2px black solid;
+    margin-left: -1px;
+}
+
+#log-in-button-home{
+    margin-top: 10px;
+    height: 21px;
+    width: 73px;
+    display: block;
+    border: 2px solid black;
+    box-shadow: 2px 2px black;
+    background-color: #FF5A5F;
+    color: white;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    cursor: pointer;
+    font-size: 10px;
+}
+
+#demo-user-link{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}

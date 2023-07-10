@@ -45,32 +45,44 @@ function LoginFormModal() {
 
   return (
     <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+      <div id="error-message-log-in">
+        <div id="log-in">Log In</div>
+        {errors.credential && <p>{errors.credential}</p>}
+      </div>
+      <form id="login-form" onSubmit={handleSubmit}>
+      <div id="username-or-email">
         <label>
           Username or Email
+          <br></br>
           <input
             type="text"
+            id="full-width-this"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
             required
           />
         </label>
-        <label>
+      </div>
+
+       <label>
           Password
+          <br></br>
           <input
             type="password"
+            id="full-width-this"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        {errors.credential && <p>{errors.credential}</p>}
-        <button type="submit" disabled={!isUsernameValid || !isPasswordValid}>
+        <button
+        type="submit"
+        id="log-in-button-home"
+        disabled={!isUsernameValid || !isPasswordValid}>
           Log In
         </button>
       </form>
-      <NavLink to="/" className="demo-user-button" onClick={handleDemoUserSubmit}>
+      <NavLink id="demo-user-link" to="/" className="demo-user-button" onClick={handleDemoUserSubmit}>
         Log in as Demo User
       </NavLink>
     </>

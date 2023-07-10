@@ -82,6 +82,12 @@ i.fas.fa-user-circle {
     margin-bottom: 6px;
   }
 
+  #manage-spots-link a{
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+  }
+
   #manage-spots-link a.active{
     text-decoration: none;
     color: black;
