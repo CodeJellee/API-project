@@ -81,12 +81,12 @@ const SpotId = () => {
                       <div>
                         {!spots.avgRating && <div id="each-spot-avgRating"><i className="fa fa-star"></i> New</div>}
                         {spots.avgRating && (
-                              <div id="each-spot-avgRating"><i className="fa fa-star"></i> {Number(spots.avgRating).toFixed(1)}</div>
+                              <div id="each-spot-avgRating"><i className="fa fa-star"></i> · {Number(spots.avgRating).toFixed(1)}</div>
                             )}
                       </div>
-                      <div id="center-dot">
+                      {/* <div id="center-dot">
                       ·
-                      </div>
+                      </div> */}
                       <div>
                         {
                           (() => {
@@ -110,12 +110,12 @@ const SpotId = () => {
             <div>
                 <div id="spot-details-page-middle-container">
                     {spots.avgRating && (
-                        <div id="each-spot-avgRating"><i className="fa fa-star"></i> {Number(spots.avgRating).toFixed(1)}</div>
+                        <div id="each-spot-avgRating"><i className="fa fa-star"></i> · {Number(spots.avgRating).toFixed(1)}</div>
                       )}
                     {!spots.avgRating && <div id="each-spot-avgRating"><i className="fa fa-star"></i> New</div>}
-                    <div id="center-dot">
+                    {/* <div id="center-dot">
                       ·
-                    </div>
+                    </div> */}
                     <div>
                     {
                       (() => {
