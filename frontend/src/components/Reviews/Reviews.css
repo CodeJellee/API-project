@@ -1,0 +1,149 @@
+
+/*RATING INPUT FOR CREATE REVIEW*/
+#review-lieu-modal {
+  border-radius: 20px;
+  height: 205px;
+  width: 350px;
+  border: 3px black solid;
+}
+
+
+#review-initial-form {
+  display: flex;
+  flex-direction: column;
+  padding-top: 12px;
+  align-items: center;
+  justify-content: center;
+  row-gap: 15px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#review-initial-form > textarea{
+width: 200px;
+height: 45px;
+}
+
+#review-initial-form > button{
+  height: 35px;
+  width: 200px;
+  margin: 0 auto;
+  display: block;
+  border: 2px solid black;
+  box-shadow: 5px 5px black;
+  background-color: #FF5A5F;
+  color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  cursor: pointer;
+  font-size: 8pt;
+}
+
+.rating-input {
+    display: flex;
+    margin-right: 4px;
+  }
+
+  .review-item {
+    display: flex;
+  }
+
+  .rating-input .filled {
+    color: saddlebrown;
+  }
+
+  .rating-input .empty {
+    color: burlywood;
+  }
+
+  #star-name{
+    margin-left: 5px;
+    font-size: 12px;
+    padding-top: 3px;
+  }
+
+
+  /*SPOT BY ID REVIEW BOTTOM HALF*/
+
+  #body-of-each-review{
+    margin-left: 40px;
+    margin-right: 40px;
+  }
+
+  #body-of-each-review > button{
+    border: 2px solid black;
+    box-shadow: 5px 5px black;
+    background-color: #999999;
+    color: white;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    cursor: pointer;
+  }
+
+  #review-first-name{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 15pt;
+  }
+
+  #review-date{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 12pt;
+    color:#CCCCCC;
+  }
+
+  #review-review-body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 10pt;
+  }
+
+  /*DELETE REVIEW MODAL*/
+
+#review-delete-modal-container{
+  border-radius: 20px;
+  height: 205px;
+  width: 350px;
+  border: 3px black solid;
+}
+
+#confirm-delete-review{
+  font-size: 25px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-align: center;
+  padding-top: 20px;
+}
+
+#delete-review-description{
+  font-size: 14px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  text-align: center;
+}
+
+#delete-review-buttons-two{
+  display: grid;
+  row-gap: 10px;
+}
+
+#review-yes{
+  height: 40px;
+  width: 320px;
+  margin: 0 auto;
+  display: block;
+  border: 2px solid black;
+  box-shadow: 5px 5px black;
+  background-color: #FF5A5F;
+  color: white;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  cursor: pointer;
+}
+
+#review-no{
+  height: 40px;
+  width: 320px;
+  margin: 0 auto;
+  display: block;
+  border: 2px solid black;
+  box-shadow: 5px 5px black;
+  background-color: #999999;
+  color: white;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  cursor: pointer;
+}

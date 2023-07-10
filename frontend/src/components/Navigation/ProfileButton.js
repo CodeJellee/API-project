@@ -6,10 +6,12 @@ import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import { NavLink } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import './Navigation.css'
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
+  const history = useHistory()
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -44,6 +46,7 @@ function ProfileButton({ user }) {
     e.preventDefault();
     dispatch(sessionActions.logout());
     closeMenu();
+    history.push('/')
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -60,25 +63,28 @@ function ProfileButton({ user }) {
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
-          <>
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            <li>
+          <div id="drop-down-info">
+            <div>Hello, {user.firstName}</div>
+            <div>{user.email}</div>
+            <div id="manage-spots-link">
+              <NavLink to="/spots/current">Manage Spots</NavLink>
+            </div>
+            <div id="profile-button-logout">
               <button onClick={logout}>Log Out</button>
-            </li>
-          </>
+            </div>
+          </div>
         ) : (
           <>
+              <OpenModalMenuItem
+                itemText="Sign Up"
+                onItemClick={closeMenu}
+                modalComponent={<SignupFormModal />}
+              />
+
             <OpenModalMenuItem
               itemText="Log In"
               onItemClick={closeMenu}
               modalComponent={<LoginFormModal />}
-            />
-            <OpenModalMenuItem
-              itemText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
             />
           </>
         )}
