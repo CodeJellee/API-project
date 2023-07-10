@@ -90,7 +90,7 @@ const SpotId = () => {
                       <div>
                         {
                           (() => {
-                            if (spots.numReviews === 1) {
+                            if (spots.numReviews == 1) {
                               return <div id="each-spot-reviews"> {spots.numReviews} Review</div>;
                             } else if (spots.numReviews > 1) {
                               return <div id="each-spot-reviews"> {spots.numReviews} Reviews</div>;
