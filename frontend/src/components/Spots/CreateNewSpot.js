@@ -66,6 +66,10 @@ const NewSpotForm = () => {
             errorsObject.description = "Description needs 30 or more characters."
         }
 
+        if(description.length > 255) {
+            errorsObject.description = "Description needs 255 or less characters."
+        }
+
         if(price === "") {
             errorsObject.price = "Price is required."
         }
