@@ -31,6 +31,7 @@ color: grey;
   border-radius: 50px;
   height: 35px;
   width: 60px;
+  cursor: pointer;
 }
 
 i.fas.fa-user-circle {
@@ -99,4 +100,5 @@ i.fas.fa-user-circle {
     font-size: 13px;
     color: white;
     background-color: darkgrey;
+    cursor: pointer;
   }
