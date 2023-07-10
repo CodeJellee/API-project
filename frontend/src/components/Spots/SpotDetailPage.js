@@ -79,10 +79,10 @@ const SpotId = () => {
 
               <div id="reservation-rating-and-review-container">
                       <div>
+                        {!spots.avgRating && <div id="each-spot-avgRating"><i className="fa fa-star"></i> New</div>}
                         {spots.avgRating && (
                               <div id="each-spot-avgRating"><i className="fa fa-star"></i> {Number(spots.avgRating).toFixed(1)}</div>
                             )}
-                          {!spots.avgRating && <div id="each-spot-avgRating"><i className="fa fa-star"></i> New</div>}
                       </div>
                       <div id="center-dot">
                       ·
