@@ -74,13 +74,13 @@ const SpotId = () => {
             <div id="reservation-box">
                 <div id="price-rating-review">
                   <div>
-                    ${spots.price} night
+                    ${Number(spots.price).toFixed(2)} night
                   </div>
 
               <div id="reservation-rating-and-review-container">
                       <div>
                         {spots.avgRating && (
-                              <div id="each-spot-avgRating"><i className="fa fa-star"></i> {spots.avgRating}</div>
+                              <div id="each-spot-avgRating"><i className="fa fa-star"></i> {Number(spots.avgRating).toFixed(1)}</div>
                             )}
                           {!spots.avgRating && <div id="each-spot-avgRating"><i className="fa fa-star"></i> New</div>}
                       </div>
@@ -110,7 +110,7 @@ const SpotId = () => {
             <div>
                 <div id="spot-details-page-middle-container">
                     {spots.avgRating && (
-                        <div id="each-spot-avgRating"><i className="fa fa-star"></i> {spots.avgRating}</div>
+                        <div id="each-spot-avgRating"><i className="fa fa-star"></i> {Number(spots.avgRating).toFixed(1)}</div>
                       )}
                     {!spots.avgRating && <div id="each-spot-avgRating"><i className="fa fa-star"></i> New</div>}
                     <div id="center-dot">
