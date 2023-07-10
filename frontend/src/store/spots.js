@@ -202,6 +202,7 @@ const spotsReducer = (state = initialState, action) => {
         }
         case GET_SPOTS_BY_USER: {
           const newState = { ...state };
+          newState.userSpots = {}
           action.payload.Spots.forEach((spot) => {
             newState.userSpots[spot.id] = spot;
           });
