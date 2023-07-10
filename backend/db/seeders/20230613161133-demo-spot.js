@@ -19,7 +19,7 @@ const demoSpots = [
     lat: 39.7975,
     lng: -89.6461,
     name: 'Springfield Home',
-    description: 'Come out to springy Springfield! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer mattis tellus quis risus tincidunt eleifend. Nunc faucibus semper tortor, id posuere lacus dignissim id. Quisque ac orci eget nulla vestibulum pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce tristique ultricies semper. Sed tincidunt sapien non sapien rhoncus semper. Vivamus fermentum nunc elit, et eleifend odio feugiat eu. Praesent lobortis, elit eu semper viverra, urna ex malesuada lectus, sed lacinia mauris neque nec ligula. Curabitur viverra elit ut mauris posuere iaculis. Pellentesque pharetra nisi eu sem congue, vel gravida lectus luctus.',
+    description: 'Come out to springy Springfield! Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
     price: 1045.39,
   },
   {
@@ -31,7 +31,7 @@ const demoSpots = [
     lat: 40.0149,
     lng: -105.2705,
     name: 'Boulder Home',
-    description: 'Enjoy some beautiful Boulder! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer mattis tellus quis risus tincidunt eleifend. Nunc faucibus semper tortor, id posuere lacus dignissim id. Quisque ac orci eget nulla vestibulum pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce tristique ultricies semper. Sed tincidunt sapien non sapien rhoncus semper. Vivamus fermentum nunc elit, et eleifend odio feugiat eu. Praesent lobortis, elit eu semper viverra, urna ex malesuada lectus, sed lacinia mauris neque nec ligula. Curabitur viverra elit ut mauris posuere iaculis. Pellentesque pharetra nisi eu sem congue, vel gravida lectus luctus.',
+    description: 'Enjoy some beautiful Boulder! Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
     price: 3038.48,
   },
   {
@@ -43,7 +43,7 @@ const demoSpots = [
     lat: 47.6062,
     lng: -122.3320,
     name: 'Seattle Home',
-    description: 'Lets sample some of Seattle! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer mattis tellus quis risus tincidunt eleifend. Nunc faucibus semper tortor, id posuere lacus dignissim id. Quisque ac orci eget nulla vestibulum pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce tristique ultricies semper. Sed tincidunt sapien non sapien rhoncus semper. Vivamus fermentum nunc elit, et eleifend odio feugiat eu. Praesent lobortis, elit eu semper viverra, urna ex malesuada lectus, sed lacinia mauris neque nec ligula. Curabitur viverra elit ut mauris posuere iaculis. Pellentesque pharetra nisi eu sem congue, vel gravida lectus luctus.',
+    description: 'Lets sample some of Seattle! Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
     price: 9375.24,
   },
   {
@@ -55,7 +55,7 @@ const demoSpots = [
     lat: 40.7128,
     lng: -74.0060,
     name: 'Cozy Apartment',
-    description: 'A cozy apartment in the heart of New York City. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer mattis tellus quis risus tincidunt eleifend. Nunc faucibus semper tortor, id posuere lacus dignissim id. Quisque ac orci eget nulla vestibulum pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce tristique ultricies semper. Sed tincidunt sapien non sapien rhoncus semper. Vivamus fermentum nunc elit, et eleifend odio feugiat eu. Praesent lobortis, elit eu semper viverra, urna ex malesuada lectus, sed lacinia mauris neque nec ligula. Curabitur viverra elit ut mauris posuere iaculis. Pellentesque pharetra nisi eu sem congue, vel gravida lectus luctus.',
+    description: 'A cozy apartment in the heart of New York City. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
     price: 100.00,
   },
   {
@@ -67,7 +67,7 @@ const demoSpots = [
     lat: 34.0522,
     lng: -118.2437,
     name: 'Luxury Villa',
-    description: 'A luxurious villa with stunning views in Los Angeles. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer mattis tellus quis risus tincidunt eleifend. Nunc faucibus semper tortor, id posuere lacus dignissim id. Quisque ac orci eget nulla vestibulum pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce tristique ultricies semper. Sed tincidunt sapien non sapien rhoncus semper. Vivamus fermentum nunc elit, et eleifend odio feugiat eu. Praesent lobortis, elit eu semper viverra, urna ex malesuada lectus, sed lacinia mauris neque nec ligula. Curabitur viverra elit ut mauris posuere iaculis. Pellentesque pharetra nisi eu sem congue, vel gravida lectus luctus.',
+    description: 'A luxurious villa with stunning views in Los Angeles. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
     price: 200.00,
   },
   {
@@ -79,7 +79,7 @@ const demoSpots = [
     lat: 41.8781,
     lng: -87.6298,
     name: 'Charming Cottage',
-    description: 'A charming cottage nestled in the Chicago suburbs. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer mattis tellus quis risus tincidunt eleifend. Nunc faucibus semper tortor, id posuere lacus dignissim id. Quisque ac orci eget nulla vestibulum pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce tristique ultricies semper. Sed tincidunt sapien non sapien rhoncus semper. Vivamus fermentum nunc elit, et eleifend odio feugiat eu. Praesent lobortis, elit eu semper viverra, urna ex malesuada lectus, sed lacinia mauris neque nec ligula. Curabitur viverra elit ut mauris posuere iaculis. Pellentesque pharetra nisi eu sem congue, vel gravida lectus luctus.',
+    description: 'A charming cottage nestled in the Chicago suburbs. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
     price: 150.00,
   },
   {
@@ -91,7 +91,7 @@ const demoSpots = [
     lat: 37.7749,
     lng: -122.4194,
     name: 'Modern Loft',
-    description: 'A modern loft in the heart of San Francisco.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer mattis tellus quis risus tincidunt eleifend. Nunc faucibus semper tortor, id posuere lacus dignissim id. Quisque ac orci eget nulla vestibulum pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce tristique ultricies semper. Sed tincidunt sapien non sapien rhoncus semper. Vivamus fermentum nunc elit, et eleifend odio feugiat eu. Praesent lobortis, elit eu semper viverra, urna ex malesuada lectus, sed lacinia mauris neque nec ligula. Curabitur viverra elit ut mauris posuere iaculis. Pellentesque pharetra nisi eu sem congue, vel gravida lectus luctus.',
+    description: 'A modern loft in the heart of San Francisco. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
     price: 180.00,
   },
   {
@@ -103,7 +103,7 @@ const demoSpots = [
     lat: 25.7617,
     lng: -80.1918,
     name: 'Beachfront Condo',
-    description: 'A beautiful beachfront condo in Miami.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer mattis tellus quis risus tincidunt eleifend. Nunc faucibus semper tortor, id posuere lacus dignissim id. Quisque ac orci eget nulla vestibulum pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce tristique ultricies semper. Sed tincidunt sapien non sapien rhoncus semper. Vivamus fermentum nunc elit, et eleifend odio feugiat eu. Praesent lobortis, elit eu semper viverra, urna ex malesuada lectus, sed lacinia mauris neque nec ligula. Curabitur viverra elit ut mauris posuere iaculis. Pellentesque pharetra nisi eu sem congue, vel gravida lectus luctus.',
+    description: 'A beautiful beachfront condo in Miami. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
     price: 220.00,
   },
   {
@@ -115,7 +115,7 @@ const demoSpots = [
     lat: 47.6062,
     lng: -122.3321,
     name: 'Spacious Townhouse',
-    description: 'A spacious townhouse in the heart of Seattle.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer mattis tellus quis risus tincidunt eleifend. Nunc faucibus semper tortor, id posuere lacus dignissim id. Quisque ac orci eget nulla vestibulum pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce tristique ultricies semper. Sed tincidunt sapien non sapien rhoncus semper. Vivamus fermentum nunc elit, et eleifend odio feugiat eu. Praesent lobortis, elit eu semper viverra, urna ex malesuada lectus, sed lacinia mauris neque nec ligula. Curabitur viverra elit ut mauris posuere iaculis. Pellentesque pharetra nisi eu sem congue, vel gravida lectus luctus.',
+    description: 'A spacious townhouse in the heart of Seattle. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
     price: 160.00,
   },
   {
@@ -127,7 +127,7 @@ const demoSpots = [
     lat: 42.3601,
     lng: -71.0589,
     name: 'Historic Brownstone',
-    description: 'A historic brownstone in the heart of Boston.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer mattis tellus quis risus tincidunt eleifend. Nunc faucibus semper tortor, id posuere lacus dignissim id. Quisque ac orci eget nulla vestibulum pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce tristique ultricies semper. Sed tincidunt sapien non sapien rhoncus semper. Vivamus fermentum nunc elit, et eleifend odio feugiat eu. Praesent lobortis, elit eu semper viverra, urna ex malesuada lectus, sed lacinia mauris neque nec ligula. Curabitur viverra elit ut mauris posuere iaculis. Pellentesque pharetra nisi eu sem congue, vel gravida lectus luctus.',
+    description: 'A historic brownstone in the heart of Boston. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
     price: 190.00,
   },
   {
@@ -139,8 +139,32 @@ const demoSpots = [
     lat: 30.2672,
     lng: -97.7431,
     name: 'Urban Loft',
-    description: 'An urban loft with a trendy vibe in Austin.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Integer mattis tellus quis risus tincidunt eleifend. Nunc faucibus semper tortor, id posuere lacus dignissim id. Quisque ac orci eget nulla vestibulum pretium. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce tristique ultricies semper. Sed tincidunt sapien non sapien rhoncus semper. Vivamus fermentum nunc elit, et eleifend odio feugiat eu. Praesent lobortis, elit eu semper viverra, urna ex malesuada lectus, sed lacinia mauris neque nec ligula. Curabitur viverra elit ut mauris posuere iaculis. Pellentesque pharetra nisi eu sem congue, vel gravida lectus luctus.',
+    description: 'An urban loft with a trendy vibe in Austin. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
     price: 170.00,
+  },
+  {
+    ownerId: 3,
+    address: '3330 Worker Lane',
+    city: 'Tampa',
+    state: 'Florida',
+    country: 'United States of America',
+    lat: 30.2672,
+    lng: -97.7431,
+    name: 'Palm Tree Life',
+    description: 'Near the beach and ready for all those tans. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
+    price: 470.00,
+  },
+  {
+    ownerId: 1,
+    address: '300 Turtle Road',
+    city: 'Freehold',
+    state: 'New Jersey',
+    country: 'United States of America',
+    lat: 30.2672,
+    lng: -97.7431,
+    name: 'Suburb Getaway',
+    description: 'A suburb getaway in beautiful Jersey. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
+    price: 830.00,
   }
 ]
 
