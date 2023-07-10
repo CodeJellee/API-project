@@ -51,7 +51,7 @@ const UserSpots = () => {
                         </div>
                     ))
                 ) : (
-                    <div>
+                    <div id="create-new-spot">
                         <NavLink to="/spots/" id="create-spot-link">Create a New Spot</NavLink>
                     </div>
                 )}
