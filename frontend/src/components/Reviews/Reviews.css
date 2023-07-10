@@ -94,6 +94,10 @@ height: 45px;
     font-size: 10pt;
   }
 
+  #first-to-review{
+    margin-left: 40px;
+  }
+
   /*DELETE REVIEW MODAL*/
 
 #review-delete-modal-container{
