@@ -108,8 +108,9 @@ router.get('/', async(req, res, next) => {
         let reviewLength = spotPOJO.Reviews.length
         let avgRatingValue = sum / reviewLength
 
-        spotPOJO.avgRating = +spotPOJO.avgRating
-        spotPOJO.avgRating = avgRatingValue.toFixed(1)
+        spotPOJO.avgRating = avgRatingValue
+        // spotPOJO.avgRating = spotPOJO.avgRating === null ? 0 : spotPOJO.avgRating
+        // spotPOJO.avgRating = spotPOJO.avgRating.toFixed(1)
         delete spotPOJO.Reviews
 
         spotPOJO.price = +spotPOJO.price

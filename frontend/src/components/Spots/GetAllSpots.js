@@ -9,10 +9,9 @@ function EachSpot({spot}) {
             </div>
             <div id='city-state-avgRating'>
                 <div id="each-spot-city">{spot.city}, {spot.state}</div>
-                {spot.avgRating && (
+                {spot.avgRating == null ? (<div id="each-spot-avgRating">★ New</div>): (
                     <div id="each-spot-avgRating">★ {Number(spot.avgRating).toFixed(1)}</div>
                 )}
-                {!spot.avgRating && <div id="each-spot-avgRating">★ New</div>}
             </div>
             <div id='each-spot-price'>${Number(spot.price).toFixed(2)} night</div>
         </div>
