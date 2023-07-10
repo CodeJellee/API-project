@@ -10,11 +10,12 @@ function Navigation({ isLoaded }){
 
   return (
     <ul id='home-drop-down-container'>
-      <li id='header-links'>
-        <NavLink exact to="/">Home</NavLink>
+      <li id='header-link-to-home'>
+        <NavLink exact to="/"><i className="fa fa-paper-plane"></i> AirBnBeyond </NavLink>
       </li>
+
       {isLoaded && (
-        <li id='header-links'>
+        <li id='header-link-to-profile'>
           <ProfileButton user={sessionUser} />
         </li>
       )}

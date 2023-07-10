@@ -160,7 +160,7 @@ router.post('/', requireAuth, async(req, res, next) => {
     }
 
     if(!price || price === null) {
-        errorsToPrint.price = "Price per day is required"
+        errorsToPrint.price = "Price per night is required"
     }
 
     if (Object.keys(errorsToPrint).length > 0) {
@@ -225,6 +225,15 @@ router.get('/current', requireAuth, async (req, res, next) => {
 //GET REVIEWS BY SPOT ID
 router.get('/:spotId/reviews', async(req, res, next) => {
 
+    const spot = await Spot.findByPk(req.params.spotId)
+
+    if(!spot){
+        res.status(404)
+        return res.json({
+            message: "Spot couldn't be found"
+        })
+    }
+
     const spotReviews = await Review.findAll({
         where: {
             spotId: req.params.spotId
@@ -242,13 +251,6 @@ router.get('/:spotId/reviews', async(req, res, next) => {
             }
         ],
     })
-
-    if(spotReviews.length === 0){
-        res.status(404)
-        return res.json({
-            message: "Spot couldn't be found"
-        })
-    }
 
     return res.json({Reviews: spotReviews})
 });
@@ -314,9 +316,12 @@ router.get('/:spotId/bookings', requireAuth, async(req, res, next) => {
 //ADD AN IMAGE TO A SPOT BASED ON THE SPOTS ID
 router.post('/:spotId/images', requireAuth, async(req, res, next) => {
 
+    let { spotId } = req.params
+
     let userId = req.user.id
     let addPhoto = await Spot.findByPk(req.params.spotId)
     const { url, preview } = req.body
+
 
     if(!addPhoto || userId !== addPhoto.ownerId || addPhoto === null){ //changed req.user.id to userId
         res.status(404)
@@ -326,7 +331,7 @@ router.post('/:spotId/images', requireAuth, async(req, res, next) => {
     }
 
     const newPhoto = await SpotImage.create({
-        spotId: userId,
+        spotId,
         url,
         preview
     })
@@ -582,8 +587,12 @@ router.put('/:spotId', requireAuth, async(req, res, next) => {
         errorsToPrint.description = "Description is required"
     }
 
+    if(description.length < 30){
+        errorsToPrint.description = "Description needs a minimum of 30 characters"
+    }
+
     if(!price || price === null) {
-        errorsToPrint.price = "Price per day is required"
+        errorsToPrint.price = "Price is required"
     }
 
     if (Object.keys(errorsToPrint).length > 0) {
