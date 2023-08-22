@@ -30,17 +30,15 @@ export const thunkGetCurrentUserBookings = () => async (dispatch) => {
 }
 
 //REDUCER----------------------------------------------------------------------------------------------//
-const initialState = { currentUserBookings: {} , spotBookings: {}, singleBooking: {}}
+const initialState = { currentUserBookings: [] , spotBookings: [], singleBooking: []}
 
 const bookingsReducer = (state = initialState, action) => {
     switch(action.type){
         case GET_CURRENT_USER_BOOKINGS: {
-            const newState = { ...state };
-            const userBookings = action.bookings
-            userBookings.forEach((booking) => {
-                newState.currentUserBookings[booking.id] = booking;
-            });
-            return newState
+            return {
+                ...state,
+                currentUserBookings: action.bookings
+            }
         }
 
 

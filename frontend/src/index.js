@@ -14,6 +14,7 @@ import { restoreCSRF, csrfFetch } from "./store/csrf";
 import * as sessionActions from "./store/session";
 import * as spotsActions from "./store/spots"
 import * as reviewsActions from "./store/reviews"
+import * as bookingsActions from "./store/bookings"
 
 const store = configureStore();
 
@@ -25,7 +26,41 @@ if (process.env.NODE_ENV !== "production") {
   window.sessionActions = sessionActions;
   window.spotsActions = spotsActions;
   window.reviewsActions = reviewsActions;
+  window.bookingsActions = bookingsActions;
 }
+
+
+//BOOKINGS-----------------------------------------------
+//window.store.dispatch(window.bookingsActions.thunkGetCurrentUserBookings())
+//window.store.dispatch(window.productActions.thunkGetSingleProduct(:productId))
+//window.store.dispatch(window.productActions.thunkDeleteSingleProduct(:productId))
+//window.store.dispatch(window.productActions.thunkGetUsersProducts())
+// window.store.dispatch(
+// 	window.productActions.thunkCreateNewProduct({
+// 		item_name: "try plant",
+// 		product_price: "300",
+// 		product_quantity: "2",
+// 		product_description: "Beautiful try plant",
+// 		product_dimension: "insert dimension here",
+// 		product_preview_image: "try url",
+// 	})
+//   );
+// window.store.dispatch(
+//     window.productActions.thunkUpdateSingleProduct(2, {
+//         item_name: "TESTINGtry plant",
+//         product_price: "300",
+//         product_quantity: "2",
+//         product_description: "Beautiful try plant",
+//         product_dimension: "insert dimension here",
+//         product_preview_image: "try url",
+//     }, {
+//     email: "demo@aa.io",
+//     first_name: "Demo",
+//     id: 1,
+//     last_name: "User",
+//     username: "Demo"
+// })
+// );
 
 // Wrap the application with the Modal provider and render the Modal component
 // after the App component so that all the Modal content will be layered as
