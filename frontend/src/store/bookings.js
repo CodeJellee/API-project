@@ -61,10 +61,12 @@ const bookingsReducer = (state = initialState, action) => {
             return newState
         }
         case GET_BOOKINGS_BY_SPOT_ID: {
-            return {
-                ...state,
-                spotBookings: [...action.bookings], // Shallow copy of action.bookings
-            };
+            let newState = { ...state }
+            newState.spotBookings = {};
+            action.bookings.Bookings.forEach(
+                (booking) => (newState.spotBookings[booking.id] = booking)
+            )
+            return newState
         }
 
         default:
