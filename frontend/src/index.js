@@ -32,7 +32,7 @@ if (process.env.NODE_ENV !== "production") {
 
 //BOOKINGS-----------------------------------------------
 //window.store.dispatch(window.bookingsActions.thunkGetCurrentUserBookings())
-//window.store.dispatch(window.productActions.thunkGetSingleProduct(:productId))
+//window.store.dispatch(window.bookingsActions.thunkGetBookingsBySpotId(:spotId))
 //window.store.dispatch(window.productActions.thunkDeleteSingleProduct(:productId))
 //window.store.dispatch(window.productActions.thunkGetUsersProducts())
 // window.store.dispatch(

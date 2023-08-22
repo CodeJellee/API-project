@@ -8,12 +8,18 @@ import {csrfFetch} from './csrf'
 
 //TYPE----------------------------------------------------------------------------------------------//
 const GET_CURRENT_USER_BOOKINGS = 'bookings/GET_CURRENT_USER_BOOKINGS'
+const GET_BOOKINGS_BY_SPOT_ID = 'bookings/GET_BOOKINGS_BY_SPOT_ID'
 
 
 //ACTION----------------------------------------------------------------------------------------------//
 const actionGetCurrentUserBookings = (bookings) => ({
     type: GET_CURRENT_USER_BOOKINGS,
     bookings,
+})
+
+const actionGetBookingsBySpotId = (bookings) => ({
+    type: GET_BOOKINGS_BY_SPOT_ID,
+    bookings
 })
 
 //THUNKS----------------------------------------------------------------------------------------------//
@@ -29,18 +35,37 @@ export const thunkGetCurrentUserBookings = () => async (dispatch) => {
     }
 }
 
+export const thunkGetBookingsBySpotId = (spotId) => async (dispatch) => {
+    const res = await csrfFetch(`api/spots/${spotId}/bookings`);
+
+    if (res.ok) {
+        const spotBookings = await res.json();
+        dispatch(actionGetBookingsBySpotId(spotBookings));
+    } else {
+        const errors = await res.json();
+        return errors;
+    }
+}
+
 //REDUCER----------------------------------------------------------------------------------------------//
 const initialState = { currentUserBookings: [] , spotBookings: [], singleBooking: []}
 
 const bookingsReducer = (state = initialState, action) => {
     switch(action.type){
         case GET_CURRENT_USER_BOOKINGS: {
+            let newState = { ...state }
+            newState.currentUserBookings = {};
+            action.bookings.Bookings.forEach(
+                (booking) => (newState.currentUserBookings[booking.id] = booking)
+            )
+            return newState
+        }
+        case GET_BOOKINGS_BY_SPOT_ID: {
             return {
                 ...state,
-                currentUserBookings: action.bookings
-            }
+                spotBookings: [...action.bookings], // Shallow copy of action.bookings
+            };
         }
-
 
         default:
             return state;
