@@ -1,9 +1,75 @@
-<!--!!START SILENT -->
-# Lee W12 Portfolio Project
-<!--!!END -->
-<!--!!ADD -->
-<!-- # `<name of application here>` -->
-<!--!!END_ADD -->
+# AirBnBeyond
+      
+AirBnBeyond is an online marketplace that connects travelers with unique accommodations and experiences. Inspired by AirBnB, whether you're seeking a cozy cottage or an adventurous city stay, AirBnBeyond offers a diverse range of options to make your travels memorable.
+
+Check out [AirBnBeyond](https://lee-w12-portfolio-project.onrender.com/) 
+
+## Technologies Used
+
+<img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" /><img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" /><img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" /><img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" /><img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" /><img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" /><img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" /><img src="https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white" /><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" /><img src="https://img.shields.io/badge/Render-430098?style=for-the-badge&logo=render&logoColor=white" />
+
+## Spots
+![Screenshot 2023-08-30 at 6 57 38 PM](https://github.com/CodeJellee/API-project/assets/108435185/07a0120f-9ce7-426d-8263-616019f2903a)
+
+## One spot page and reviews
+![Screenshot 2023-08-30 at 6 57 55 PM](https://github.com/CodeJellee/API-project/assets/108435185/2de30450-9c98-4d32-a0e8-9b88a279d8e2)
+
+
+## Getting started
+1. Clone this repository:
+
+   `
+   https://github.com/CodeJellee/API-project.git
+   `
+2. Install denpendencies into the Backed and the Frontend by making a terminal for each one and then run the following:
+
+   * `npm install`
+
+3. Create a **.env** file using the **.envexample** provided 
+
+4. Set up your database with information from your .env and then run the following to create your database, migrate, and seed: 
+ 
+   * `npx dotenv sequelize db:create`
+   * `npx dotenv sequelize db:migrate` 
+   * `npx dotenv sequelize db:seed:all`
+
+5. Start the app for both backend and frontend using:
+
+   * `npm start`
+
+6. Now you can use the Demo User or Create an account
+
+***
+
+# Features 
+
+## Spots
+* Users can create a Spot
+* Users can read/view other Spot
+* Users can update their Spot
+* Users can delete their Spot
+
+## Reviews
+* Users can create Reviews on Spots
+* users can read/view all of the Reviews on a Spot
+* Users can delete their Review(s) on a Spot
+
+
+## Future Features
+### Bookings
+Logged-in Users can
+* Create a booking at a spot
+* Update their booking at a spot
+* Read all of their bookings
+* Delete/Cancel their booking
+  
+### AWS
+Logged-in Users can
+* Upload multiple images of their spot to AWS S3
+
+### Google Maps Api
+Logged in Users can
+* Locate their spot with Google Maps Api 
 
 ## Database Schema Design
 
@@ -13,10 +79,17 @@
 [airbnb-database-schema]: ./images/airbnb-database-schema.png
 <!-- https://appacademy-open-assets.s3.us-west-1.amazonaws.com/Modular-Curriculum/content/week-12/airbnb-db-schema.png -->
 [airbnb-db-diagram-info]: https://appacademy-open-assets.s3.us-west-1.amazonaws.com/Modular-Curriculum/content/week-12/airbnb-db-diagram-info.txt
-<!--!!END -->
-<!--!!ADD -->
-<!-- `<insert database schema design here>` -->
-<!--!!END_ADD -->
+
+
+## Endpoints
+
+| Request | Purpose           | Return Value |
+| :---:   | :---------------: | :----------: |
+| GET/api/auth/ | This fetch is sent upon initial app load an on subsequent refreshes. It returns an object representing the current user, if user is logged in.   | 283   |
+| GET/api/login/ | This fetch attempts to login a user with the provided credientials. It returns an object representing the current user, if validation succeeds.   | 283   |
+
+
+
 
 ## API Documentation
 
